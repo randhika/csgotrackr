@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">CS to GO</string>
+    <string name="action_settings">Settings</string>
+
+
+    <string name="title_activity_new_match">New Match</string>
+    <string name="card_map_pic_desc">Map Picture</string>
+    <string name="card_kills_title">Kills</string>
+    <string name="card_assists_title">Assists</string>
+    <string name="card_deaths_title">Deaths</string>
+
+    <string-array name="maps_array">
+        <item>de_dust2</item>
+        <item>de_inferno</item>
+        <item>de_nuke</item>
+        <item>de_cache</item>
+        <item>de_cbble</item>
+        <item>de_overpass</item>
+        <item>de_season</item>
+    </string-array>
+
+</resources>
