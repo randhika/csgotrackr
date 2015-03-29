@@ -1,131 +1,245 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.android.cstogo.FragmentB"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            tools:context="com.example.android.cstogo.FragmentB"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="All Matches"
-        android:textColor="@color/accent"
-        android:id="@+id/stats_matches_title"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"/>
+    <RelativeLayout
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/stats_matches_number"
-        android:textColor="#263238"
-        android:textStyle="bold"
-        android:layout_alignBottom="@+id/stats_matches_title"
-        android:layout_toRightOf="@+id/stats_matches_title"
-        android:layout_toEndOf="@+id/stats_matches_title"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/accent"
-        android:text="All Kills"
-        android:id="@+id/stats_kills_title"
-        android:layout_below="@+id/stats_matches_title"
-        android:layout_alignLeft="@+id/stats_matches_title"
-        android:layout_alignStart="@+id/stats_matches_title"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/stats_kills_number"
-        android:textColor="#263238"
-        android:textStyle="bold"
-        android:layout_alignBottom="@+id/stats_kills_title"
-        android:layout_toRightOf="@+id/stats_kills_title"
-        android:layout_toEndOf="@+id/stats_kills_title"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/accent"
-        android:text="All Assists"
-        android:id="@+id/stats_assists_title"
-        android:layout_below="@+id/stats_kills_title"
-        android:layout_alignLeft="@+id/stats_kills_title"
-        android:layout_alignStart="@+id/stats_kills_title"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/stats_assists_number"
-        android:textColor="#263238"
-        android:textStyle="bold"
-        android:layout_alignBottom="@+id/stats_assists_title"
-        android:layout_toRightOf="@+id/stats_assists_title"
-        android:layout_toEndOf="@+id/stats_assists_title"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/accent"
-        android:text="All Deaths"
-        android:id="@+id/stats_deaths_title"
-        android:layout_below="@+id/stats_assists_title"
-        android:layout_alignLeft="@+id/stats_assists_title"
-        android:layout_alignStart="@+id/stats_assists_title"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/stats_deaths_number"
-        android:textColor="#263238"
-        android:textStyle="bold"
-        android:layout_alignBottom="@+id/stats_deaths_title"
-        android:layout_toRightOf="@+id/stats_deaths_title"
-        android:layout_toEndOf="@+id/stats_deaths_title"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/accent"
-        android:text="All Points"
-        android:id="@+id/stats_points_title"
-        android:layout_below="@+id/stats_deaths_title"
-        android:layout_alignLeft="@+id/stats_deaths_title"
-        android:layout_alignStart="@+id/stats_deaths_title"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/stats_points_number"
-        android:textColor="#263238"
-        android:textStyle="bold"
-        android:layout_alignBottom="@+id/stats_points_title"
-        android:layout_toRightOf="@+id/stats_points_title"
-        android:layout_toEndOf="@+id/stats_points_title"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"/>
-
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/stats_map_pie"
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_below="@id/stats_points_title"
-        />
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All Matches"
+            android:textColor="@color/accent"
+            android:id="@+id/stats_title_matches"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/stats_number_matches"
+            android:textColor="#263238"
+            android:textStyle="bold"
+            android:layout_alignBottom="@+id/stats_title_matches"
+            android:layout_toRightOf="@+id/stats_title_matches"
+            android:layout_toEndOf="@+id/stats_title_matches"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/accent"
+            android:text="All Kills"
+            android:id="@+id/stats_title_kills"
+            android:layout_below="@+id/stats_title_matches"
+            android:layout_alignLeft="@+id/stats_title_matches"
+            android:layout_alignStart="@+id/stats_title_matches"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/stats_number_kills"
+            android:textColor="#263238"
+            android:textStyle="bold"
+            android:layout_alignBottom="@+id/stats_title_kills"
+            android:layout_toRightOf="@+id/stats_title_kills"
+            android:layout_toEndOf="@+id/stats_title_kills"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/accent"
+            android:text="All Assists"
+            android:id="@+id/stats_title_assists"
+            android:layout_below="@+id/stats_title_kills"
+            android:layout_alignLeft="@+id/stats_title_kills"
+            android:layout_alignStart="@+id/stats_title_kills"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/stats_number_assists"
+            android:textColor="#263238"
+            android:textStyle="bold"
+            android:layout_alignBottom="@+id/stats_title_assists"
+            android:layout_toRightOf="@+id/stats_title_assists"
+            android:layout_toEndOf="@+id/stats_title_assists"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/accent"
+            android:text="All Deaths"
+            android:id="@+id/stats_title_deaths"
+            android:layout_below="@+id/stats_title_assists"
+            android:layout_alignLeft="@+id/stats_title_assists"
+            android:layout_alignStart="@+id/stats_title_assists"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/stats_number_deaths"
+            android:textColor="#263238"
+            android:textStyle="bold"
+            android:layout_alignBottom="@+id/stats_title_deaths"
+            android:layout_toRightOf="@+id/stats_title_deaths"
+            android:layout_toEndOf="@+id/stats_title_deaths"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/accent"
+            android:text="All Points"
+            android:id="@+id/stats_title_points"
+            android:layout_below="@+id/stats_title_deaths"
+            android:layout_alignLeft="@+id/stats_title_deaths"
+            android:layout_alignStart="@+id/stats_title_deaths"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/stats_number_points"
+            android:textColor="#263238"
+            android:textStyle="bold"
+            android:layout_alignBottom="@+id/stats_title_points"
+            android:layout_toRightOf="@+id/stats_title_points"
+            android:layout_toEndOf="@+id/stats_title_points"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"/>
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/stats_map_pie"
+            android:layout_height="200dp"
+            android:layout_width="200dp"
+            android:layout_below="@id/stats_title_points"
+            />
+
+        <TextView
+            android:id="@+id/stats_title_avgKills"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Average Kills"
+            android:textColor="@color/accent"
+            android:layout_below="@+id/stats_map_pie"
+            android:layout_alignLeft="@+id/stats_title_deaths"
+            android:layout_alignStart="@+id/stats_title_deaths"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/stats_number_avgKills"
+            android:textColor="#263238"
+            android:textStyle="bold"
+            android:layout_alignBottom="@+id/stats_title_avgKills"
+            android:layout_toRightOf="@+id/stats_title_avgKills"
+            android:layout_toEndOf="@+id/stats_title_avgKills"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"/>
+
+        <TextView
+            android:id="@+id/stats_title_avgAssists"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Average Assists"
+            android:textColor="@color/accent"
+            android:layout_below="@+id/stats_title_avgKills"
+            android:layout_alignLeft="@+id/stats_title_avgKills"
+            android:layout_alignStart="@+id/stats_title_avgKills"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/stats_number_avgAssists"
+            android:textColor="#263238"
+            android:textStyle="bold"
+            android:layout_alignBottom="@+id/stats_title_avgAssists"
+            android:layout_toRightOf="@+id/stats_title_avgAssists"
+            android:layout_toEndOf="@+id/stats_title_avgAssists"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"/>
+
+        <TextView
+            android:id="@+id/stats_title_avgDeaths"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Average Deaths"
+            android:textColor="@color/accent"
+            android:layout_below="@+id/stats_title_avgAssists"
+            android:layout_alignLeft="@+id/stats_title_avgAssists"
+            android:layout_alignStart="@+id/stats_title_avgAssists"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/stats_number_avgDeaths"
+            android:textColor="#263238"
+            android:textStyle="bold"
+            android:layout_alignBottom="@+id/stats_title_avgDeaths"
+            android:layout_toRightOf="@+id/stats_title_avgDeaths"
+            android:layout_toEndOf="@+id/stats_title_avgDeaths"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"/>
+
+        <TextView
+            android:id="@+id/stats_title_avgPPM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Average PPM"
+            android:textColor="@color/accent"
+            android:layout_below="@+id/stats_title_avgDeaths"
+            android:layout_alignLeft="@+id/stats_title_avgDeaths"
+            android:layout_alignStart="@+id/stats_title_avgDeaths"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/stats_number_avgPPM"
+            android:textColor="#263238"
+            android:textStyle="bold"
+            android:layout_alignBottom="@+id/stats_title_avgPPM"
+            android:layout_toRightOf="@+id/stats_title_avgPPM"
+            android:layout_toEndOf="@+id/stats_title_avgPPM"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"/>
+
+        <TextView
+            android:id="@+id/stats_title_avgKAD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Average KaD"
+            android:textColor="@color/accent"
+            android:layout_below="@+id/stats_title_avgPPM"
+            android:layout_alignLeft="@+id/stats_title_avgPPM"
+            android:layout_alignStart="@+id/stats_title_avgPPM"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/stats_number_avgKAD"
+            android:textColor="#263238"
+            android:textStyle="bold"
+            android:layout_alignBottom="@+id/stats_title_avgKAD"
+            android:layout_toRightOf="@+id/stats_title_avgKAD"
+            android:layout_toEndOf="@+id/stats_title_avgKAD"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"/>
 
 
-</RelativeLayout>
-
+    </RelativeLayout>
+</ScrollView>

@@ -31,9 +31,9 @@ public class Match {
         this.score = score;
         this.map = map;
 
-        BigDecimal bKills = new BigDecimal(Integer.toString(kills));
-        BigDecimal bDeaths = new BigDecimal(Integer.toString(deaths));
-        BigDecimal bAssists = new BigDecimal(Integer.toString(assists));
+        BigDecimal bKills = new BigDecimal(kills);
+        BigDecimal bDeaths = new BigDecimal(deaths);
+        BigDecimal bAssists = new BigDecimal(assists);
 
         this.kd = bKills.divide(bDeaths, 2, RoundingMode.HALF_UP);
         this.kad = (bKills.add(bAssists)).divide(bDeaths, 2, RoundingMode.HALF_UP);

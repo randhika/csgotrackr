@@ -14,6 +14,7 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import de.greenrobot.event.EventBus;
@@ -29,6 +30,12 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
     private int mAllAssists;
     private int mAllDeaths;
     private int mAllPoints;
+
+    private BigDecimal mAvgKills;
+    private BigDecimal mAvgAssists;
+    private BigDecimal mAvgDeaths;
+    private BigDecimal mAvgPoints;
+
     private BigDecimal mOverallKad;
     private BigDecimal mOverallKd;
 
@@ -53,12 +60,19 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
 
     private void updateTextViews(View view) {
 
-        TextView statsAllMatches = (TextView) view.findViewById(R.id.stats_matches_number);
-        TextView statsAllKills = (TextView) view.findViewById(R.id.stats_kills_number);
-        TextView statsAllAssists = (TextView) view.findViewById(R.id.stats_assists_number);
-        TextView statsAllDeaths = (TextView) view.findViewById(R.id.stats_deaths_number);
-        TextView statsAllPoints = (TextView) view.findViewById(R.id.stats_points_number);
+        TextView statsAllMatches = (TextView) view.findViewById(R.id.stats_number_matches);
+        TextView statsAllKills = (TextView) view.findViewById(R.id.stats_number_kills);
+        TextView statsAllAssists = (TextView) view.findViewById(R.id.stats_number_assists);
+        TextView statsAllDeaths = (TextView) view.findViewById(R.id.stats_number_deaths);
+        TextView statsAllPoints = (TextView) view.findViewById(R.id.stats_number_points);
+
         PieChart statsMapPie = (PieChart) view.findViewById(R.id.stats_map_pie);
+
+        TextView statsAvgKills = (TextView) view.findViewById(R.id.stats_number_avgKills);
+        TextView statsAvgAssists = (TextView) view.findViewById(R.id.stats_number_avgAssists);
+        TextView statsAvgDeaths = (TextView) view.findViewById(R.id.stats_number_avgDeaths);
+        TextView statsAvgPPM = (TextView) view.findViewById(R.id.stats_number_avgPPM);
+        TextView statsAvgKAD = (TextView) view.findViewById(R.id.stats_number_avgKAD);
 
         generateStats();
 
@@ -84,6 +98,12 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         statsAllAssists.setText(Integer.toString(getAllAssists()));
         statsAllDeaths.setText(Integer.toString(getAllDeaths()));
         statsAllPoints.setText(Integer.toString(getAllPoints()));
+        statsAvgKills.setText(getAvgKills().toString());
+        statsAvgAssists.setText(getAvgAssists().toString());
+        statsAvgDeaths.setText(getAvgDeaths().toString());
+        statsAvgPPM.setText(getAvgPoints().toString());
+        statsAvgKAD.setText(getOverallKad().toString());
+
     }
 
     private void generateStats() {
@@ -98,9 +118,20 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
             setAllDeaths(getAllDeaths() + ice.getDeaths());
             setAllPoints(getAllPoints() + ice.getScore());
         }
-
         setNoMatches(matchList.size());
 
+        BigDecimal numberOfMatches = new BigDecimal(matchList.size());
+
+        BigDecimal allKills = new BigDecimal(getAllKills());
+        BigDecimal allAssists = new BigDecimal(getAllAssists());
+        BigDecimal allDeaths = new BigDecimal(getAllDeaths());
+        BigDecimal allPoints = new BigDecimal(getAllPoints());
+        setAvgKills(allKills.divide(numberOfMatches, 2, RoundingMode.HALF_UP));
+        setAvgAssists(allAssists.divide(numberOfMatches, 2, RoundingMode.HALF_UP));
+        setAvgDeaths(allDeaths.divide(numberOfMatches, 2, RoundingMode.HALF_UP));
+        setAvgPoints(allPoints.divide(numberOfMatches, 2, RoundingMode.HALF_UP));
+        setOverallKad((allKills.add(allAssists)).divide(allDeaths, 2, RoundingMode.HALF_UP));
+        setOverallKd(allKills.divide(allDeaths, 2, RoundingMode.HALF_UP));
     }
 
     private void nullStats() {
@@ -149,6 +180,54 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
 
     public void setNoMatches(int noMatches) {
         mNoMatches = noMatches;
+    }
+
+    public BigDecimal getAvgKills() {
+        return mAvgKills;
+    }
+
+    public void setAvgKills(BigDecimal avgKills) {
+        mAvgKills = avgKills;
+    }
+
+    public BigDecimal getAvgAssists() {
+        return mAvgAssists;
+    }
+
+    public void setAvgAssists(BigDecimal avgAssists) {
+        mAvgAssists = avgAssists;
+    }
+
+    public BigDecimal getAvgDeaths() {
+        return mAvgDeaths;
+    }
+
+    public void setAvgDeaths(BigDecimal avgDeaths) {
+        mAvgDeaths = avgDeaths;
+    }
+
+    public BigDecimal getAvgPoints() {
+        return mAvgPoints;
+    }
+
+    public void setAvgPoints(BigDecimal avgPoints) {
+        mAvgPoints = avgPoints;
+    }
+
+    public BigDecimal getOverallKad() {
+        return mOverallKad;
+    }
+
+    public void setOverallKad(BigDecimal overallKad) {
+        mOverallKad = overallKad;
+    }
+
+    public BigDecimal getOverallKd() {
+        return mOverallKd;
+    }
+
+    public void setOverallKd(BigDecimal overallKd) {
+        mOverallKd = overallKd;
     }
 
     public void onEvent(UpdateStatsEvent event){
