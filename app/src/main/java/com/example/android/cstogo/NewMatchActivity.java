@@ -22,6 +22,7 @@ public class NewMatchActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_match);
+        //TODO: change layout
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 

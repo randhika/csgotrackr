@@ -71,6 +71,9 @@ public class MyMatchAdapter extends RecyclerView.Adapter<MyMatchAdapter.MatchVie
             case "de_season":
                 Picasso.with(mContext).load(R.drawable.season_res).fit().centerCrop().into(matchViewHolder.vMapPic);
                 break;
+            case "de_mirage":
+                Picasso.with(mContext).load(R.drawable.mirage_res).fit().centerCrop().into(matchViewHolder.vMapPic);
+                break;
             default:
                 Picasso.with(mContext).load(R.drawable.dust2_res).fit().centerCrop().into(matchViewHolder.vMapPic);
                 break;
