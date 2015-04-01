@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 
 import com.melnykov.fab.FloatingActionButton;
 
+import java.util.Random;
+
 import de.greenrobot.event.EventBus;
 
 
@@ -20,6 +22,7 @@ public class FragmentA extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private String[] mTestArray;
 
 
     public FragmentA() {
@@ -46,11 +49,17 @@ public class FragmentA extends Fragment {
         mAdapter = new MyMatchAdapter(getActivity(), MatchList.getInstance().matchList);
         mRecyclerView.setAdapter(mAdapter);
 
-
+        mTestArray = getResources().getStringArray(R.array.maps_array);
         for (int i = 0; i < 15; i++) {
-            Match dummyTest = new Match(16, 4, i, 2, 3, 4, 9, "de_nuke");
+            Random random = new Random();
+
+            int maxIndex = mTestArray.length;
+            int generatedIndex = random.nextInt(maxIndex);
+
+            Match dummyTest = new Match(16, 4, i, 2, 3, 4, 9, mTestArray[generatedIndex]);
             MatchList.getInstance().matchList.add(dummyTest);
         }
+        MatchList.getInstance().matchList.add(0, new Match(16, 1, 25, 25, 7, 10, 10, "de_season"));
 
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);

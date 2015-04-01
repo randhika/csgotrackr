@@ -240,13 +240,20 @@
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"/>
 
+        <com.github.mikephil.charting.charts.HorizontalBarChart
+            android:id="@+id/stats_kad_bar"
+            android:layout_height="150dp"
+            android:layout_width="match_parent"
+            android:layout_below="@id/stats_title_avgKAD"
+            />
+
         <TextView
             android:id="@+id/stats_title_dust_KAD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dust KaD"
             android:textColor="@color/accent"
-            android:layout_below="@+id/stats_title_avgKAD"
+            android:layout_below="@+id/stats_kad_bar"
             android:layout_alignLeft="@+id/stats_title_avgKAD"
             android:layout_alignStart="@+id/stats_title_avgKAD"/>
 
@@ -284,6 +291,13 @@
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"/>
 
+        <com.github.mikephil.charting.charts.HorizontalBarChart
+            android:visibility="gone"
+            android:id="@+id/stats_last3_bar"
+            android:layout_height="45dp"
+            android:layout_width="match_parent"
+            android:layout_below="@id/stats_title_nuke_KAD"
+            />
 
     </RelativeLayout>
 </ScrollView>

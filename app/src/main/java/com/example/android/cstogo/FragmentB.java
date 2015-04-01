@@ -1,15 +1,23 @@
 package com.example.android.cstogo;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -42,11 +50,23 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
     private BigDecimal mOverallKad;
     private BigDecimal mOverallKd;
 
+    private BigDecimal mLast3Kills;
+    private BigDecimal mLast3Assists;
+    private BigDecimal mLast3Deaths;
+    private BigDecimal mLast3Kad;
+
     private BigDecimal mDustAvgKad = new BigDecimal(0);
     private BigDecimal mNukeAvgKad = new BigDecimal(0);
 
-    ArrayList<Entry> mPieYVals = new ArrayList<>();
-    ArrayList<String> mPieXVals = new ArrayList<>();
+    private ArrayList<Entry> mPieYVals = new ArrayList<>();
+    private ArrayList<String> mPieXVals = new ArrayList<>();
+
+    private ArrayList<BarEntry> mBarYVals = new ArrayList<>();
+    private ArrayList<String> mBarXVals = new ArrayList<>();
+
+    private PieChart mPie;
+    private HorizontalBarChart mKadBar;
+    private HorizontalBarChart mLast3Bar;
 
     public FragmentB() {
         // Required empty public constructor
@@ -82,6 +102,8 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         TextView statsAllPoints = (TextView) view.findViewById(R.id.stats_number_points);
 
         PieChart statsMapPie = (PieChart) view.findViewById(R.id.stats_map_pie);
+        HorizontalBarChart statsKadBar = (HorizontalBarChart) view.findViewById(R.id.stats_kad_bar);
+        HorizontalBarChart statsLast3Bar = (HorizontalBarChart) view.findViewById(R.id.stats_last3_bar);
 
         TextView statsAvgKills = (TextView) view.findViewById(R.id.stats_number_avgKills);
         TextView statsAvgAssists = (TextView) view.findViewById(R.id.stats_number_avgAssists);
@@ -94,29 +116,105 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         generateStats();
 
         //Pie Data Start
+        setPie(statsMapPie);
 
-        statsMapPie.setDrawHoleEnabled(true);
-        statsMapPie.setHoleColorTransparent(true);
+        getPie().setDrawHoleEnabled(true);
+        getPie().setHoleColorTransparent(true);
 
-        PieDataSet dataSet = new PieDataSet(getPieYVals(), "");
-        dataSet.setSliceSpace(3f);
-        dataSet.setValueFormatter(new ValueFormatter() {
+        PieDataSet pieDataSet = new PieDataSet(getPieYVals(), "");
+        pieDataSet.setSliceSpace(3f);
+        pieDataSet.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                return ((int) value)+"";
+                return ((int) value) + "";
             }
         });
-        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
-        PieData data = new PieData(getPieXVals(), dataSet);
-        statsMapPie.setTouchEnabled(false);
-        statsMapPie.setData(data);
-        Legend legend = statsMapPie.getLegend();
+        PieData data = new PieData(getPieXVals(), pieDataSet);
+        getPie().setTouchEnabled(false);
+        getPie().setData(data);
+        Legend legend = getPie().getLegend();
         legend.setEnabled(false);
-        statsMapPie.setDescription("");
-        statsMapPie.invalidate();
+        getPie().setDescription("");
 
-        //Pie Data End
+        //Pie Data End, KAD Bar Data Start
+        setKadBar(statsKadBar);
+
+        BarDataSet barDataset = new BarDataSet(getBarYVals(), "");
+        barDataset.setColors(ColorTemplate.COLORFUL_COLORS);
+
+        BarData barData = new BarData(getBarXVals(), barDataset);
+        getKadBar().setData(barData);
+        getKadBar().setTouchEnabled(false);
+        getKadBar().setDrawGridBackground(false);
+        Legend barLegend = getKadBar().getLegend();
+        barLegend.setEnabled(false);
+        getKadBar().setDescription("");
+
+        XAxis xl = getKadBar().getXAxis();
+        xl.setEnabled(true);
+        xl.setDrawAxisLine(false);
+        xl.setDrawGridLines(false);
+        YAxis yl = getKadBar().getAxisLeft();
+        yl.setEnabled(false);
+        yl.setDrawAxisLine(false);
+        yl.setDrawGridLines(false);
+        YAxis yr = getKadBar().getAxisRight();
+        yr.setEnabled(false);
+        yr.setDrawAxisLine(false);
+        yr.setDrawGridLines(false);
+
+        getKadBar().getLayoutParams().height = (int)
+                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, getBarXVals().size()*25, getResources().getDisplayMetrics());
+
+        //KAD Bar Data End, LASR3 Bar Start
+
+        setLast3Bar(statsLast3Bar);
+
+        if (MatchList.getInstance().matchList.size() >= 4 && (getLast3Kad().compareTo(getOverallKad()))== 1){
+            getLast3Bar().setVisibility(View.VISIBLE);
+
+            ArrayList<BarEntry> mLast3BarYVals = new ArrayList<>();
+            ArrayList<String> mLast3BarXVals = new ArrayList<>();
+
+            float float1 = getOverallKad().floatValue();
+            float float2 = (getLast3Kad().subtract(getOverallKad())).floatValue();
+
+            mLast3BarYVals.add(new BarEntry(new float[]{float2, float1}, 0));
+
+            BarDataSet last3DataSet = new BarDataSet(mLast3BarYVals, "");
+            last3DataSet.setBarShadowColor(Color.rgb(106, 150, 131));
+            last3DataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+
+            mLast3BarXVals.add("KaD");
+
+            BarData last3Data = new BarData(mLast3BarXVals, last3DataSet);
+            getLast3Bar().setTouchEnabled(false);
+            getLast3Bar().setData(last3Data);
+            Legend last3Legend = getLast3Bar().getLegend();
+            last3Legend.setEnabled(false);
+            getLast3Bar().setDescription("");
+            getLast3Bar().setDrawValueAboveBar(false);
+
+
+            XAxis lastX = getLast3Bar().getXAxis();
+            lastX.setEnabled(true);
+            lastX.setDrawAxisLine(false);
+            lastX.setDrawGridLines(false);
+            YAxis lastYl = getLast3Bar().getAxisLeft();
+            lastYl.setEnabled(false);
+            lastYl.setDrawAxisLine(false);
+            lastYl.setDrawGridLines(false);
+            YAxis lastYr = getLast3Bar().getAxisRight();
+            lastYr.setEnabled(false);
+            lastYr.setDrawAxisLine(false);
+            lastYr.setDrawGridLines(false);
+
+            getLast3Bar().invalidate();
+        }
+
+        //LAST3Bar END
 
         statsAllMatches.setText(Integer.toString(getNoMatches()));
         statsAllKills.setText(Integer.toString(getAllKills()));
@@ -129,7 +227,7 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         statsAvgPPM.setText(getAvgPoints().toString());
         statsAvgKAD.setText(getOverallKad().toString());
         statsDustKaD.setText(getDustAvgKad().toString());
-        statsNukeKaD.setText(getNukeAvgKad().toString());
+        statsNukeKaD.setText(getLast3Kad().toString());//getNukeAvgKad().toString());
 
     }
 
@@ -140,18 +238,31 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         int de_dust_count = 0;
         BigDecimal de_dust_kad = new BigDecimal(0);
         int de_inferno_count = 0;
+        BigDecimal de_inferno_kad = new BigDecimal(0);
         int de_nuke_count = 0;
         BigDecimal de_nuke_kad = new BigDecimal(0);
         int de_cache_count = 0;
+        BigDecimal de_cache_kad = new BigDecimal(0);
         int de_mirage_count = 0;
+        BigDecimal de_mirage_kad = new BigDecimal(0);
         int de_cbble_count = 0;
+        BigDecimal de_cbble_kad = new BigDecimal(0);
         int de_overpass_count = 0;
+        BigDecimal de_overpass_kad = new BigDecimal(0);
         int de_season_count = 0;
+        BigDecimal de_season_kad = new BigDecimal(0);
 
         ArrayList<Match> matchList = MatchList.getInstance().matchList;
         //generate All Kills, Assists, Deaths
         for (int i = 0; i < matchList.size(); i++) {
             Match ice = matchList.get(i);
+
+            if (matchList.size() >= 4 && i <= 2){
+                setLast3Kills(getLast3Kills().add(new BigDecimal(ice.getKills())));
+                setLast3Assists(getLast3Assists().add(new BigDecimal(ice.getAssists())));
+                setLast3Deaths(getLast3Deaths().add(new BigDecimal(ice.getDeaths())));
+            }
+
             setAllKills(getAllKills() + ice.getKills());
             setAllAssists(getAllAssists() + ice.getAssists());
             setAllDeaths(getAllDeaths() + ice.getDeaths());
@@ -164,6 +275,7 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
                     break;
                 case "de_inferno":
                     de_inferno_count++;
+                    de_inferno_kad = de_inferno_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
                     break;
                 case "de_nuke":
                     de_nuke_count++;
@@ -171,18 +283,23 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
                     break;
                 case "de_cache":
                     de_cache_count++;
+                    de_cache_kad = de_cache_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
                     break;
                 case "de_mirage":
                     de_mirage_count++;
+                    de_mirage_kad = de_mirage_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
                     break;
                 case "de_cbble":
                     de_cbble_count++;
+                    de_cbble_kad = de_cbble_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
                     break;
                 case "de_overpass":
                     de_overpass_count++;
+                    de_overpass_kad = de_overpass_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
                     break;
                 case "de_season":
                     de_season_count++;
+                    de_season_kad = de_season_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
                     break;
             }
 
@@ -194,43 +311,59 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         if (de_dust_count > 0){
             getPieYVals().add(new Entry((float) de_dust_count, pie_chart_map_count));
             getPieXVals().add("de_dust2");
+            setDustAvgKad(de_dust_kad.divide(new BigDecimal(de_dust_count), 2, RoundingMode.HALF_UP)); // TODO : Remove later
+            getBarYVals().add(new BarEntry((de_dust_kad.divide(new BigDecimal(de_dust_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("de_dust2");
             pie_chart_map_count++;
-            setDustAvgKad(de_dust_kad.divide(new BigDecimal(de_dust_count), 2, RoundingMode.HALF_UP));
         }
         if (de_inferno_count > 0){
             getPieYVals().add(new Entry((float) de_inferno_count, pie_chart_map_count));
             getPieXVals().add("de_inferno");
+            getBarYVals().add(new BarEntry((de_inferno_kad.divide(new BigDecimal(de_inferno_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("de_inferno");
             pie_chart_map_count++;
         }
         if (de_nuke_count > 0){
             getPieYVals().add(new Entry((float) de_nuke_count, pie_chart_map_count));
             getPieXVals().add("de_nuke");
+            setNukeAvgKad(de_nuke_kad.divide(new BigDecimal(de_nuke_count), 2, RoundingMode.HALF_UP)); // TODO : Remove later
+            getBarYVals().add(new BarEntry((de_nuke_kad.divide(new BigDecimal(de_nuke_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("de_nuke");
             pie_chart_map_count++;
-            setNukeAvgKad(de_nuke_kad.divide(new BigDecimal(de_nuke_count), 2, RoundingMode.HALF_UP));
         }
         if (de_cache_count > 0){
             getPieYVals().add(new Entry((float) de_cache_count, pie_chart_map_count));
             getPieXVals().add("de_cache");
+            getBarYVals().add(new BarEntry((de_cache_kad.divide(new BigDecimal(de_cache_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("de_cache");
             pie_chart_map_count++;
         }
         if (de_mirage_count > 0){
             getPieYVals().add(new Entry((float) de_mirage_count, pie_chart_map_count));
             getPieXVals().add("de_mirage");
+            getBarYVals().add(new BarEntry((de_mirage_kad.divide(new BigDecimal(de_mirage_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("de_mirage");
             pie_chart_map_count++;
         }
         if (de_cbble_count > 0){
             getPieYVals().add(new Entry((float) de_cbble_count, pie_chart_map_count));
             getPieXVals().add("de_cbble");
+            getBarYVals().add(new BarEntry((de_cbble_kad.divide(new BigDecimal(de_cbble_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("de_cbble");
             pie_chart_map_count++;
         }
         if (de_overpass_count > 0){
             getPieYVals().add(new Entry((float) de_overpass_count, pie_chart_map_count));
             getPieXVals().add("de_overpass");
+            getBarYVals().add(new BarEntry((de_overpass_kad.divide(new BigDecimal(de_overpass_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("de_overpass");
             pie_chart_map_count++;
         }
         if (de_season_count > 0){
             getPieYVals().add(new Entry((float) de_season_count, pie_chart_map_count));
             getPieXVals().add("de_season");
+            getBarYVals().add(new BarEntry((de_season_kad.divide(new BigDecimal(de_season_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("de_season");
         }
 
 
@@ -244,6 +377,10 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         setAvgPoints(allPoints.divide(numberOfMatches, 2, RoundingMode.HALF_UP));
         setOverallKad((allKills.add(allAssists)).divide(allDeaths, 2, RoundingMode.HALF_UP));
         setOverallKd(allKills.divide(allDeaths, 2, RoundingMode.HALF_UP));
+        if (matchList.size() >= 4){
+            setLast3Kad((getLast3Kills().add(getLast3Assists())).divide(getLast3Deaths(), 2, RoundingMode.HALF_UP));
+        }
+
     }
 
     private void nullStats() {
@@ -254,6 +391,22 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         setAllAssists(0);
         getPieYVals().clear();
         getPieXVals().clear();
+        getBarXVals().clear();
+        getBarYVals().clear();
+        setLast3Kills(new BigDecimal(0));
+        setLast3Assists(new BigDecimal(0));
+        setLast3Deaths(new BigDecimal(0));
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (MatchList.getInstance().matchList.size() > 0) {
+                getPie().animateY(1500);
+                getKadBar().animateY(3000);
+            }
+        }
     }
 
     public int getAllKills() {
@@ -344,6 +497,38 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         mOverallKd = overallKd;
     }
 
+    public BigDecimal getLast3Kills() {
+        return mLast3Kills;
+    }
+
+    public void setLast3Kills(BigDecimal last3Kills) {
+        mLast3Kills = last3Kills;
+    }
+
+    public BigDecimal getLast3Assists() {
+        return mLast3Assists;
+    }
+
+    public void setLast3Assists(BigDecimal last3Assists) {
+        mLast3Assists = last3Assists;
+    }
+
+    public BigDecimal getLast3Deaths() {
+        return mLast3Deaths;
+    }
+
+    public void setLast3Deaths(BigDecimal last3Deaths) {
+        mLast3Deaths = last3Deaths;
+    }
+
+    public BigDecimal getLast3Kad() {
+        return mLast3Kad;
+    }
+
+    public void setLast3Kad(BigDecimal last3Kad) {
+        mLast3Kad = last3Kad;
+    }
+
     public BigDecimal getDustAvgKad() {
         return mDustAvgKad;
     }
@@ -366,6 +551,38 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
 
     public ArrayList<String> getPieXVals() {
         return mPieXVals;
+    }
+
+    public ArrayList<BarEntry> getBarYVals() {
+        return mBarYVals;
+    }
+
+    public ArrayList<String> getBarXVals() {
+        return mBarXVals;
+    }
+
+    public PieChart getPie() {
+        return mPie;
+    }
+
+    public void setPie(PieChart pie) {
+        mPie = pie;
+    }
+
+    public HorizontalBarChart getKadBar() {
+        return mKadBar;
+    }
+
+    public void setKadBar(HorizontalBarChart kadBar) {
+        mKadBar = kadBar;
+    }
+
+    public HorizontalBarChart getLast3Bar() {
+        return mLast3Bar;
+    }
+
+    public void setLast3Bar(HorizontalBarChart last3Bar) {
+        mLast3Bar = last3Bar;
     }
 
     public void onEvent(UpdateStatsEvent event){
