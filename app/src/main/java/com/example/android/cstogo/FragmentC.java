@@ -4,6 +4,7 @@ package com.example.android.cstogo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
 
 
 /**
@@ -27,7 +30,14 @@ public class FragmentC extends Fragment {
     private int mTotalKillsHeadshot;
     private int mTotalShotsHit;
     private int mTotalShotsFired;
+    private int mTotalRounds;
     private float mTotalKd;
+
+    private WebMap dust2 = new WebMap("de_dust2");
+    private WebMap inferno = new WebMap("de_inferno");
+    private WebMap sugarcane = new WebMap("de_sugarcane");
+
+    private ArrayList<WebMap> webMapList = new ArrayList<>();
 
     public FragmentC() {
         // Required empty public constructor
@@ -47,7 +57,7 @@ public class FragmentC extends Fragment {
 
     public class AsyncTaskParseJson extends AsyncTask<View, String, View> {
 
-        //final String TAG = "AsyncTaskParseJson.java";
+        final String TAG = "AsyncTaskParseJson.java";
 
         // set your json string url here
         String yourJsonStringUrl = "http://cityinfocen.zz.vc/stats.json";
@@ -101,8 +111,44 @@ public class FragmentC extends Fragment {
                         case "total_shots_fired":
                             setTotalShotsFired(Integer.valueOf(value));
                             break;
+                        case "total_rounds_played":
+                            setTotalRounds(Integer.valueOf(value));
+                            break;
                         default:
                             break;
+                    }
+
+                    if (name.contains("_map_")){
+                        String temp = name.replace("total_", "").replace("wins_", "").replace("rounds_", "").replace("map_", "");
+
+                        switch (temp){
+                            case "de_dust2":
+                                if (name.contains("wins_")){
+                                    dust2.setWins(Integer.valueOf(value));
+                                } else {
+                                    dust2.setRounds(Integer.valueOf(value));
+                                }
+                                break;
+                            case "de_inferno":
+                                if (name.contains("wins_")){
+                                    inferno.setWins(Integer.valueOf(value));
+                                } else {
+                                    inferno.setRounds(Integer.valueOf(value));
+                                }
+                                break;
+                            case "de_sugarcane":
+                                if (name.contains("wins_")){
+                                    sugarcane.setWins(Integer.valueOf(value));
+                                } else {
+                                    sugarcane.setRounds(Integer.valueOf(value));
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+
+                        Log.d(TAG, name + " : " + value
+                                + "\n" + temp + "");
                     }
 
                     /*
@@ -135,26 +181,54 @@ public class FragmentC extends Fragment {
     }
 
     private void createTextViews(View view) {
-        TextView web_total_kills_number = (TextView) view.findViewById(R.id.web_total_kills_number);
-        TextView web_total_deaths_number = (TextView) view.findViewById(R.id.web_total_deaths_number);
-        TextView web_total_wins_number = (TextView) view.findViewById(R.id.web_total_wins_number);
-        TextView web_total_kills_headshot_number = (TextView) view.findViewById(R.id.web_total_kills_headshot_number);
-        TextView web_total_shots_fired_number = (TextView) view.findViewById(R.id.web_total_shots_fired_number);
-        TextView web_total_shots_hit_number = (TextView) view.findViewById(R.id.web_total_shots_hit_number);
+        //HEADER START
         TextView web_total_kd = (TextView) view.findViewById(R.id.web_kd);
+        TextView web_kills = (TextView) view.findViewById(R.id.web_total_kills_number);
+        TextView web_win_perc = (TextView) view.findViewById(R.id.web_win_percent_number);
+        TextView web_hs_perc = (TextView) view.findViewById(R.id.web_headshot_number);
+        TextView web_accuracy_perc = (TextView) view.findViewById(R.id.web_accuracy_number);
 
         BigDecimal kills = new BigDecimal(getTotalKills());
         BigDecimal deaths = new BigDecimal(getTotalDeaths());
         BigDecimal kd = kills.divide(deaths, 2, BigDecimal.ROUND_HALF_UP);
         setTotalKd(kd.floatValue());
 
-        web_total_kills_number.setText(String.valueOf(getTotalKills()));
-        web_total_deaths_number.setText(String.valueOf(getTotalDeaths()));
-        web_total_wins_number.setText(String.valueOf(getTotalWins()));
-        web_total_kills_headshot_number.setText(String.valueOf(getTotalKillsHeadshot()));
-        web_total_shots_fired_number.setText(String.valueOf(getTotalShotsFired()));
-        web_total_shots_hit_number.setText(String.valueOf(getTotalShotsHit()));
+        BigDecimal headshots = new BigDecimal(getTotalKillsHeadshot());
+        BigDecimal hs_perc = headshots.divide(kills.divide(new BigDecimal(100), 2, RoundingMode.HALF_UP), 2, RoundingMode.HALF_UP);
+
+        BigDecimal shots_fired = new BigDecimal(getTotalShotsFired());
+        BigDecimal shots_hit = new BigDecimal(getTotalShotsHit());
+        BigDecimal accuracy = shots_hit.divide(shots_fired.divide(new BigDecimal(100), 2, RoundingMode.HALF_UP), 2, RoundingMode.HALF_UP);
+
+        BigDecimal rounds = new BigDecimal(getTotalRounds());
+        BigDecimal win_rounds = new BigDecimal(getTotalWins());
+        BigDecimal win_perc = win_rounds.divide(rounds.divide(new BigDecimal(100), 2, RoundingMode.HALF_UP), 2, RoundingMode.HALF_UP);
+
         web_total_kd.setText(String.valueOf(getTotalKd()));
+        web_kills.setText(String.valueOf(getTotalKills()));
+        web_win_perc.setText(String.valueOf(win_perc) + "%");
+        web_hs_perc.setText(String.valueOf(hs_perc) + "%");
+        web_accuracy_perc.setText(String.valueOf(accuracy) + "%");
+        //HEADER END
+
+        getWebMapList().add(dust2);
+        getWebMapList().add(inferno);
+        getWebMapList().add(sugarcane);
+
+        float highestWinPerc = 0;
+        String highestWinPercName = "";
+        for (int i = 0; i < getWebMapList().size(); i++) {
+            WebMap ci = getWebMapList().get(i);
+
+            float tempWinPerc = ci.getWinPerc();
+            if (tempWinPerc > highestWinPerc){
+                highestWinPerc = tempWinPerc;
+                highestWinPercName = ci.getName();
+            }
+        }
+        TextView web_map_win_perc = (TextView) view.findViewById(R.id.web_highest_win_perc_number);
+
+        web_map_win_perc.setText(" - " + highestWinPercName + " - " + highestWinPerc + "%");
     }
 
     public int getTotalKills() {
@@ -211,5 +285,17 @@ public class FragmentC extends Fragment {
 
     public void setTotalKd(float totalKd) {
         mTotalKd = totalKd;
+    }
+
+    public int getTotalRounds() {
+        return mTotalRounds;
+    }
+
+    public void setTotalRounds(int totalRounds) {
+        mTotalRounds = totalRounds;
+    }
+
+    public ArrayList<WebMap> getWebMapList() {
+        return webMapList;
     }
 }

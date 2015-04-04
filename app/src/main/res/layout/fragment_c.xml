@@ -1,142 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.android.cstogo.FragmentC">
 
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="500dp">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/web_total_kills_title"
-            android:textColor="@color/accent"
-            android:text="Total Kills"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="300dp" />
+            android:layout_gravity="center_horizontal"
+            android:baselineAligned="false">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/web_total_kills_number"
-            android:layout_toRightOf="@id/web_total_kills_title"
-            android:layout_toEndOf="@+id/web_total_kills_title"
-            android:layout_alignBottom="@id/web_total_kills_title"
-            android:textColor="@color/material_blue_grey_900" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:padding="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/web_total_deaths_title"
-            android:textColor="@color/accent"
-            android:text="Total Deaths"
-            android:layout_below="@+id/web_total_kills_title" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/accent"
+                    android:textSize="50sp"
+                    android:text="1.19"
+                    android:fontFamily="sans-serif-light"
+                    android:id="@+id/web_kd"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/web_total_deaths_number"
-            android:layout_toRightOf="@id/web_total_deaths_title"
-            android:layout_toEndOf="@+id/web_total_deaths_title"
-            android:layout_alignBottom="@id/web_total_deaths_title"
-            android:textColor="@color/material_blue_grey_900" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="K/D"
+                    android:textColor="@color/material_blue_grey_900"
+                    android:fontFamily="sans-serif-light"
+                    android:id="@+id/web_kd_title"
+                    android:layout_below="@+id/web_kd"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/web_total_wins_title"
-            android:textColor="@color/accent"
-            android:text="Total Wins"
-            android:layout_below="@+id/web_total_deaths_title" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/web_total_wins_number"
-            android:layout_toRightOf="@id/web_total_wins_title"
-            android:layout_toEndOf="@+id/web_total_wins_title"
-            android:layout_alignBottom="@id/web_total_wins_title"
-            android:textColor="@color/material_blue_grey_900" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/web_total_kills_headshot_title"
-            android:textColor="@color/accent"
-            android:text="Kills Headshot"
-            android:layout_below="@+id/web_total_wins_title" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/web_total_kills_headshot_number"
-            android:layout_toRightOf="@id/web_total_kills_headshot_title"
-            android:layout_toEndOf="@+id/web_total_kills_headshot_title"
-            android:layout_alignBottom="@id/web_total_kills_headshot_title"
-            android:textColor="@color/material_blue_grey_900" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/web_total_shots_fired_title"
-            android:textColor="@color/accent"
-            android:text="Shots Fired"
-            android:layout_below="@+id/web_total_kills_headshot_title" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/web_total_shots_fired_number"
-            android:layout_toRightOf="@id/web_total_shots_fired_title"
-            android:layout_toEndOf="@+id/web_total_shots_fired_title"
-            android:layout_alignBottom="@id/web_total_shots_fired_title"
-            android:textColor="@color/material_blue_grey_900" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/web_total_shots_hit_title"
-            android:textColor="@color/accent"
-            android:text="Shots Hit"
-            android:layout_below="@+id/web_total_shots_fired_title" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/web_total_shots_hit_number"
-            android:layout_toRightOf="@id/web_total_shots_hit_title"
-            android:layout_toEndOf="@+id/web_total_shots_hit_title"
-            android:layout_alignBottom="@id/web_total_shots_hit_title"
-            android:textColor="@color/material_blue_grey_900" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/accent"
-            android:textSize="50sp"
-            android:text="1.19"
-            android:fontFamily="sans-serif-light"
-            android:id="@+id/web_kd"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="K/D"
-            android:textColor="@color/material_blue_grey_900"
-            android:fontFamily="sans-serif-light"
-            android:id="@+id/web_kd_title"
-            android:layout_below="@+id/web_kd"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp" />
+            </RelativeLayout>
 
 
-    </RelativeLayout>
+            <RelativeLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="10dp">
 
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Kills"
+                    android:id="@+id/web_total_kills_title"
+                    android:textColor="@color/accent"
+                    android:layout_marginTop="30dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="123456"
+                    android:textColor="@color/material_blue_grey_900"
+                    android:id="@+id/web_total_kills_number"
+                    android:layout_below="@+id/web_total_kills_title"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Win %"
+                    android:id="@+id/web_win_percent_title"
+                    android:textColor="@color/accent"
+                    android:layout_below="@+id/web_total_kills_number"
+                    android:layout_alignLeft="@+id/web_total_kills_title"
+                    android:layout_alignStart="@+id/web_total_kills_title" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="55.6"
+                    android:textColor="@color/material_blue_grey_900"
+                    android:id="@+id/web_win_percent_number"
+                    android:layout_below="@+id/web_win_percent_title"
+                    android:layout_alignRight="@+id/web_total_kills_number"
+                    android:layout_alignEnd="@+id/web_total_kills_number" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="10dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Headshot %"
+                    android:id="@+id/web_headshot_title"
+                    android:textColor="@color/accent"
+                    android:layout_marginTop="30dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="123456"
+                    android:textColor="@color/material_blue_grey_900"
+                    android:id="@+id/web_headshot_number"
+                    android:layout_below="@+id/web_headshot_title"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Accuracy"
+                    android:id="@+id/web_accuracy_title"
+                    android:textColor="@color/accent"
+                    android:layout_below="@+id/web_headshot_number"
+                    android:layout_alignLeft="@+id/web_headshot_title"
+                    android:layout_alignStart="@+id/web_headshot_number" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="55.6"
+                    android:textColor="@color/material_blue_grey_900"
+                    android:id="@+id/web_accuracy_number"
+                    android:layout_below="@+id/web_accuracy_title"
+                    android:layout_alignRight="@+id/web_headshot_number"
+                    android:layout_alignEnd="@+id/web_accuracy_title" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/random_shit"
+                android:text="Random Shit"
+                android:textColor="@color/accent"
+                android:layout_marginTop="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Highest Win Percentage Map"
+                android:textColor="@color/accent"
+                android:id="@+id/web_highest_win_perc_name"
+                android:layout_below="@id/random_shit"
+                android:layout_alignLeft="@id/random_shit"
+                android:layout_alignStart="@id/random_shit"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/web_highest_win_perc_number"
+                android:textColor="@color/material_blue_grey_900"
+                android:layout_alignBottom="@+id/web_highest_win_perc_name"
+                android:layout_toRightOf="@+id/web_highest_win_perc_name"
+                android:layout_toEndOf="@+id/web_highest_win_perc_name" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:linksClickable="true"
+                android:textSize="8sp"
+                android:text="powered by Steam - http://www.steampowered.com"
+                android:textColor="@color/accent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
 </ScrollView>
