@@ -24,7 +24,7 @@ public class MainActivity extends ActionBarActivity {
 
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setTitle("I dunno");
+        getSupportActionBar().setTitle("CS to GO");
 
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));

@@ -8,16 +8,16 @@ import java.math.RoundingMode;
  */
 public class WebMap {
 
-    private String name;
+    private String webMapName;
     private int rounds;
     private int wins;
 
-    public WebMap(String name) {
-        this.name = name;
+    public WebMap(String webMapName) {
+        this.webMapName = webMapName;
     }
 
-    public String getName() {
-        return name;
+    public String getWebMapName() {
+        return webMapName;
     }
 
     public int getRounds() {

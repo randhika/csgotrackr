@@ -38,30 +38,34 @@ public class JSONParser {
             conn.connect();
             is = conn.getInputStream();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            try {
 
-        try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+                StringBuilder sb = new StringBuilder();
+                String line;// = null;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line).append("\n");//line + "n");
+                }
+                is.close();
+                json = sb.toString();
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
-            StringBuilder sb = new StringBuilder();
-            String line;// = null;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line).append("\n");//line + "n");
+            } catch (Exception e) {
+                Log.e(TAG, "Error converting result " + e.toString());
+                return null;
             }
-            is.close();
-            json = sb.toString();
 
-        } catch (Exception e) {
-            Log.e(TAG, "Error converting result " + e.toString());
-        }
+            // try parse the string to a JSON object
+            try {
+                jObj = new JSONObject(json);
+            } catch (JSONException e) {
+                Log.e(TAG, "Error parsing data " + e.toString());
+                return null;
+            }
 
-        // try parse the string to a JSON object
-        try {
-            jObj = new JSONObject(json);
-        } catch (JSONException e) {
-            Log.e(TAG, "Error parsing data " + e.toString());
+        } catch (IOException e) {
+            Log.d(TAG, "HTTP ERROR");
+            e.printStackTrace();
+            return null;
         }
 
         // return JSON String

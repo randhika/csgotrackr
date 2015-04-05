@@ -154,45 +154,154 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="wrap_content"
+            android:padding="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/random_shit"
-                android:text="Random Shit"
+                android:text="Best map by win%"
                 android:textColor="@color/accent"
-                android:layout_marginTop="50dp"
+                android:id="@+id/web_highest_win_perc_name"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginLeft="30dp"
-                android:layout_marginStart="30dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Highest Win Percentage Map"
-                android:textColor="@color/accent"
-                android:id="@+id/web_highest_win_perc_name"
-                android:layout_below="@id/random_shit"
-                android:layout_alignLeft="@id/random_shit"
-                android:layout_alignStart="@id/random_shit"/>
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/web_highest_win_perc_number"
                 android:textColor="@color/material_blue_grey_900"
-                android:layout_alignBottom="@+id/web_highest_win_perc_name"
-                android:layout_toRightOf="@+id/web_highest_win_perc_name"
-                android:layout_toEndOf="@+id/web_highest_win_perc_name" />
+                android:layout_below="@+id/web_highest_win_perc_name"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="30dp"
+                android:layout_marginEnd="30dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Best map by wins"
+                android:textColor="@color/accent"
+                android:id="@+id/web_highest_wins_name"
+                android:layout_below="@+id/web_highest_win_perc_number"
+                android:layout_alignLeft="@+id/web_highest_win_perc_name"
+                android:layout_alignStart="@+id/web_highest_win_perc_name" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/web_highest_wins_number"
+                android:textColor="@color/material_blue_grey_900"
+                android:layout_below="@+id/web_highest_wins_name"
+                android:layout_alignRight="@+id/web_highest_win_perc_number"
+                android:layout_alignEnd="@+id/web_highest_win_perc_number" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Best map by rounds"
+                android:textColor="@color/accent"
+                android:id="@+id/web_highest_rounds_name"
+                android:layout_below="@+id/web_highest_wins_number"
+                android:layout_alignLeft="@+id/web_highest_wins_name"
+                android:layout_alignStart="@+id/web_highest_wins_name" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/web_highest_rounds_number"
+                android:textColor="@color/material_blue_grey_900"
+                android:layout_below="@+id/web_highest_rounds_name"
+                android:layout_alignRight="@+id/web_highest_wins_number"
+                android:layout_alignEnd="@+id/web_highest_wins_number" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Most Shots"
+                android:textColor="@color/accent"
+                android:id="@+id/textView"
+                android:layout_below="@+id/web_highest_rounds_number"
+                android:layout_alignLeft="@+id/web_highest_rounds_name"
+                android:layout_alignStart="@+id/web_highest_rounds_name" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/material_blue_grey_900"
+                android:id="@+id/web_fav_wep_shots"
+                android:layout_below="@+id/textView"
+                android:layout_alignRight="@+id/web_highest_rounds_number"
+                android:layout_alignEnd="@+id/web_highest_rounds_number" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Most Hits"
+                android:textColor="@color/accent"
+                android:id="@+id/textView3"
+                android:layout_below="@+id/web_fav_wep_shots"
+                android:layout_alignLeft="@+id/textView"
+                android:layout_alignStart="@+id/textView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/material_blue_grey_900"
+                android:id="@+id/web_fav_wep_hits"
+                android:layout_below="@+id/textView3"
+                android:layout_alignRight="@+id/web_highest_wins_number"
+                android:layout_alignEnd="@+id/web_highest_wins_number" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Most Kills"
+                android:textColor="@color/accent"
+                android:id="@+id/textView2"
+                android:layout_below="@+id/web_fav_wep_hits"
+                android:layout_alignLeft="@+id/textView3"
+                android:layout_alignStart="@+id/textView3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/material_blue_grey_900"
+                android:id="@+id/web_fav_wep_kills"
+                android:layout_below="@+id/textView2"
+                android:layout_alignRight="@+id/web_fav_wep_hits"
+                android:layout_alignEnd="@+id/web_fav_wep_hits" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Best Accuracy"
+                android:textColor="@color/accent"
+                android:id="@+id/textView5"
+                android:layout_below="@+id/web_fav_wep_kills"
+                android:layout_alignLeft="@+id/textView2"
+                android:layout_alignStart="@+id/textView2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/material_blue_grey_900"
+                android:id="@+id/web_fav_wep_accuracy"
+                android:layout_below="@+id/textView5"
+                android:layout_alignRight="@+id/web_fav_wep_hits"
+                android:layout_alignEnd="@+id/web_fav_wep_hits" />
+
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="30dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -203,7 +312,8 @@
                 android:text="powered by Steam - http://www.steampowered.com"
                 android:textColor="@color/accent"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                tools:ignore="SmallSp" />
 
         </RelativeLayout>
 
