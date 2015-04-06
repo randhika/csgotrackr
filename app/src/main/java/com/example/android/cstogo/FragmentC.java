@@ -31,6 +31,25 @@ public class FragmentC extends Fragment {
     private int mTotalShotsHit;
     private int mTotalShotsFired;
     private int mTotalRounds;
+    private int mTotalPlanted;
+    private int mTotalDefused;
+    private int mTotalDamageDone;
+    private int mTotalMoneyEarned;
+    private int mTotalRescuedHostages;
+    private int mTotalKillsKnife;
+    private int mTotalKillsHeGrenade;
+    private int mTotalKillsEnemyWeapon;
+    private int mTotalWeaponsDonated;
+    private int mTotalBrokenWindows;
+    private int mTotalKillsEnemyBlinded;
+    private int mTotalKillsAgainstZoomedSniper;
+    private int mTotalDominations;
+    private int mTotalRevenges;
+    private int mTotalMvps;
+    private int mTotalKillsMolotov;
+    private int mTotalKillsTaser;
+    private int mTotalShotsTaser;
+
     private float mTotalKd;
 
     private WebMap assault = new WebMap("cs_assault");
@@ -108,7 +127,6 @@ public class FragmentC extends Fragment {
 
         // set your json string url here
         String yourJsonStringUrl = "http://cityinfocen.zz.vc/stats.json"; //test offline site
-
         // contacts JSONArray
         JSONArray dataJsonArr = null;
 
@@ -133,36 +151,89 @@ public class FragmentC extends Fragment {
                     return null;
                 }
                 dataJsonArr = json.getJSONObject("playerstats").getJSONArray("stats");
-
                 // loop through all stats
                 for (int i = 0; i < dataJsonArr.length(); i++) {
 
                     JSONObject c = dataJsonArr.getJSONObject(i);
                     // Storing each json item in variable
                     String name = c.getString("name");
-                    String value = c.getString("value");
+                    int intValue = c.getInt("value");
 
                     switch (name){
                         case "total_kills":
-                            setTotalKills(Integer.valueOf(value));
+                            setTotalKills(intValue);
                             break;
                         case "total_deaths":
-                            setTotalDeaths(Integer.valueOf(value));
+                            setTotalDeaths(intValue);
                             break;
                         case "total_wins":
-                            setTotalWins(Integer.valueOf(value));
+                            setTotalWins(intValue);
                             break;
                         case "total_kills_headshot":
-                            setTotalKillsHeadshot(Integer.valueOf(value));
+                            setTotalKillsHeadshot(intValue);
                             break;
                         case "total_shots_hit":
-                            setTotalShotsHit(Integer.valueOf(value));
+                            setTotalShotsHit(intValue);
                             break;
                         case "total_shots_fired":
-                            setTotalShotsFired(Integer.valueOf(value));
+                            setTotalShotsFired(intValue);
                             break;
                         case "total_rounds_played":
-                            setTotalRounds(Integer.valueOf(value));
+                            setTotalRounds(intValue);
+                            break;
+                        case "total_planted_bombs":
+                            setTotalPlanted(intValue);
+                            break;
+                        case "total_defused_bombs":
+                            setTotalDefused(intValue);
+                            break;
+                        case "total_damage_done":
+                            setTotalDamageDone(intValue);
+                            break;
+                        case "total_money_earned":
+                            setTotalMoneyEarned(intValue);
+                            break;
+                        case "total_rescued_hostages":
+                            setTotalRescuedHostages(intValue);
+                            break;
+                        case "total_kills_knife":
+                            setTotalKillsKnife(intValue);
+                            break;
+                        case "total_kills_hegrenade":
+                            setTotalKillsHeGrenade(intValue);
+                            break;
+                        case "total_kills_enemy_weapon":
+                            setTotalKillsEnemyWeapon(intValue);
+                            break;
+                        case "total_weapons_donated":
+                            setTotalWeaponsDonated(intValue);
+                            break;
+                        case "total_broken_windows":
+                            setTotalBrokenWindows(intValue);
+                            break;
+                        case "total_kills_enemy_blinded":
+                            setTotalKillsEnemyBlinded(intValue);
+                            break;
+                        case "total_kills_against_zoomed_sniper":
+                            setTotalKillsAgainstZoomedSniper(intValue);
+                            break;
+                        case "total_dominations":
+                            setTotalDominations(intValue);
+                            break;
+                        case "total_revenges":
+                            setTotalRevenges(intValue);
+                            break;
+                        case "total_mvps":
+                            setTotalMvps(intValue);
+                            break;
+                        case "total_kills_molotov":
+                            setTotalKillsMolotov(intValue);
+                            break;
+                        case "total_kills_taser":
+                            setTotalKillsTaser(intValue);
+                            break;
+                        case "total_shots_taser":
+                            setTotalShotsTaser(intValue);
                             break;
                         default:
                             break;
@@ -173,149 +244,149 @@ public class FragmentC extends Fragment {
                         switch (temp){
                             case "de_aztec":
                                 if (name.contains("wins_")){
-                                        aztec.setWins(Integer.valueOf(value));
+                                        aztec.setWins(intValue);
                                     } else {
-                                        aztec.setRounds(Integer.valueOf(value));
+                                        aztec.setRounds(intValue);
                                 }
                                 break;
                             case "de_cbble":
                                 if (name.contains("wins_")){
-                                        cbble.setWins(Integer.valueOf(value));
+                                        cbble.setWins(intValue);
                                     } else {
-                                        cbble.setRounds(Integer.valueOf(value));
+                                        cbble.setRounds(intValue);
                                 }
                                 break;
                             case "de_dust":
                                 if (name.contains("wins_")){
-                                        dust.setWins(Integer.valueOf(value));
+                                        dust.setWins(intValue);
                                     } else {
-                                        dust.setRounds(Integer.valueOf(value));
+                                        dust.setRounds(intValue);
                                 }
                                 break;
                             case "de_dust2":
                                 if (name.contains("wins_")){
-                                    dust2.setWins(Integer.valueOf(value));
+                                    dust2.setWins(intValue);
                                 } else {
-                                    dust2.setRounds(Integer.valueOf(value));
+                                    dust2.setRounds(intValue);
                                 }
                                 break;
                             case "de_nuke":
                                 if (name.contains("wins_")){
-                                        nuke.setWins(Integer.valueOf(value));
+                                        nuke.setWins(intValue);
                                     } else {
-                                        nuke.setRounds(Integer.valueOf(value));
+                                        nuke.setRounds(intValue);
                                 }
                                 break;
                             case "de_inferno":
                                 if (name.contains("wins_")){
-                                    inferno.setWins(Integer.valueOf(value));
+                                    inferno.setWins(intValue);
                                 } else {
-                                    inferno.setRounds(Integer.valueOf(value));
+                                    inferno.setRounds(intValue);
                                 }
                                 break;
                             case "de_train":
                                 if (name.contains("wins_")){
-                                        train.setWins(Integer.valueOf(value));
+                                        train.setWins(intValue);
                                     } else {
-                                        train.setRounds(Integer.valueOf(value));
+                                        train.setRounds(intValue);
                                 }
                                 break;
                             case "de_lake":
                                 if (name.contains("wins_")){
-                                        lake.setWins(Integer.valueOf(value));
+                                        lake.setWins(intValue);
                                     } else {
-                                        lake.setRounds(Integer.valueOf(value));
+                                        lake.setRounds(intValue);
                                 }
                                 break;
                             case "de_safehouse":
                                 if (name.contains("wins_")){
-                                        safehouse.setWins(Integer.valueOf(value));
+                                        safehouse.setWins(intValue);
                                     } else {
-                                        safehouse.setRounds(Integer.valueOf(value));
+                                        safehouse.setRounds(intValue);
                                 }
                                 break;
                             case "de_sugarcane":
                                 if (name.contains("wins_")){
-                                    sugarcane.setWins(Integer.valueOf(value));
+                                    sugarcane.setWins(intValue);
                                 } else {
-                                    sugarcane.setRounds(Integer.valueOf(value));
+                                    sugarcane.setRounds(intValue);
                                 }
                                 break;
                             case "de_stmarc":
                                 if (name.contains("wins_")){
-                                        stmarc.setWins(Integer.valueOf(value));
+                                        stmarc.setWins(intValue);
                                     } else {
-                                        stmarc.setRounds(Integer.valueOf(value));
+                                        stmarc.setRounds(intValue);
                                 }
                                 break;
                             case "de_bank":
                                 if (name.contains("wins_")){
-                                        bank.setWins(Integer.valueOf(value));
+                                        bank.setWins(intValue);
                                     } else {
-                                        bank.setRounds(Integer.valueOf(value));
+                                        bank.setRounds(intValue);
                                 }
                                 break;
                             case "de_shorttrain":
                                 if (name.contains("wins_")){
-                                        shorttrain.setWins(Integer.valueOf(value));
+                                        shorttrain.setWins(intValue);
                                     } else {
-                                        shorttrain.setRounds(Integer.valueOf(value));
+                                        shorttrain.setRounds(intValue);
                                 }
                                 break;
                             case "de_vertigo":
                                 if (name.contains("wins_")){
-                                        vertigo.setWins(Integer.valueOf(value));
+                                        vertigo.setWins(intValue);
                                     } else {
-                                        vertigo.setRounds(Integer.valueOf(value));
+                                        vertigo.setRounds(intValue);
                                 }
                                 break;
                             case "cs_assault":
                                 if (name.contains("wins_")){
-                                        assault.setWins(Integer.valueOf(value));
+                                        assault.setWins(intValue);
                                     } else {
-                                        assault.setRounds(Integer.valueOf(value));
+                                        assault.setRounds(intValue);
                                 }
                                 break;
                             case "cs_italy":
                                 if (name.contains("wins_")){
-                                        italy.setWins(Integer.valueOf(value));
+                                        italy.setWins(intValue);
                                     } else {
-                                        italy.setRounds(Integer.valueOf(value));
+                                        italy.setRounds(intValue);
                                 }
                                 break;
                             case "cs_office":
                                 if (name.contains("wins_")){
-                                        office.setWins(Integer.valueOf(value));
+                                        office.setWins(intValue);
                                     } else {
-                                        office.setRounds(Integer.valueOf(value));
+                                        office.setRounds(intValue);
                                 }
                                 break;
                             case "cs_militia":
                                 if (name.contains("wins_")){
-                                        militia.setWins(Integer.valueOf(value));
+                                        militia.setWins(intValue);
                                     } else {
-                                        militia.setRounds(Integer.valueOf(value));
+                                        militia.setRounds(intValue);
                                 }
                                 break;
                             case "ar_monastery":
                                 if (name.contains("wins_")){
-                                        monastery.setWins(Integer.valueOf(value));
+                                        monastery.setWins(intValue);
                                     } else {
-                                        monastery.setRounds(Integer.valueOf(value));
+                                        monastery.setRounds(intValue);
                                 }
                                 break;
                             case "ar_shoots":
                                 if (name.contains("wins_")){
-                                        shoots.setWins(Integer.valueOf(value));
+                                        shoots.setWins(intValue);
                                     } else {
-                                        shoots.setRounds(Integer.valueOf(value));
+                                        shoots.setRounds(intValue);
                                 }
                                 break;
                             case "ar_baggage":
                                 if (name.contains("wins_")){
-                                        baggage.setWins(Integer.valueOf(value));
+                                        baggage.setWins(intValue);
                                     } else {
-                                        baggage.setRounds(Integer.valueOf(value));
+                                        baggage.setRounds(intValue);
                                 }
                                 break;
                             default:
@@ -329,263 +400,263 @@ public class FragmentC extends Fragment {
                         switch (temp){
                             case "ak47":
                                 if (name.contains("kills_")){
-                                    ak47.setKills(Integer.valueOf(value));
+                                    ak47.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    ak47.setShots(Integer.valueOf(value));
+                                    ak47.setShots(intValue);
                                 } else {
-                                    ak47.setHits(Integer.valueOf(value));
+                                    ak47.setHits(intValue);
                                 }
                                 break;
                             case "aug":
                                 if (name.contains("kills_")){
-                                    aug.setKills(Integer.valueOf(value));
+                                    aug.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    aug.setShots(Integer.valueOf(value));
+                                    aug.setShots(intValue);
                                 } else {
-                                    aug.setHits(Integer.valueOf(value));
+                                    aug.setHits(intValue);
                                 }
                                 break;
                             case "awp":
                                 if (name.contains("kills_")){
-                                    awp.setKills(Integer.valueOf(value));
+                                    awp.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    awp.setShots(Integer.valueOf(value));
+                                    awp.setShots(intValue);
                                 } else {
-                                    awp.setHits(Integer.valueOf(value));
+                                    awp.setHits(intValue);
                                 }
                                 break;
                             case "bizon":
                                 if (name.contains("kills_")){
-                                    bizon.setKills(Integer.valueOf(value));
+                                    bizon.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    bizon.setShots(Integer.valueOf(value));
+                                    bizon.setShots(intValue);
                                 } else {
-                                    bizon.setHits(Integer.valueOf(value));
+                                    bizon.setHits(intValue);
                                 }
                                 break;
                             case "deagle":
                                 if (name.contains("kills_")){
-                                    deagle.setKills(Integer.valueOf(value));
+                                    deagle.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    deagle.setShots(Integer.valueOf(value));
+                                    deagle.setShots(intValue);
                                 } else {
-                                    deagle.setHits(Integer.valueOf(value));
+                                    deagle.setHits(intValue);
                                 }
                                 break;
                             case "elite":
                                 if (name.contains("kills_")){
-                                    elite.setKills(Integer.valueOf(value));
+                                    elite.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    elite.setShots(Integer.valueOf(value));
+                                    elite.setShots(intValue);
                                 } else {
-                                    elite.setHits(Integer.valueOf(value));
+                                    elite.setHits(intValue);
                                 }
                                 break;
                             case "famas":
                                 if (name.contains("kills_")){
-                                    famas.setKills(Integer.valueOf(value));
+                                    famas.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    famas.setShots(Integer.valueOf(value));
+                                    famas.setShots(intValue);
                                 } else {
-                                    famas.setHits(Integer.valueOf(value));
+                                    famas.setHits(intValue);
                                 }
                                 break;
                             case "fiveseven":
                                 if (name.contains("kills_")){
-                                    fiveseven.setKills(Integer.valueOf(value));
+                                    fiveseven.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    fiveseven.setShots(Integer.valueOf(value));
+                                    fiveseven.setShots(intValue);
                                 } else {
-                                    fiveseven.setHits(Integer.valueOf(value));
+                                    fiveseven.setHits(intValue);
                                 }
                                 break;
                             case "g3sg1":
                                 if (name.contains("kills_")){
-                                    g3sg1.setKills(Integer.valueOf(value));
+                                    g3sg1.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    g3sg1.setShots(Integer.valueOf(value));
+                                    g3sg1.setShots(intValue);
                                 } else {
-                                    g3sg1.setHits(Integer.valueOf(value));
+                                    g3sg1.setHits(intValue);
                                 }
                                 break;
                             case "galilar":
                                 if (name.contains("kills_")){
-                                    galilar.setKills(Integer.valueOf(value));
+                                    galilar.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    galilar.setShots(Integer.valueOf(value));
+                                    galilar.setShots(intValue);
                                 } else {
-                                    galilar.setHits(Integer.valueOf(value));
+                                    galilar.setHits(intValue);
                                 }
                                 break;
                             case "glock":
                                 if (name.contains("kills_")){
-                                    glock.setKills(Integer.valueOf(value));
+                                    glock.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    glock.setShots(Integer.valueOf(value));
+                                    glock.setShots(intValue);
                                 } else {
-                                    glock.setHits(Integer.valueOf(value));
+                                    glock.setHits(intValue);
                                 }
                                 break;
                             case "hkp2000":
                                 if (name.contains("kills_")){
-                                    hkp2000.setKills(Integer.valueOf(value));
+                                    hkp2000.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    hkp2000.setShots(Integer.valueOf(value));
+                                    hkp2000.setShots(intValue);
                                 } else {
-                                    hkp2000.setHits(Integer.valueOf(value));
+                                    hkp2000.setHits(intValue);
                                 }
                                 break;
                             case "m249":
                                 if (name.contains("kills_")){
-                                    m249.setKills(Integer.valueOf(value));
+                                    m249.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    m249.setShots(Integer.valueOf(value));
+                                    m249.setShots(intValue);
                                 } else {
-                                    m249.setHits(Integer.valueOf(value));
+                                    m249.setHits(intValue);
                                 }
                                 break;
                             case "m4a1":
                                 if (name.contains("kills_")){
-                                    m4a1.setKills(Integer.valueOf(value));
+                                    m4a1.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    m4a1.setShots(Integer.valueOf(value));
+                                    m4a1.setShots(intValue);
                                 } else {
-                                    m4a1.setHits(Integer.valueOf(value));
+                                    m4a1.setHits(intValue);
                                 }
                                 break;
                             case "mac10":
                                 if (name.contains("kills_")){
-                                    mac10.setKills(Integer.valueOf(value));
+                                    mac10.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    mac10.setShots(Integer.valueOf(value));
+                                    mac10.setShots(intValue);
                                 } else {
-                                    mac10.setHits(Integer.valueOf(value));
+                                    mac10.setHits(intValue);
                                 }
                                 break;
                             case "mag7":
                                 if (name.contains("kills_")){
-                                    mag7.setKills(Integer.valueOf(value));
+                                    mag7.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    mag7.setShots(Integer.valueOf(value));
+                                    mag7.setShots(intValue);
                                 } else {
-                                    mag7.setHits(Integer.valueOf(value));
+                                    mag7.setHits(intValue);
                                 }
                                 break;
                             case "mp7":
                                 if (name.contains("kills_")){
-                                    mp7.setKills(Integer.valueOf(value));
+                                    mp7.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    mp7.setShots(Integer.valueOf(value));
+                                    mp7.setShots(intValue);
                                 } else {
-                                    mp7.setHits(Integer.valueOf(value));
+                                    mp7.setHits(intValue);
                                 }
                                 break;
                             case "mp9":
                                 if (name.contains("kills_")){
-                                    mp9.setKills(Integer.valueOf(value));
+                                    mp9.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    mp9.setShots(Integer.valueOf(value));
+                                    mp9.setShots(intValue);
                                 } else {
-                                    mp9.setHits(Integer.valueOf(value));
+                                    mp9.setHits(intValue);
                                 }
                                 break;
                             case "negev":
                                 if (name.contains("kills_")){
-                                    negev.setKills(Integer.valueOf(value));
+                                    negev.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    negev.setShots(Integer.valueOf(value));
+                                    negev.setShots(intValue);
                                 } else {
-                                    negev.setHits(Integer.valueOf(value));
+                                    negev.setHits(intValue);
                                 }
                                 break;
                             case "nova":
                                 if (name.contains("kills_")){
-                                    nova.setKills(Integer.valueOf(value));
+                                    nova.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    nova.setShots(Integer.valueOf(value));
+                                    nova.setShots(intValue);
                                 } else {
-                                    nova.setHits(Integer.valueOf(value));
+                                    nova.setHits(intValue);
                                 }
                                 break;
                             case "p250":
                                 if (name.contains("kills_")){
-                                    p250.setKills(Integer.valueOf(value));
+                                    p250.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    p250.setShots(Integer.valueOf(value));
+                                    p250.setShots(intValue);
                                 } else {
-                                    p250.setHits(Integer.valueOf(value));
+                                    p250.setHits(intValue);
                                 }
                                 break;
                             case "p90":
                                 if (name.contains("kills_")){
-                                    p90.setKills(Integer.valueOf(value));
+                                    p90.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    p90.setShots(Integer.valueOf(value));
+                                    p90.setShots(intValue);
                                 } else {
-                                    p90.setHits(Integer.valueOf(value));
+                                    p90.setHits(intValue);
                                 }
                                 break;
                             case "sawedoff":
                                 if (name.contains("kills_")){
-                                    sawedoff.setKills(Integer.valueOf(value));
+                                    sawedoff.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    sawedoff.setShots(Integer.valueOf(value));
+                                    sawedoff.setShots(intValue);
                                 } else {
-                                    sawedoff.setHits(Integer.valueOf(value));
+                                    sawedoff.setHits(intValue);
                                 }
                                 break;
                             case "scar20":
                                 if (name.contains("kills_")){
-                                    scar20.setKills(Integer.valueOf(value));
+                                    scar20.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    scar20.setShots(Integer.valueOf(value));
+                                    scar20.setShots(intValue);
                                 } else {
-                                    scar20.setHits(Integer.valueOf(value));
+                                    scar20.setHits(intValue);
                                 }
                                 break;
                             case "sg556":
                                 if (name.contains("kills_")){
-                                    sg556.setKills(Integer.valueOf(value));
+                                    sg556.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    sg556.setShots(Integer.valueOf(value));
+                                    sg556.setShots(intValue);
                                 } else {
-                                    sg556.setHits(Integer.valueOf(value));
+                                    sg556.setHits(intValue);
                                 }
                                 break;
                             case "ssg08":
                                 if (name.contains("kills_")){
-                                    ssg08.setKills(Integer.valueOf(value));
+                                    ssg08.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    ssg08.setShots(Integer.valueOf(value));
+                                    ssg08.setShots(intValue);
                                 } else {
-                                    ssg08.setHits(Integer.valueOf(value));
+                                    ssg08.setHits(intValue);
                                 }
                                 break;
                             case "tec9":
                                 if (name.contains("kills_")){
-                                    tec9.setKills(Integer.valueOf(value));
+                                    tec9.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    tec9.setShots(Integer.valueOf(value));
+                                    tec9.setShots(intValue);
                                 } else {
-                                    tec9.setHits(Integer.valueOf(value));
+                                    tec9.setHits(intValue);
                                 }
                                 break;
                             case "ump45":
                                 if (name.contains("kills_")){
-                                    ump45.setKills(Integer.valueOf(value));
+                                    ump45.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    ump45.setShots(Integer.valueOf(value));
+                                    ump45.setShots(intValue);
                                 } else {
-                                    ump45.setHits(Integer.valueOf(value));
+                                    ump45.setHits(intValue);
                                 }
                                 break;
                             case "xm1014":
                                 if (name.contains("kills_")){
-                                    xm1014.setKills(Integer.valueOf(value));
+                                    xm1014.setKills(intValue);
                                 } else if (name.contains("shots_")){
-                                    xm1014.setShots(Integer.valueOf(value));
+                                    xm1014.setShots(intValue);
                                 } else {
-                                    xm1014.setHits(Integer.valueOf(value));
+                                    xm1014.setHits(intValue);
                                 }
                                 break;
                             default:
@@ -639,9 +710,9 @@ public class FragmentC extends Fragment {
 
         web_total_kd.setText(String.valueOf(getTotalKd()));
         web_kills.setText(String.valueOf(getTotalKills()));
-        web_win_perc.setText(String.valueOf(win_perc) + "%");
-        web_hs_perc.setText(String.valueOf(hs_perc) + "%");
-        web_accuracy_perc.setText(String.valueOf(accuracy) + "%");
+        web_win_perc.setText(win_perc + "%");
+        web_hs_perc.setText(hs_perc + "%");
+        web_accuracy_perc.setText(accuracy + "%");
         //HEADER END
         getWebMapList().clear();
         getWebMapList().add(assault);
@@ -693,14 +764,21 @@ public class FragmentC extends Fragment {
                 highestWinsName = ci.getWebMapName();
             }
         }
-        TextView web_map_win_perc = (TextView) view.findViewById(R.id.web_highest_win_perc_number);
-        TextView web_map_wins = (TextView) view.findViewById(R.id.web_highest_wins_number);
-        TextView web_map_rounds = (TextView) view.findViewById(R.id.web_highest_rounds_number);
+        TextView web_map_win_perc_name = (TextView) view.findViewById(R.id.web_highest_win_perc_number);
+        TextView web_map_wins_name = (TextView) view.findViewById(R.id.web_highest_wins_number);
+        TextView web_map_rounds_name = (TextView) view.findViewById(R.id.web_highest_rounds_number);
 
+        TextView web_map_win_perc_number = (TextView) view.findViewById(R.id.web_highest_win_perc_map);
+        TextView web_map_wins_number = (TextView) view.findViewById(R.id.web_highest_wins_map);
+        TextView web_map_rounds_number = (TextView) view.findViewById(R.id.web_highest_rounds_map);
 
-        web_map_win_perc.setText(highestWinPercName + " - " + highestWinPerc + "%");
-        web_map_wins.setText(highestWinsName+ " - " + highestWins);
-        web_map_rounds.setText(highestRoundsName+ " - " + highestRounds);
+        web_map_win_perc_name.setText(highestWinPercName);
+        web_map_wins_name.setText(highestWinsName);
+        web_map_rounds_name.setText(highestRoundsName);
+
+        web_map_win_perc_number.setText(highestWinPerc + " %");
+        web_map_wins_number.setText(String.valueOf(highestWins));
+        web_map_rounds_number.setText(String.valueOf(highestRounds));
 
         getWebGunList().add(ak47);
         getWebGunList().add(aug);
@@ -768,15 +846,79 @@ public class FragmentC extends Fragment {
 
         }
 
-        TextView fav_wep_shots = (TextView) view.findViewById(R.id.web_fav_wep_shots);
-        TextView fav_wep_hits = (TextView) view.findViewById(R.id.web_fav_wep_hits);
-        TextView fav_wep_kills = (TextView) view.findViewById(R.id.web_fav_wep_kills);
-        TextView fav_wep_accuracy = (TextView) view.findViewById(R.id.web_fav_wep_accuracy);
+        TextView fav_wep_shots_name = (TextView) view.findViewById(R.id.web_fav_wep_shots);
+        TextView fav_wep_hits_name = (TextView) view.findViewById(R.id.web_fav_wep_hits);
+        TextView fav_wep_kills_name = (TextView) view.findViewById(R.id.web_fav_wep_kills);
+        TextView fav_wep_accuracy_name = (TextView) view.findViewById(R.id.web_fav_wep_accuracy);
 
-        fav_wep_shots.setText(highestShotsName + " - " + highestShots);
-        fav_wep_hits.setText(highestHitsName + " - " + highestHits);
-        fav_wep_kills.setText(highestKillsName + " - " + highestKills);
-        fav_wep_accuracy.setText(highestAccName + " - " + highestAcc);
+        TextView fav_wep_shots_number = (TextView) view.findViewById(R.id.web_highest_shots_gun);
+        TextView fav_wep_hits_number = (TextView) view.findViewById(R.id.web_highest_hits_gun);
+        TextView fav_wep_kills_number = (TextView) view.findViewById(R.id.web_highest_kills_gun);
+        TextView fav_wep_accuracy_number = (TextView) view.findViewById(R.id.web_highest_accuracy_gun);
+
+        fav_wep_shots_name.setText(highestShotsName);
+        fav_wep_hits_name.setText(highestHitsName);
+        fav_wep_kills_name.setText(highestKillsName);
+        fav_wep_accuracy_name.setText(highestAccName);
+
+        fav_wep_shots_number.setText(String.valueOf(highestShots));
+        fav_wep_hits_number.setText(String.valueOf(highestHits));
+        fav_wep_kills_number.setText(String.valueOf(highestKills));
+        fav_wep_accuracy_number.setText(highestAcc + " %");
+
+        TextView web_other_kills = (TextView) view.findViewById(R.id.web_other_kills);
+        web_other_kills.setText(String.valueOf(getTotalKills()));
+        TextView web_other_heashots = (TextView) view.findViewById(R.id.web_other_headshots);
+        web_other_heashots.setText(String.valueOf(getTotalKillsHeadshot()));
+        TextView web_other_deaths = (TextView) view.findViewById(R.id.web_other_deaths);
+        web_other_deaths.setText(String.valueOf(getTotalDeaths()));
+        TextView web_other_wins = (TextView) view.findViewById(R.id.web_other_wins);
+        web_other_wins.setText(String.valueOf(getTotalWins()));
+        TextView web_other_rounds = (TextView) view.findViewById(R.id.web_other_rounds);
+        web_other_rounds.setText(String.valueOf(getTotalRounds()));
+        TextView web_other_planted = (TextView) view.findViewById(R.id.web_other_planted);
+        web_other_planted.setText(String.valueOf(getTotalPlanted()));
+        TextView web_other_defused = (TextView) view.findViewById(R.id.web_other_defused);
+        web_other_defused.setText(String.valueOf(getTotalDefused()));
+        TextView web_other_damage_done = (TextView) view.findViewById(R.id.web_other_damage_done);
+        web_other_damage_done.setText(String.valueOf(getTotalDamageDone()));
+        TextView web_other_money_earned = (TextView) view.findViewById(R.id.web_other_money_earned);
+        web_other_money_earned.setText("$" + String.valueOf(getTotalMoneyEarned()));
+        TextView web_other_hostages_rescued = (TextView) view.findViewById(R.id.web_other_hostages_rescued);
+        web_other_hostages_rescued.setText(String.valueOf(getTotalRescuedHostages()));
+        TextView web_other_mvps = (TextView) view.findViewById(R.id.web_other_mvps);
+        web_other_mvps.setText(String.valueOf(getTotalMvps()));
+        TextView web_other_enemy_weapon = (TextView) view.findViewById(R.id.web_other_enemy_weapon);
+        web_other_enemy_weapon.setText(String.valueOf(getTotalKillsEnemyWeapon()));
+
+        TextView web_other_shots_fired = (TextView) view.findViewById(R.id.web_other_shots_fired);
+        web_other_shots_fired.setText(String.valueOf(getTotalShotsFired()));
+        TextView web_other_shots_hit = (TextView) view.findViewById(R.id.web_other_shots_hit);
+        web_other_shots_hit.setText(String.valueOf(getTotalShotsHit()));
+        TextView web_other_zeus_shots = (TextView) view.findViewById(R.id.web_other_zeus_shots);
+        web_other_zeus_shots.setText(String.valueOf(getTotalShotsTaser()));
+        TextView web_other_zeus_kills = (TextView) view.findViewById(R.id.web_other_zeus_kills);
+        web_other_zeus_kills.setText(String.valueOf(getTotalKillsTaser()));
+        TextView web_other_molotov = (TextView) view.findViewById(R.id.web_other_molotov);
+        web_other_molotov.setText(String.valueOf(getTotalKillsMolotov()));
+        TextView web_other_nade = (TextView) view.findViewById(R.id.web_other_nade);
+        web_other_nade.setText(String.valueOf(getTotalKillsHeGrenade()));
+        TextView web_other_knife = (TextView) view.findViewById(R.id.web_other_knife);
+        web_other_knife.setText(String.valueOf(getTotalKillsKnife()));
+        TextView web_other_flash = (TextView) view.findViewById(R.id.web_other_flash);
+        web_other_flash.setText(String.valueOf(getTotalKillsEnemyBlinded()));
+        TextView web_other_zoomed = (TextView) view.findViewById(R.id.web_other_zoomed);
+        web_other_zoomed.setText(String.valueOf(getTotalKillsAgainstZoomedSniper()));
+        TextView web_other_dominations = (TextView) view.findViewById(R.id.web_other_dominations);
+        web_other_dominations.setText(String.valueOf(getTotalDominations()));
+        TextView web_other_revenges = (TextView) view.findViewById(R.id.web_other_revenges);
+        web_other_revenges.setText(String.valueOf(getTotalRevenges()));
+        TextView web_other_donated = (TextView) view.findViewById(R.id.web_other_donated);
+        web_other_donated.setText(String.valueOf(getTotalWeaponsDonated()));
+        TextView web_other_broken_windows = (TextView) view.findViewById(R.id.web_other_broken_windows);
+        web_other_broken_windows.setText(String.valueOf(getTotalBrokenWindows()));
+
+
     }
 
     public int getTotalKills() {
@@ -837,6 +979,150 @@ public class FragmentC extends Fragment {
 
     public int getTotalRounds() {
         return mTotalRounds;
+    }
+
+    public int getTotalPlanted() {
+        return mTotalPlanted;
+    }
+
+    public void setTotalPlanted(int totalPlanted) {
+        mTotalPlanted = totalPlanted;
+    }
+
+    public int getTotalDefused() {
+        return mTotalDefused;
+    }
+
+    public void setTotalDefused(int totalDefused) {
+        mTotalDefused = totalDefused;
+    }
+
+    public int getTotalDamageDone() {
+        return mTotalDamageDone;
+    }
+
+    public void setTotalDamageDone(int totalDamageDone) {
+        mTotalDamageDone = totalDamageDone;
+    }
+
+    public int getTotalMoneyEarned() {
+        return mTotalMoneyEarned;
+    }
+
+    public void setTotalMoneyEarned(int totalMoneyEarned) {
+        mTotalMoneyEarned = totalMoneyEarned;
+    }
+
+    public int getTotalRescuedHostages() {
+        return mTotalRescuedHostages;
+    }
+
+    public void setTotalRescuedHostages(int totalRescuedHostages) {
+        mTotalRescuedHostages = totalRescuedHostages;
+    }
+
+    public int getTotalKillsKnife() {
+        return mTotalKillsKnife;
+    }
+
+    public void setTotalKillsKnife(int totalKillsKnife) {
+        mTotalKillsKnife = totalKillsKnife;
+    }
+
+    public int getTotalKillsHeGrenade() {
+        return mTotalKillsHeGrenade;
+    }
+
+    public void setTotalKillsHeGrenade(int totalKillsHeGrenade) {
+        mTotalKillsHeGrenade = totalKillsHeGrenade;
+    }
+
+    public int getTotalKillsEnemyWeapon() {
+        return mTotalKillsEnemyWeapon;
+    }
+
+    public void setTotalKillsEnemyWeapon(int totalKillsEnemyWeapon) {
+        mTotalKillsEnemyWeapon = totalKillsEnemyWeapon;
+    }
+
+    public int getTotalWeaponsDonated() {
+        return mTotalWeaponsDonated;
+    }
+
+    public void setTotalWeaponsDonated(int totalWeaponsDonated) {
+        mTotalWeaponsDonated = totalWeaponsDonated;
+    }
+
+    public int getTotalBrokenWindows() {
+        return mTotalBrokenWindows;
+    }
+
+    public void setTotalBrokenWindows(int totalBrokenWindows) {
+        mTotalBrokenWindows = totalBrokenWindows;
+    }
+
+    public int getTotalKillsEnemyBlinded() {
+        return mTotalKillsEnemyBlinded;
+    }
+
+    public void setTotalKillsEnemyBlinded(int totalKillsEnemyBlinded) {
+        mTotalKillsEnemyBlinded = totalKillsEnemyBlinded;
+    }
+
+    public int getTotalKillsAgainstZoomedSniper() {
+        return mTotalKillsAgainstZoomedSniper;
+    }
+
+    public void setTotalKillsAgainstZoomedSniper(int totalKillsAgainstZoomedSniper) {
+        mTotalKillsAgainstZoomedSniper = totalKillsAgainstZoomedSniper;
+    }
+
+    public int getTotalDominations() {
+        return mTotalDominations;
+    }
+
+    public void setTotalDominations(int totalDominations) {
+        mTotalDominations = totalDominations;
+    }
+
+    public int getTotalRevenges() {
+        return mTotalRevenges;
+    }
+
+    public void setTotalRevenges(int totalRevenges) {
+        mTotalRevenges = totalRevenges;
+    }
+
+    public int getTotalMvps() {
+        return mTotalMvps;
+    }
+
+    public void setTotalMvps(int totalMvps) {
+        mTotalMvps = totalMvps;
+    }
+
+    public int getTotalKillsMolotov() {
+        return mTotalKillsMolotov;
+    }
+
+    public void setTotalKillsMolotov(int totalKillsMolotov) {
+        mTotalKillsMolotov = totalKillsMolotov;
+    }
+
+    public int getTotalKillsTaser() {
+        return mTotalKillsTaser;
+    }
+
+    public void setTotalKillsTaser(int totalKillsTaser) {
+        mTotalKillsTaser = totalKillsTaser;
+    }
+
+    public int getTotalShotsTaser() {
+        return mTotalShotsTaser;
+    }
+
+    public void setTotalShotsTaser(int totalShotsTaser) {
+        mTotalShotsTaser = totalShotsTaser;
     }
 
     public void setTotalRounds(int totalRounds) {

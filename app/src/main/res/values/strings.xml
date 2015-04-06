@@ -8,6 +8,23 @@
     <string name="card_kills_title">Kills</string>
     <string name="card_assists_title">Assists</string>
     <string name="card_deaths_title">Deaths</string>
+    <string name="kill_slash_death">K/D</string>
+    <string name="total_kills">Total Kills</string>
+    <string name="win_percentage">Win %</string>
+    <string name="headshot_percentage">Headshot %</string>
+    <string name="accuracy">Accuracy</string>
+    <string name="kd_ratio_number">0.00</string>
+    <string name="powered_by_steam">powered by Steam - http://www.steampowered.com</string>
+    <string name="best_maps_title">Best Maps</string>
+    <string name="dash">-</string>
+    <string name="web_wep_best_accuracy">Best Accuracy</string>
+    <string name="web_wep_most_kills">Most Kills</string>
+    <string name="web_wep_most_hits">Most Hits</string>
+    <string name="web_wep_most_shots">Most Shots</string>
+    <string name="web_best_weapons_title">Best Weapons</string>
+    <string name="web_map_most_rounds">Most Rounds</string>
+    <string name="web_map_most_wins">Most Wins</string>
+    <string name="web_map_best_win_percentage">Best Win%</string>
 
     <string-array name="maps_array">
         <item>de_dust2</item>
