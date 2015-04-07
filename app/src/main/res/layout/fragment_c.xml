@@ -42,7 +42,7 @@
                     android:textColor="@color/material_blue_grey_900"
                     android:fontFamily="sans-serif-light"
                     android:id="@+id/web_kd_title"
-                    android:layout_below="@id/web_kd"
+                    android:layout_below="@+id/web_kd"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp" />
 
@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/accent"
                     android:id="@+id/web_total_kills_number"
-                    android:layout_below="@id/web_total_kills_title"
+                    android:layout_below="@+id/web_total_kills_title"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
 
@@ -85,18 +85,18 @@
                     android:fontFamily="sans-serif-light"
                     android:id="@+id/web_win_percent_title"
                     android:textColor="@color/material_blue_grey_900"
-                    android:layout_below="@id/web_total_kills_number"
-                    android:layout_alignLeft="@id/web_total_kills_title"
-                    android:layout_alignStart="@id/web_total_kills_title" />
+                    android:layout_below="@+id/web_total_kills_number"
+                    android:layout_alignLeft="@+id/web_total_kills_title"
+                    android:layout_alignStart="@+id/web_total_kills_title" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/accent"
                     android:id="@+id/web_win_percent_number"
-                    android:layout_below="@id/web_win_percent_title"
-                    android:layout_alignRight="@id/web_total_kills_number"
-                    android:layout_alignEnd="@id/web_total_kills_number" />
+                    android:layout_below="@+id/web_win_percent_title"
+                    android:layout_alignRight="@+id/web_total_kills_number"
+                    android:layout_alignEnd="@+id/web_total_kills_number" />
             </RelativeLayout>
 
 
@@ -125,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/accent"
                     android:id="@+id/web_headshot_number"
-                    android:layout_below="@id/web_headshot_title"
+                    android:layout_below="@+id/web_headshot_title"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
 
@@ -136,18 +136,18 @@
                     android:fontFamily="sans-serif-light"
                     android:id="@+id/web_accuracy_title"
                     android:textColor="@color/material_blue_grey_900"
-                    android:layout_below="@id/web_headshot_number"
-                    android:layout_alignLeft="@id/web_headshot_title"
-                    android:layout_alignStart="@id/web_headshot_number" />
+                    android:layout_below="@+id/web_headshot_number"
+                    android:layout_alignLeft="@+id/web_headshot_title"
+                    android:layout_alignStart="@+id/web_headshot_number" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/accent"
                     android:id="@+id/web_accuracy_number"
-                    android:layout_below="@id/web_accuracy_title"
-                    android:layout_alignRight="@id/web_headshot_number"
-                    android:layout_alignEnd="@id/web_accuracy_title" />
+                    android:layout_below="@+id/web_accuracy_title"
+                    android:layout_alignRight="@+id/web_headshot_number"
+                    android:layout_alignEnd="@+id/web_accuracy_title" />
             </RelativeLayout>
 
         </LinearLayout>
@@ -176,7 +176,7 @@
                 android:fontFamily="sans-serif-light"
                 android:textColor="@color/material_blue_grey_900"
                 android:id="@+id/web_highest_win_perc_name"
-                android:layout_below="@id/web_best_maps_title"
+                android:layout_below="@+id/web_best_maps_title"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp"
@@ -187,9 +187,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/web_highest_win_perc_number"
                 android:textColor="@color/accent"
-                android:layout_below="@id/web_highest_win_perc_name"
-                android:layout_alignLeft="@id/web_highest_win_perc_name"
-                android:layout_alignStart="@id/web_highest_win_perc_name"
+                android:layout_below="@+id/web_highest_win_perc_name"
+                android:layout_alignLeft="@+id/web_highest_win_perc_name"
+                android:layout_alignStart="@+id/web_highest_win_perc_name"
                 android:layout_marginLeft="35dp"
                 android:layout_marginStart="35dp" />
 
@@ -200,18 +200,18 @@
                 android:fontFamily="sans-serif-light"
                 android:textColor="@color/material_blue_grey_900"
                 android:id="@+id/web_highest_wins_name"
-                android:layout_below="@id/web_highest_win_perc_number"
-                android:layout_alignLeft="@id/web_highest_win_perc_name"
-                android:layout_alignStart="@id/web_highest_win_perc_name" />
+                android:layout_below="@+id/web_highest_win_perc_number"
+                android:layout_alignLeft="@+id/web_highest_win_perc_name"
+                android:layout_alignStart="@+id/web_highest_win_perc_name" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/web_highest_wins_number"
                 android:textColor="@color/accent"
-                android:layout_below="@id/web_highest_wins_name"
-                android:layout_alignLeft="@id/web_highest_win_perc_number"
-                android:layout_alignStart="@id/web_highest_win_perc_number" />
+                android:layout_below="@+id/web_highest_wins_name"
+                android:layout_alignLeft="@+id/web_highest_win_perc_number"
+                android:layout_alignStart="@+id/web_highest_win_perc_number" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -220,18 +220,18 @@
                 android:fontFamily="sans-serif-light"
                 android:textColor="@color/material_blue_grey_900"
                 android:id="@+id/web_highest_rounds_name"
-                android:layout_below="@id/web_highest_wins_number"
-                android:layout_alignLeft="@id/web_highest_wins_name"
-                android:layout_alignStart="@id/web_highest_wins_name" />
+                android:layout_below="@+id/web_highest_wins_number"
+                android:layout_alignLeft="@+id/web_highest_wins_name"
+                android:layout_alignStart="@+id/web_highest_wins_name" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/web_highest_rounds_number"
                 android:textColor="@color/accent"
-                android:layout_below="@id/web_highest_rounds_name"
-                android:layout_alignLeft="@id/web_highest_wins_number"
-                android:layout_alignStart="@id/web_highest_wins_number" />
+                android:layout_below="@+id/web_highest_rounds_name"
+                android:layout_alignLeft="@+id/web_highest_wins_number"
+                android:layout_alignStart="@+id/web_highest_wins_number" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -241,9 +241,9 @@
                 android:fontFamily="sans-serif-light"
                 android:textColor="@color/accent"
                 android:id="@+id/web_best_weapons_title"
-                android:layout_below="@id/web_highest_rounds_number"
-                android:layout_alignLeft="@id/web_best_maps_title"
-                android:layout_alignStart="@id/web_best_maps_title"
+                android:layout_below="@+id/web_highest_rounds_number"
+                android:layout_alignLeft="@+id/web_best_maps_title"
+                android:layout_alignStart="@+id/web_best_maps_title"
                 android:layout_marginTop="15dp"/>
 
             <TextView
@@ -254,18 +254,18 @@
                 android:textColor="@color/material_blue_grey_900"
                 android:id="@+id/textView"
                 android:layout_marginTop="15dp"
-                android:layout_below="@id/web_best_weapons_title"
-                android:layout_alignLeft="@id/web_highest_rounds_name"
-                android:layout_alignStart="@id/web_highest_rounds_name" />
+                android:layout_below="@+id/web_best_weapons_title"
+                android:layout_alignLeft="@+id/web_highest_rounds_name"
+                android:layout_alignStart="@+id/web_highest_rounds_name" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/accent"
                 android:id="@+id/web_fav_wep_shots"
-                android:layout_below="@id/textView"
-                android:layout_alignLeft="@id/web_highest_rounds_number"
-                android:layout_alignStart="@id/web_highest_rounds_number" />
+                android:layout_below="@+id/textView"
+                android:layout_alignLeft="@+id/web_highest_rounds_number"
+                android:layout_alignStart="@+id/web_highest_rounds_number" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -274,18 +274,18 @@
                 android:fontFamily="sans-serif-light"
                 android:textColor="@color/material_blue_grey_900"
                 android:id="@+id/textView3"
-                android:layout_below="@id/web_fav_wep_shots"
-                android:layout_alignLeft="@id/textView"
-                android:layout_alignStart="@id/textView" />
+                android:layout_below="@+id/web_fav_wep_shots"
+                android:layout_alignLeft="@+id/textView"
+                android:layout_alignStart="@+id/textView" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/accent"
                 android:id="@+id/web_fav_wep_hits"
-                android:layout_below="@id/textView3"
-                android:layout_alignLeft="@id/web_highest_wins_number"
-                android:layout_alignStart="@id/web_highest_wins_number" />
+                android:layout_below="@+id/textView3"
+                android:layout_alignLeft="@+id/web_highest_wins_number"
+                android:layout_alignStart="@+id/web_highest_wins_number" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -294,18 +294,18 @@
                 android:fontFamily="sans-serif-light"
                 android:textColor="@color/material_blue_grey_900"
                 android:id="@+id/textView2"
-                android:layout_below="@id/web_fav_wep_hits"
-                android:layout_alignLeft="@id/textView3"
-                android:layout_alignStart="@id/textView3" />
+                android:layout_below="@+id/web_fav_wep_hits"
+                android:layout_alignLeft="@+id/textView3"
+                android:layout_alignStart="@+id/textView3" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/accent"
                 android:id="@+id/web_fav_wep_kills"
-                android:layout_below="@id/textView2"
-                android:layout_alignLeft="@id/web_fav_wep_hits"
-                android:layout_alignStart="@id/web_fav_wep_hits" />
+                android:layout_below="@+id/textView2"
+                android:layout_alignLeft="@+id/web_fav_wep_hits"
+                android:layout_alignStart="@+id/web_fav_wep_hits" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -314,27 +314,27 @@
                 android:fontFamily="sans-serif-light"
                 android:textColor="@color/material_blue_grey_900"
                 android:id="@+id/textView5"
-                android:layout_below="@id/web_fav_wep_kills"
-                android:layout_alignLeft="@id/textView2"
-                android:layout_alignStart="@id/textView2" />
+                android:layout_below="@+id/web_fav_wep_kills"
+                android:layout_alignLeft="@+id/textView2"
+                android:layout_alignStart="@+id/textView2" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/accent"
                 android:id="@+id/web_fav_wep_accuracy"
-                android:layout_below="@id/textView5"
-                android:layout_alignLeft="@id/web_fav_wep_hits"
-                android:layout_alignStart="@id/web_fav_wep_hits" />
+                android:layout_below="@+id/textView5"
+                android:layout_alignLeft="@+id/web_fav_wep_hits"
+                android:layout_alignStart="@+id/web_fav_wep_hits" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/dash"
                 android:id="@+id/textView4"
-                android:layout_alignBottom="@id/web_highest_win_perc_number"
-                android:layout_toRightOf="@id/web_highest_win_perc_number"
-                android:layout_toEndOf="@id/web_highest_win_perc_number"
+                android:layout_alignBottom="@+id/web_highest_win_perc_number"
+                android:layout_toRightOf="@+id/web_highest_win_perc_number"
+                android:layout_toEndOf="@+id/web_highest_win_perc_number"
                 android:textColor="@color/material_blue_grey_900"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -345,9 +345,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/dash"
                 android:id="@+id/textView6"
-                android:layout_alignBottom="@id/web_highest_wins_number"
-                android:layout_toRightOf="@id/web_highest_wins_number"
-                android:layout_toEndOf="@id/web_highest_wins_number"
+                android:layout_alignBottom="@+id/web_highest_wins_number"
+                android:layout_toRightOf="@+id/web_highest_wins_number"
+                android:layout_toEndOf="@+id/web_highest_wins_number"
                 android:textColor="@color/material_blue_grey_900"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -358,9 +358,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/dash"
                 android:id="@+id/textView7"
-                android:layout_above="@id/textView3"
-                android:layout_toRightOf="@id/web_fav_wep_shots"
-                android:layout_toEndOf="@id/web_fav_wep_shots"
+                android:layout_above="@+id/textView3"
+                android:layout_toRightOf="@+id/web_fav_wep_shots"
+                android:layout_toEndOf="@+id/web_fav_wep_shots"
                 android:textColor="@color/material_blue_grey_900"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -371,9 +371,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/dash"
                 android:id="@+id/textView8"
-                android:layout_above="@id/textView2"
-                android:layout_toRightOf="@id/web_fav_wep_hits"
-                android:layout_toEndOf="@id/web_fav_wep_hits"
+                android:layout_above="@+id/textView2"
+                android:layout_toRightOf="@+id/web_fav_wep_hits"
+                android:layout_toEndOf="@+id/web_fav_wep_hits"
                 android:textColor="@color/material_blue_grey_900"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -384,9 +384,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/dash"
                 android:id="@+id/textView9"
-                android:layout_above="@id/textView5"
-                android:layout_toRightOf="@id/web_fav_wep_kills"
-                android:layout_toEndOf="@id/web_fav_wep_kills"
+                android:layout_above="@+id/textView5"
+                android:layout_toRightOf="@+id/web_fav_wep_kills"
+                android:layout_toEndOf="@+id/web_fav_wep_kills"
                 android:textColor="@color/material_blue_grey_900"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -397,9 +397,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/dash"
                 android:id="@+id/textView10"
-                android:layout_alignBottom="@id/web_fav_wep_accuracy"
-                android:layout_toRightOf="@id/web_fav_wep_accuracy"
-                android:layout_toEndOf="@id/web_fav_wep_accuracy"
+                android:layout_alignBottom="@+id/web_fav_wep_accuracy"
+                android:layout_toRightOf="@+id/web_fav_wep_accuracy"
+                android:layout_toEndOf="@+id/web_fav_wep_accuracy"
                 android:textColor="@color/material_blue_grey_900"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -410,9 +410,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/dash"
                 android:id="@+id/textView11"
-                android:layout_alignBottom="@id/web_highest_rounds_number"
-                android:layout_toRightOf="@id/web_highest_rounds_number"
-                android:layout_toEndOf="@id/web_highest_rounds_number"
+                android:layout_alignBottom="@+id/web_highest_rounds_number"
+                android:layout_toRightOf="@+id/web_highest_rounds_number"
+                android:layout_toEndOf="@+id/web_highest_rounds_number"
                 android:textColor="@color/material_blue_grey_900"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -422,9 +422,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/web_highest_win_perc_map"
-                android:layout_alignBottom="@id/textView4"
-                android:layout_toRightOf="@id/textView4"
-                android:layout_toEndOf="@id/textView4"
+                android:layout_alignBottom="@+id/textView4"
+                android:layout_toRightOf="@+id/textView4"
+                android:layout_toEndOf="@+id/textView4"
                 android:textColor="@color/material_blue_grey_900"
                 android:fontFamily="sans-serif-light" />
 
@@ -432,9 +432,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/web_highest_wins_map"
-                android:layout_alignBottom="@id/textView6"
-                android:layout_toRightOf="@id/textView6"
-                android:layout_toEndOf="@id/textView6"
+                android:layout_alignBottom="@+id/textView6"
+                android:layout_toRightOf="@+id/textView6"
+                android:layout_toEndOf="@+id/textView6"
                 android:textColor="@color/material_blue_grey_900"
                 android:fontFamily="sans-serif-light" />
 
@@ -442,9 +442,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/web_highest_rounds_map"
-                android:layout_alignBottom="@id/textView11"
-                android:layout_toRightOf="@id/textView11"
-                android:layout_toEndOf="@id/textView11"
+                android:layout_alignBottom="@+id/textView11"
+                android:layout_toRightOf="@+id/textView11"
+                android:layout_toEndOf="@+id/textView11"
                 android:textColor="@color/material_blue_grey_900"
                 android:fontFamily="sans-serif-light" />
 
@@ -452,9 +452,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/web_highest_shots_gun"
-                android:layout_alignBottom="@id/textView7"
-                android:layout_toRightOf="@id/textView7"
-                android:layout_toEndOf="@id/textView7"
+                android:layout_alignBottom="@+id/textView7"
+                android:layout_toRightOf="@+id/textView7"
+                android:layout_toEndOf="@+id/textView7"
                 android:textColor="@color/material_blue_grey_900"
                 android:fontFamily="sans-serif-light" />
 
@@ -462,9 +462,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/web_highest_hits_gun"
-                android:layout_alignBottom="@id/textView8"
-                android:layout_toRightOf="@id/textView8"
-                android:layout_toEndOf="@id/textView8"
+                android:layout_alignBottom="@+id/textView8"
+                android:layout_toRightOf="@+id/textView8"
+                android:layout_toEndOf="@+id/textView8"
                 android:textColor="@color/material_blue_grey_900"
                 android:fontFamily="sans-serif-light" />
 
@@ -472,9 +472,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/web_highest_kills_gun"
-                android:layout_alignBottom="@id/textView9"
-                android:layout_toRightOf="@id/textView9"
-                android:layout_toEndOf="@id/textView9"
+                android:layout_alignBottom="@+id/textView9"
+                android:layout_toRightOf="@+id/textView9"
+                android:layout_toEndOf="@+id/textView9"
                 android:textColor="@color/material_blue_grey_900"
                 android:fontFamily="sans-serif-light" />
 
@@ -482,9 +482,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/web_highest_accuracy_gun"
-                android:layout_alignBottom="@id/textView10"
-                android:layout_toRightOf="@id/textView10"
-                android:layout_toEndOf="@id/textView10"
+                android:layout_alignBottom="@+id/textView10"
+                android:layout_toRightOf="@+id/textView10"
+                android:layout_toEndOf="@+id/textView10"
                 android:textColor="@color/material_blue_grey_900"
                 android:fontFamily="sans-serif-light" />
 
@@ -520,7 +520,7 @@
                     android:layout_height="wrap_content"
                     android:text="kills"
                     android:id="@+id/stat1"
-                    android:layout_below="@id/web_other_stats_title"
+                    android:layout_below="@+id/web_other_stats_title"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:fontFamily="sans-serif-light"
@@ -650,10 +650,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@id/web_other_kills"
+                    android:id="@+id/web_other_kills"
                     android:textSize="12sp"
                     android:textColor="@color/accent"
-                    android:layout_below="@id/stat1"
+                    android:layout_below="@+id/stat1"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_marginLeft="15dp"
@@ -662,102 +662,102 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@id/web_other_headshots"
+                    android:id="@+id/web_other_headshots"
                     android:textSize="12sp"
                     android:textColor="@color/accent"
-                    android:layout_below="@id/textView13"
-                    android:layout_alignLeft="@id/web_other_kills"
-                    android:layout_alignStart="@id/web_other_kills" />
+                    android:layout_below="@+id/textView13"
+                    android:layout_alignLeft="@+id/web_other_kills"
+                    android:layout_alignStart="@+id/web_other_kills" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@id/web_other_deaths"
+                    android:id="@+id/web_other_deaths"
                     android:textSize="12sp"
                     android:textColor="@color/accent"
-                    android:layout_below="@id/textView15"
-                    android:layout_alignLeft="@id/web_other_headshots"
-                    android:layout_alignStart="@id/web_other_headshots" />
+                    android:layout_below="@+id/textView15"
+                    android:layout_alignLeft="@+id/web_other_headshots"
+                    android:layout_alignStart="@+id/web_other_headshots" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@id/web_other_wins"
+                    android:id="@+id/web_other_wins"
                     android:textSize="12sp"
                     android:textColor="@color/accent"
-                    android:layout_below="@id/textView16"
-                    android:layout_alignLeft="@id/web_other_deaths"
-                    android:layout_alignStart="@id/web_other_deaths" />
+                    android:layout_below="@+id/textView16"
+                    android:layout_alignLeft="@+id/web_other_deaths"
+                    android:layout_alignStart="@+id/web_other_deaths" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@id/web_other_rounds"
+                    android:id="@+id/web_other_rounds"
                     android:textSize="12sp"
                     android:textColor="@color/accent"
-                    android:layout_below="@id/textView31"
-                    android:layout_alignLeft="@id/web_other_wins"
-                    android:layout_alignStart="@id/web_other_wins" />
+                    android:layout_below="@+id/textView31"
+                    android:layout_alignLeft="@+id/web_other_wins"
+                    android:layout_alignStart="@+id/web_other_wins" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@id/web_other_planted"
+                    android:id="@+id/web_other_planted"
                     android:textSize="12sp"
                     android:textColor="@color/accent"
-                    android:layout_below="@id/textView17"
-                    android:layout_alignLeft="@id/web_other_rounds"
-                    android:layout_alignStart="@id/web_other_rounds" />
+                    android:layout_below="@+id/textView17"
+                    android:layout_alignLeft="@+id/web_other_rounds"
+                    android:layout_alignStart="@+id/web_other_rounds" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@id/web_other_defused"
+                    android:id="@+id/web_other_defused"
                     android:textSize="12sp"
                     android:textColor="@color/accent"
-                    android:layout_below="@id/textView18"
-                    android:layout_alignLeft="@id/web_other_planted"
-                    android:layout_alignStart="@id/web_other_planted" />
+                    android:layout_below="@+id/textView18"
+                    android:layout_alignLeft="@+id/web_other_planted"
+                    android:layout_alignStart="@+id/web_other_planted" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@id/web_other_damage_done"
+                    android:id="@+id/web_other_damage_done"
                     android:textSize="12sp"
                     android:textColor="@color/accent"
-                    android:layout_below="@id/textView19"
-                    android:layout_alignLeft="@id/web_other_defused"
-                    android:layout_alignStart="@id/web_other_defused" />
+                    android:layout_below="@+id/textView19"
+                    android:layout_alignLeft="@+id/web_other_defused"
+                    android:layout_alignStart="@+id/web_other_defused" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@id/web_other_money_earned"
+                    android:id="@+id/web_other_money_earned"
                     android:textSize="12sp"
                     android:textColor="@color/accent"
-                    android:layout_below="@id/textView20"
-                    android:layout_alignLeft="@id/web_other_kills"
-                    android:layout_alignStart="@id/web_other_kills" />
+                    android:layout_below="@+id/textView20"
+                    android:layout_alignLeft="@+id/web_other_kills"
+                    android:layout_alignStart="@+id/web_other_kills" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@id/web_other_hostages_rescued"
+                    android:id="@+id/web_other_hostages_rescued"
                     android:textSize="12sp"
                     android:textColor="@color/accent"
-                    android:layout_below="@id/textView21"
-                    android:layout_alignLeft="@id/web_other_money_earned"
-                    android:layout_alignStart="@id/web_other_money_earned" />
+                    android:layout_below="@+id/textView21"
+                    android:layout_alignLeft="@+id/web_other_money_earned"
+                    android:layout_alignStart="@+id/web_other_money_earned" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@id/web_other_mvps"
+                    android:id="@+id/web_other_mvps"
                     android:textSize="12sp"
                     android:textColor="@color/accent"
-                    android:layout_below="@id/textView30"
-                    android:layout_alignLeft="@id/web_other_hostages_rescued"
-                    android:layout_alignStart="@id/web_other_hostages_rescued" />
+                    android:layout_below="@+id/textView30"
+                    android:layout_alignLeft="@+id/web_other_hostages_rescued"
+                    android:layout_alignStart="@+id/web_other_hostages_rescued" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -765,9 +765,9 @@
                     android:id="@+id/web_other_enemy_weapon"
                     android:textSize="12sp"
                     android:textColor="@color/accent"
-                    android:layout_below="@id/textView32"
-                    android:layout_alignLeft="@id/web_other_mvps"
-                    android:layout_alignStart="@id/web_other_mvps" />
+                    android:layout_below="@+id/textView32"
+                    android:layout_alignLeft="@+id/web_other_mvps"
+                    android:layout_alignStart="@+id/web_other_mvps" />
 
             </RelativeLayout>
 
@@ -786,7 +786,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="1dp"
                     android:fontFamily="sans-serif-light"
                     android:textSize="12sp" />
 
@@ -925,8 +925,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@id/web_other_shots_fired"
-                    android:layout_below="@id/textView12"
+                    android:id="@+id/web_other_shots_fired"
+                    android:layout_below="@+id/textView12"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_marginLeft="15dp"
@@ -937,110 +937,110 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@id/web_other_shots_hit"
-                    android:layout_below="@id/textView14"
-                    android:layout_alignLeft="@id/web_other_shots_fired"
-                    android:layout_alignStart="@id/web_other_shots_fired"
+                    android:id="@+id/web_other_shots_hit"
+                    android:layout_below="@+id/textView14"
+                    android:layout_alignLeft="@+id/web_other_shots_fired"
+                    android:layout_alignStart="@+id/web_other_shots_fired"
                     android:textSize="12sp"
                     android:textColor="@color/accent" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@id/web_other_zeus_shots"
-                    android:layout_below="@id/textView22"
-                    android:layout_alignLeft="@id/web_other_shots_hit"
-                    android:layout_alignStart="@id/web_other_shots_hit"
+                    android:id="@+id/web_other_zeus_shots"
+                    android:layout_below="@+id/textView22"
+                    android:layout_alignLeft="@+id/web_other_shots_hit"
+                    android:layout_alignStart="@+id/web_other_shots_hit"
                     android:textSize="12sp"
                     android:textColor="@color/accent" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@id/web_other_zeus_kills"
-                    android:layout_below="@id/textView23"
-                    android:layout_alignLeft="@id/web_other_zeus_shots"
-                    android:layout_alignStart="@id/web_other_zeus_shots"
+                    android:id="@+id/web_other_zeus_kills"
+                    android:layout_below="@+id/textView23"
+                    android:layout_alignLeft="@+id/web_other_zeus_shots"
+                    android:layout_alignStart="@+id/web_other_zeus_shots"
                     android:textSize="12sp"
                     android:textColor="@color/accent" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@id/web_other_molotov"
-                    android:layout_below="@id/textView24"
-                    android:layout_alignLeft="@id/web_other_zeus_kills"
-                    android:layout_alignStart="@id/web_other_zeus_kills"
+                    android:id="@+id/web_other_molotov"
+                    android:layout_below="@+id/textView24"
+                    android:layout_alignLeft="@+id/web_other_zeus_kills"
+                    android:layout_alignStart="@+id/web_other_zeus_kills"
                     android:textSize="12sp"
                     android:textColor="@color/accent" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@id/web_other_nade"
-                    android:layout_below="@id/textView25"
-                    android:layout_alignLeft="@id/web_other_molotov"
-                    android:layout_alignStart="@id/web_other_molotov"
+                    android:id="@+id/web_other_nade"
+                    android:layout_below="@+id/textView25"
+                    android:layout_alignLeft="@+id/web_other_molotov"
+                    android:layout_alignStart="@+id/web_other_molotov"
                     android:textSize="12sp"
                     android:textColor="@color/accent" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@id/web_other_knife"
-                    android:layout_below="@id/textView26"
-                    android:layout_alignLeft="@id/web_other_nade"
-                    android:layout_alignStart="@id/web_other_nade"
+                    android:id="@+id/web_other_knife"
+                    android:layout_below="@+id/textView26"
+                    android:layout_alignLeft="@+id/web_other_nade"
+                    android:layout_alignStart="@+id/web_other_nade"
                     android:textSize="12sp"
                     android:textColor="@color/accent" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@id/web_other_flash"
-                    android:layout_below="@id/textView27"
-                    android:layout_alignLeft="@id/web_other_knife"
-                    android:layout_alignStart="@id/web_other_knife"
+                    android:id="@+id/web_other_flash"
+                    android:layout_below="@+id/textView27"
+                    android:layout_alignLeft="@+id/web_other_knife"
+                    android:layout_alignStart="@+id/web_other_knife"
                     android:textSize="12sp"
                     android:textColor="@color/accent" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@id/web_other_zoomed"
-                    android:layout_below="@id/textView28"
-                    android:layout_alignLeft="@id/web_other_flash"
-                    android:layout_alignStart="@id/web_other_flash"
+                    android:id="@+id/web_other_zoomed"
+                    android:layout_below="@+id/textView28"
+                    android:layout_alignLeft="@+id/web_other_flash"
+                    android:layout_alignStart="@+id/web_other_flash"
                     android:textSize="12sp"
                     android:textColor="@color/accent" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@id/web_other_dominations"
-                    android:layout_below="@id/textView29"
-                    android:layout_alignLeft="@id/web_other_zoomed"
-                    android:layout_alignStart="@id/web_other_zoomed"
+                    android:id="@+id/web_other_dominations"
+                    android:layout_below="@+id/textView29"
+                    android:layout_alignLeft="@+id/web_other_zoomed"
+                    android:layout_alignStart="@+id/web_other_zoomed"
                     android:textSize="12sp"
                     android:textColor="@color/accent" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@id/web_other_revenges"
-                    android:layout_below="@id/textView33"
-                    android:layout_alignLeft="@id/web_other_dominations"
-                    android:layout_alignStart="@id/web_other_dominations"
+                    android:id="@+id/web_other_revenges"
+                    android:layout_below="@+id/textView33"
+                    android:layout_alignLeft="@+id/web_other_dominations"
+                    android:layout_alignStart="@+id/web_other_dominations"
                     android:textSize="12sp"
                     android:textColor="@color/accent" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@id/web_other_donated"
-                    android:layout_below="@id/textView34"
-                    android:layout_alignLeft="@id/web_other_revenges"
-                    android:layout_alignStart="@id/web_other_revenges"
+                    android:id="@+id/web_other_donated"
+                    android:layout_below="@+id/textView34"
+                    android:layout_alignLeft="@+id/web_other_revenges"
+                    android:layout_alignStart="@+id/web_other_revenges"
                     android:textSize="12sp"
                     android:textColor="@color/accent" />
 
@@ -1048,9 +1048,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/web_other_broken_windows"
-                    android:layout_below="@id/textView35"
-                    android:layout_alignLeft="@id/web_other_donated"
-                    android:layout_alignStart="@id/web_other_donated"
+                    android:layout_below="@+id/textView35"
+                    android:layout_alignLeft="@+id/web_other_donated"
+                    android:layout_alignStart="@+id/web_other_donated"
                     android:textSize="12sp"
                     android:textColor="@color/accent" />
 

@@ -21,14 +21,15 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
                 return "Stats";
             case 2:
                 return "All Games";
+            case 3:
+                return "Smokes";
             default:
                 return null;
         }
-        //return (position == 0)? "My Matches" : "Stats" ;
     }
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
     @Override
     public Fragment getItem(int position) {
@@ -39,9 +40,10 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
                 return new FragmentB();
             case 2:
                 return new FragmentC();
+            case 3:
+                return new FragmentD();
             default:
                 return null;
         }
-        //return (position == 0)? new FragmentA() : new FragmentB() ;
     }
 }

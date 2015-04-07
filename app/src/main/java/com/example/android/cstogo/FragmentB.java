@@ -4,6 +4,7 @@ package com.example.android.cstogo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,8 +80,10 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_b, container, false);
 
-        EventBus.getDefault().register(this);
-
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+        
         if (MatchList.getInstance().matchList.size() > 0) {
             updateTextViews(view);
         }
