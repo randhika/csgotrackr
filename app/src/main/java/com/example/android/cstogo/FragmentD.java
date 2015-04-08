@@ -55,8 +55,8 @@ public class FragmentD extends Fragment{
         smokeMapList.add("de_overpass");
         smokeMapList.add("de_cache");
         smokeMapList.add("de_season");
+        smokeMapList.add("de_train");
         smokeMapList.add("de_nuke");
-
         return view;
     }
 

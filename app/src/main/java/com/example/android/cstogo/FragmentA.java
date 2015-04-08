@@ -59,18 +59,15 @@ public class FragmentA extends Fragment {
             Match dummyTest = new Match(16, 4, i, 2, 3, 4, 9, mTestArray[generatedIndex]);
             MatchList.getInstance().matchList.add(dummyTest);
         }
-        MatchList.getInstance().matchList.add(0, new Match(16, 1, 25, 25, 7, 10, 10, "de_season"));
+        MatchList.getInstance().matchList.add(0, new Match(16, 1, 25, 25, 7, 10, 10, "de_train"));
 
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.attachToRecyclerView(mRecyclerView);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(getActivity(), NewMatchActivity.class);
-                startActivityForResult(myIntent, 1);
-            }
+        fab.setOnClickListener(v -> {
+            Intent myIntent = new Intent(getActivity(), NewMatchActivity.class);
+            startActivityForResult(myIntent, 1);
         });
 
         return view;

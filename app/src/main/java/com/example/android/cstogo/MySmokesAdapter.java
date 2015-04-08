@@ -1,13 +1,14 @@
 package com.example.android.cstogo;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -41,31 +42,34 @@ public class MySmokesAdapter extends RecyclerView.Adapter<MySmokesAdapter.Smokes
 
         switch (ci) {
             case "de_nuke":
-                Picasso.with(mContext).load(R.drawable.nuke_res).fit().centerCrop().noFade().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.nuke_res2).noFade().into(smokesViewHolder.vRowImage);
                 break;
             case "de_dust2":
-                Picasso.with(mContext).load(R.drawable.dust2_res).fit().centerCrop().noFade().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.dust2_res2).noFade().into(smokesViewHolder.vRowImage);
                 break;
             case "de_inferno":
-                Picasso.with(mContext).load(R.drawable.inferno_res).fit().centerCrop().noFade().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.inferno_res2).noFade().into(smokesViewHolder.vRowImage);
                 break;
             case "de_cache":
-                Picasso.with(mContext).load(R.drawable.cache_res).fit().centerCrop().noFade().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.cache_res2).noFade().into(smokesViewHolder.vRowImage);
                 break;
             case "de_cbble":
-                Picasso.with(mContext).load(R.drawable.cbble_res).fit().centerCrop().noFade().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.cbble_res).noFade().into(smokesViewHolder.vRowImage);
                 break;
             case "de_overpass":
-                Picasso.with(mContext).load(R.drawable.overpass_res).fit().centerCrop().noFade().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.overpass_res2).noFade().into(smokesViewHolder.vRowImage);
                 break;
             case "de_season":
-                Picasso.with(mContext).load(R.drawable.season_res).fit().centerCrop().noFade().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.season_res).noFade().into(smokesViewHolder.vRowImage);
                 break;
             case "de_mirage":
-                Picasso.with(mContext).load(R.drawable.mirage_res).fit().centerCrop().noFade().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.mirage_res).noFade().into(smokesViewHolder.vRowImage);
+                break;
+            case "de_train":
+                Picasso.with(mContext).load(R.drawable.train_res).noFade().into(smokesViewHolder.vRowImage);
                 break;
             default:
-                Picasso.with(mContext).load(R.drawable.dust2_res).fit().centerCrop().noFade().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.dust2_res2).noFade().into(smokesViewHolder.vRowImage);
                 break;
         }
 
@@ -101,15 +105,17 @@ public class MySmokesAdapter extends RecyclerView.Adapter<MySmokesAdapter.Smokes
         @Override
         public void onClick(View v) {
 
+            final Handler handler = new Handler();
             switch (getLayoutPosition()){
                 case 0:
-                    Toast.makeText(context, "HEY", Toast.LENGTH_SHORT).show();
+                    handler.postDelayed(() -> {
+                        Intent myIntent = new Intent(context, Dust2SmokesActivity.class);
+                        context.startActivity(myIntent);
+                    }, 600);
                     break;
                 case 1:
-                    Toast.makeText(context, "I  JUST", Toast.LENGTH_SHORT).show();
                     break;
                 default:
-                    Toast.makeText(context, "MET YOU", Toast.LENGTH_SHORT).show();
                     break;
 
             }

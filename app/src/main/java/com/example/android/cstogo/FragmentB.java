@@ -22,7 +22,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.github.mikephil.charting.utils.ValueFormatter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -126,12 +125,7 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
 
         PieDataSet pieDataSet = new PieDataSet(getPieYVals(), "");
         pieDataSet.setSliceSpace(3f);
-        pieDataSet.setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                return ((int) value) + "";
-            }
-        });
+        pieDataSet.setValueFormatter(value -> ((int) value) + "");
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
         PieData data = new PieData(getPieXVals(), pieDataSet);
@@ -254,6 +248,8 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         BigDecimal de_overpass_kad = new BigDecimal(0);
         int de_season_count = 0;
         BigDecimal de_season_kad = new BigDecimal(0);
+        int de_train_count = 0;
+        BigDecimal de_train_kad = new BigDecimal(0);
 
         ArrayList<Match> matchList = MatchList.getInstance().matchList;
         //generate All Kills, Assists, Deaths
@@ -303,6 +299,10 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
                 case "de_season":
                     de_season_count++;
                     de_season_kad = de_season_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
+                    break;
+                case "de_train":
+                    de_train_count++;
+                    de_train_kad = de_train_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
                     break;
             }
 
@@ -367,6 +367,13 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
             getPieXVals().add("de_season");
             getBarYVals().add(new BarEntry((de_season_kad.divide(new BigDecimal(de_season_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
             getBarXVals().add("de_season");
+            pie_chart_map_count++;
+        }
+        if (de_train_count > 0){
+            getPieYVals().add(new Entry((float) de_train_count, pie_chart_map_count));
+            getPieXVals().add("de_train");
+            getBarYVals().add(new BarEntry((de_train_kad.divide(new BigDecimal(de_train_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("de_train");
         }
 
 

@@ -35,6 +35,9 @@
         <item>de_cbble</item>
         <item>de_overpass</item>
         <item>de_season</item>
+        <item>de_train</item>
     </string-array>
+    <string name="title_activity_dust2_smokes">Dust2 Smokes</string>
+
 
 </resources>

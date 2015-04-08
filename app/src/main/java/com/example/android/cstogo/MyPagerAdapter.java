@@ -1,16 +1,25 @@
 package com.example.android.cstogo;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.astuetz.PagerSlidingTabStrip;
 
 /**
  * - Yuro - 18.3.2015.
  */
-public class MyPagerAdapter extends FragmentPagerAdapter {
+public class MyPagerAdapter extends FragmentPagerAdapter implements PagerSlidingTabStrip.CustomTabProvider{
 
-    public MyPagerAdapter(FragmentManager fm) {
+    Context mContext;
+
+    public MyPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
+        this.mContext = context;
     }
     @Override
     public CharSequence getPageTitle(int position) {
@@ -45,5 +54,10 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
             default:
                 return null;
         }
+    }
+
+    @Override
+    public View getCustomTabView(ViewGroup viewGroup, int i) {
+        return LayoutInflater.from(mContext).inflate(R.layout.ripple, viewGroup, false);
     }
 }
