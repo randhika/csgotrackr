@@ -5,7 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -75,19 +77,44 @@ public class MySmokesAdapter extends RecyclerView.Adapter<MySmokesAdapter.Smokes
                 from(viewGroup.getContext()).
                 inflate(R.layout.row, viewGroup, false);
 
-        return new SmokesViewHolder(itemView);
+        return new SmokesViewHolder(itemView, mContext);
     }
 
-    public static class SmokesViewHolder extends RecyclerView.ViewHolder {
+    public static class SmokesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         protected TextView vRowName;
         protected CircleImageView vRowImage;
+        protected RelativeLayout vRowLayout;
+        protected Context context;
 
-        public SmokesViewHolder(View v) {
+
+        public SmokesViewHolder(View v, Context c) {
             super(v);
+            context = c;
+            v.setClickable(true);
+            v.setOnClickListener(this);
             vRowName =  (TextView) v.findViewById(R.id.rowMapName);
             vRowImage = (CircleImageView) v.findViewById(R.id.rowImage);
+            vRowLayout = (RelativeLayout) v.findViewById(R.id.rowRelLayout);
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            switch (getLayoutPosition()){
+                case 0:
+                    Toast.makeText(context, "HEY", Toast.LENGTH_SHORT).show();
+                    break;
+                case 1:
+                    Toast.makeText(context, "I  JUST", Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    Toast.makeText(context, "MET YOU", Toast.LENGTH_SHORT).show();
+                    break;
+
+            }
         }
     }
+
 
 }

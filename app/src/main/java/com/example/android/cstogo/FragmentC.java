@@ -109,6 +109,7 @@ public class FragmentC extends Fragment {
 
     public FragmentC() {
         // Required empty public constructor
+        // TODO: Update on actionbar press, inflate different when no settings, build uri
     }
 
 

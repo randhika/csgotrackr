@@ -29,10 +29,11 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.android.support:recyclerview-v7:22.0.0'
     compile 'com.android.support:cardview-v7:22.0.0'
-    compile 'de.hdodenhof:circleimageview:1.2.2'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'de.greenrobot:eventbus:2.4.0'
-    compile 'com.github.PhilJay:MPAndroidChart:v2.0.8'
-    compile 'com.jpardogo.materialtabstrip:library:1.0.9'
-    compile 'com.melnykov:floatingactionbutton:1.2.0'
+    compile 'de.hdodenhof:circleimageview:1.2.2' //circle images for smokes tab
+    compile 'com.squareup.picasso:picasso:2.5.2' //picasso for smart image load
+    compile 'com.github.traex.rippleeffect:library:1.2.4' //ripple for 4.1+
+    compile 'de.greenrobot:eventbus:2.4.0' //eventbus
+    compile 'com.github.PhilJay:MPAndroidChart:v2.0.8' //charts
+    compile 'com.jpardogo.materialtabstrip:library:1.0.9' //tab strip
+    compile 'com.melnykov:floatingactionbutton:1.2.0' //fab
 }

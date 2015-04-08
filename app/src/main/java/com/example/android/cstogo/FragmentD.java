@@ -15,7 +15,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentD extends Fragment {
+public class FragmentD extends Fragment{
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;

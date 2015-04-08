@@ -4,7 +4,6 @@ package com.example.android.cstogo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,6 +70,7 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
 
     public FragmentB() {
         // Required empty public constructor
+        // TODO: change layout a bit, add some more stats
     }
 
 
