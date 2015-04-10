@@ -419,7 +419,6 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             if (MatchList.getInstance().matchList.size() > 0) {
-                getPie().animateY(500);
                 getKadBar().animateY(3000);
             }
         }

@@ -1,23 +1,44 @@
 package com.example.android.cstogo;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
 
-public class Dust2SmokesActivity extends ActionBarActivity {
+
+public class SmokesActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dust2_smokes);
+        setContentView(R.layout.activity_smokes);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
 
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recycler_smokes);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2, LinearLayoutManager.VERTICAL, false));
+
+        MyRecyclerSmokesActivityAdapter adapter = new MyRecyclerSmokesActivityAdapter(this, createItems());
+        mRecyclerView.setAdapter(adapter);
+
+    }
+
+    private List<Smoke> createItems() {
+        List<Smoke> tempList = new ArrayList<>();
+        tempList.clear();
+        for (int i = 0; i < 15; i++) {
+            tempList.add(new Smoke("de_dust" + i));
+        }
+        return tempList;
     }
 
     @Override

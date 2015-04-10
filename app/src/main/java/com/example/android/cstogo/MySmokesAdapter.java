@@ -39,7 +39,7 @@ public class MySmokesAdapter extends RecyclerView.Adapter<MySmokesAdapter.Smokes
         String ci = smokeMapList.get(i);
 
         smokesViewHolder.vRowName.setText(ci);
-
+        //todo: remove this switch
         switch (ci) {
             case "de_nuke":
                 Picasso.with(mContext).load(R.drawable.nuke_res2).noFade().into(smokesViewHolder.vRowImage);
@@ -81,7 +81,7 @@ public class MySmokesAdapter extends RecyclerView.Adapter<MySmokesAdapter.Smokes
                 from(viewGroup.getContext()).
                 inflate(R.layout.row, viewGroup, false);
 
-        return new SmokesViewHolder(itemView, mContext);
+        return new SmokesViewHolder(itemView);
     }
 
     public static class SmokesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -92,9 +92,9 @@ public class MySmokesAdapter extends RecyclerView.Adapter<MySmokesAdapter.Smokes
         protected Context context;
 
 
-        public SmokesViewHolder(View v, Context c) {
+        public SmokesViewHolder(View v) {
             super(v);
-            context = c;
+            context = v.getContext();
             v.setClickable(true);
             v.setOnClickListener(this);
             vRowName =  (TextView) v.findViewById(R.id.rowMapName);
@@ -112,7 +112,7 @@ public class MySmokesAdapter extends RecyclerView.Adapter<MySmokesAdapter.Smokes
                     Intent myIntent = null;
                     switch (getLayoutPosition()){
                         case 0:
-                            myIntent = new Intent(context, Dust2SmokesActivity.class);
+                            myIntent = new Intent(context, SmokesActivity.class);
                             break;
                         case 1:
                             break;

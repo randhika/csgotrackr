@@ -48,7 +48,7 @@ public class MyMatchAdapter extends RecyclerView.Adapter<MyMatchAdapter.MatchVie
         } else {
             matchViewHolder.vResultStrip.setBackgroundColor(Color.rgb(114, 137, 186));
         }
-
+        //todo: remove this switch
         switch (ci.getMap()) {
             case "de_nuke":
                 Picasso.with(mContext).load(R.drawable.nuke_res).fit().centerCrop().into(matchViewHolder.vMapPic);
