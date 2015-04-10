@@ -22,6 +22,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.ValueFormatter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -125,7 +126,12 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
 
         PieDataSet pieDataSet = new PieDataSet(getPieYVals(), "");
         pieDataSet.setSliceSpace(3f);
-        pieDataSet.setValueFormatter(value -> ((int) value) + "");
+        pieDataSet.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return ((int) value) + "";
+            }
+        });
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
         PieData data = new PieData(getPieXVals(), pieDataSet);

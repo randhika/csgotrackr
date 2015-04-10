@@ -65,9 +65,12 @@ public class FragmentA extends Fragment {
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.attachToRecyclerView(mRecyclerView);
 
-        fab.setOnClickListener(v -> {
-            Intent myIntent = new Intent(getActivity(), NewMatchActivity.class);
-            startActivityForResult(myIntent, 1);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getActivity(), NewMatchActivity.class);
+                startActivityForResult(myIntent, 1);
+            }
         });
 
         return view;

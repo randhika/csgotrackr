@@ -105,20 +105,28 @@ public class MySmokesAdapter extends RecyclerView.Adapter<MySmokesAdapter.Smokes
         @Override
         public void onClick(View v) {
 
-            final Handler handler = new Handler();
-            switch (getLayoutPosition()){
-                case 0:
-                    handler.postDelayed(() -> {
-                        Intent myIntent = new Intent(context, Dust2SmokesActivity.class);
-                        context.startActivity(myIntent);
-                    }, 600);
-                    break;
-                case 1:
-                    break;
-                default:
-                    break;
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent myIntent = null;
+                    switch (getLayoutPosition()){
+                        case 0:
+                            myIntent = new Intent(context, Dust2SmokesActivity.class);
+                            break;
+                        case 1:
+                            break;
+                        default:
+                            break;
 
-            }
+                    }
+                    if (myIntent != null) {
+                        context.startActivity(myIntent);
+                    }
+                }
+            }, 600);
+
+
         }
     }
 
