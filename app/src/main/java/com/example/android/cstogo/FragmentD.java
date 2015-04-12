@@ -33,6 +33,17 @@ public class FragmentD extends Fragment{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_d, container, false);
 
+        smokeMapList.clear();
+        smokeMapList.add("de_dust2");
+        smokeMapList.add("de_inferno");
+        smokeMapList.add("de_mirage");
+        smokeMapList.add("de_cbble");
+        smokeMapList.add("de_overpass");
+        smokeMapList.add("de_cache");
+        smokeMapList.add("de_season");
+        smokeMapList.add("de_train");
+        smokeMapList.add("de_nuke");
+
         mRecyclerView = (RecyclerView) view.findViewById(R.id.smokesMapList);
 
         // use this setting to improve performance if you know that changes
@@ -47,16 +58,6 @@ public class FragmentD extends Fragment{
         mAdapter = new MySmokesAdapter(getActivity(), smokeMapList);
         mRecyclerView.setAdapter(mAdapter);
 
-        smokeMapList.clear();
-        smokeMapList.add("de_dust2");
-        smokeMapList.add("de_inferno");
-        smokeMapList.add("de_mirage");
-        smokeMapList.add("de_cbble");
-        smokeMapList.add("de_overpass");
-        smokeMapList.add("de_cache");
-        smokeMapList.add("de_season");
-        smokeMapList.add("de_train");
-        smokeMapList.add("de_nuke");
         return view;
     }
 

@@ -3,11 +3,12 @@ package com.example.android.cstogo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +26,20 @@ public class SmokesActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
 
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recycler_smokes);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2, LinearLayoutManager.VERTICAL, false));
 
-        MyRecyclerSmokesActivityAdapter adapter = new MyRecyclerSmokesActivityAdapter(this, createItems());
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        final List<Smoke> tempList = createItems();
+        MyRecyclerSmokesActivityAdapter adapter = new MyRecyclerSmokesActivityAdapter(this, tempList);
         mRecyclerView.setAdapter(adapter);
 
+        adapter.SetOnItemClickListener(new MyRecyclerSmokesActivityAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Smoke tempSmoke = tempList.get(position);
+                Toast.makeText(SmokesActivity.this, "clicked: " + tempSmoke.getMapId(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private List<Smoke> createItems() {

@@ -19,17 +19,18 @@ public class MyRecyclerSmokesActivityAdapter extends RecyclerView.Adapter<MyRecy
 
     private Context mContext;
     private List<Smoke> mSmokeList;
+    OnItemClickListener mItemClickListener;
 
     public MyRecyclerSmokesActivityAdapter(Context context, List<Smoke> smokeList) {
-        mContext = context;
-        mSmokeList = smokeList;
+        this.mContext = context;
+        this.mSmokeList = smokeList;
     }
 
     @Override
     public SmokeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.
-                from(parent.getContext()).
-                inflate(R.layout.square_smoke_th, parent, false);
+                from(parent.getContext()).inflate(R.layout.row, parent, false);
+                //inflate(R.layout.square_smoke_th, parent, false);
 
         return new SmokeViewHolder(itemView);
     }
@@ -49,14 +50,31 @@ public class MyRecyclerSmokesActivityAdapter extends RecyclerView.Adapter<MyRecy
     }
 
 
-    public static class SmokeViewHolder extends RecyclerView.ViewHolder {
+    public class SmokeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         protected ImageView thumbnail;
         protected TextView title;
 
         public SmokeViewHolder(View v){
             super(v);
-            thumbnail = (ImageView) v.findViewById(R.id.square_thumb);
-            title = (TextView) v.findViewById(R.id.square_title);
+            thumbnail = (ImageView) v.findViewById(R.id.rowImage);//(ImageView) v.findViewById(R.id.square_thumb);
+            title = (TextView) v.findViewById(R.id.rowMapName);//(TextView) v.findViewById(R.id.square_title);
+            v.setClickable(true);
+            v.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            if (mItemClickListener != null) {
+                mItemClickListener.onItemClick(v, getLayoutPosition());
+            }
+        }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view , int position);
+    }
+
+    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener) {
+        this.mItemClickListener = mItemClickListener;
     }
 }
