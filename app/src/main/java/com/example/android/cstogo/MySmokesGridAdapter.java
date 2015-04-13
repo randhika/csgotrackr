@@ -15,13 +15,13 @@ import java.util.List;
 /**
  * - Yuro - 10.4.2015.
  */
-public class MyRecyclerSmokesActivityAdapter extends RecyclerView.Adapter<MyRecyclerSmokesActivityAdapter.SmokeViewHolder> {
+public class MySmokesGridAdapter extends RecyclerView.Adapter<MySmokesGridAdapter.SmokeViewHolder> {
 
     private Context mContext;
     private List<Smoke> mSmokeList;
     OnItemClickListener mItemClickListener;
 
-    public MyRecyclerSmokesActivityAdapter(Context context, List<Smoke> smokeList) {
+    public MySmokesGridAdapter(Context context, List<Smoke> smokeList) {
         this.mContext = context;
         this.mSmokeList = smokeList;
     }
@@ -29,8 +29,9 @@ public class MyRecyclerSmokesActivityAdapter extends RecyclerView.Adapter<MyRecy
     @Override
     public SmokeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.
-                from(parent.getContext()).inflate(R.layout.row, parent, false);
-                //inflate(R.layout.square_smoke_th, parent, false);
+                from(parent.getContext()).
+                //inflate(R.layout.row, parent, false);
+                inflate(R.layout.square_smoke_th, parent, false);
 
         return new SmokeViewHolder(itemView);
     }
@@ -41,7 +42,7 @@ public class MyRecyclerSmokesActivityAdapter extends RecyclerView.Adapter<MyRecy
 
         holder.title.setText(smokeItem.getMapId());
 
-        Picasso.with(mContext).load(R.drawable.mirage_res).fit().centerCrop().into(holder.thumbnail);
+        Picasso.with(mContext).load(R.drawable.de_mirage).fit().centerCrop().into(holder.thumbnail);
     }
 
     @Override
@@ -56,8 +57,10 @@ public class MyRecyclerSmokesActivityAdapter extends RecyclerView.Adapter<MyRecy
 
         public SmokeViewHolder(View v){
             super(v);
-            thumbnail = (ImageView) v.findViewById(R.id.rowImage);//(ImageView) v.findViewById(R.id.square_thumb);
-            title = (TextView) v.findViewById(R.id.rowMapName);//(TextView) v.findViewById(R.id.square_title);
+            //thumbnail = (ImageView) v.findViewById(R.id.rowImage);
+            thumbnail = (ImageView) v.findViewById(R.id.square_thumb);
+            //title = (TextView) v.findViewById(R.id.rowMapName);
+            title = (TextView) v.findViewById(R.id.square_title);
             v.setClickable(true);
             v.setOnClickListener(this);
         }

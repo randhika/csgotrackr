@@ -1,9 +1,11 @@
 package com.example.android.cstogo;
 
+import java.io.Serializable;
+
 /**
  * - Yuro - 10.4.2015.
  */
-public class Smoke {
+public class Smoke implements Serializable{
 
     private String mapId;
 

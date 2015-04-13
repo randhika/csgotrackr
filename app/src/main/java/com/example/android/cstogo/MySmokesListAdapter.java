@@ -1,8 +1,6 @@
 package com.example.android.cstogo;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +17,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * - Yuro - 7.4.2015.
  */
-public class MySmokesAdapter extends RecyclerView.Adapter<MySmokesAdapter.SmokesViewHolder> {
+public class MySmokesListAdapter extends RecyclerView.Adapter<MySmokesListAdapter.SmokesViewHolder> {
 
     private Context mContext;
     private List<String> smokeMapList;
+    OnItemClickListener mItemClickListener;
 
-    public MySmokesAdapter(Context context, List<String> smokeMapList){
+    public MySmokesListAdapter(Context context, List<String> smokeMapList){
         this.smokeMapList = smokeMapList;
         this.mContext= context;
     }
@@ -42,34 +41,34 @@ public class MySmokesAdapter extends RecyclerView.Adapter<MySmokesAdapter.Smokes
         //todo: remove this switch
         switch (ci) {
             case "de_nuke":
-                Picasso.with(mContext).load(R.drawable.nuke_res2).noFade().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.de_nuke).noFade().into(smokesViewHolder.vRowImage);
                 break;
             case "de_dust2":
-                Picasso.with(mContext).load(R.drawable.dust2_res2).noFade().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.de_dust2).noFade().into(smokesViewHolder.vRowImage);
                 break;
             case "de_inferno":
-                Picasso.with(mContext).load(R.drawable.inferno_res2).noFade().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.de_inferno).noFade().into(smokesViewHolder.vRowImage);
                 break;
             case "de_cache":
-                Picasso.with(mContext).load(R.drawable.cache_res2).noFade().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.de_cache).noFade().into(smokesViewHolder.vRowImage);
                 break;
             case "de_cbble":
-                Picasso.with(mContext).load(R.drawable.cbble_res).noFade().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.de_cbble).noFade().into(smokesViewHolder.vRowImage);
                 break;
             case "de_overpass":
-                Picasso.with(mContext).load(R.drawable.overpass_res2).noFade().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.de_overpass).noFade().into(smokesViewHolder.vRowImage);
                 break;
             case "de_season":
-                Picasso.with(mContext).load(R.drawable.season_res).noFade().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.de_season).noFade().into(smokesViewHolder.vRowImage);
                 break;
             case "de_mirage":
-                Picasso.with(mContext).load(R.drawable.mirage_res).noFade().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.de_mirage).noFade().into(smokesViewHolder.vRowImage);
                 break;
             case "de_train":
-                Picasso.with(mContext).load(R.drawable.train_res).noFade().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.de_train).noFade().into(smokesViewHolder.vRowImage);
                 break;
             default:
-                Picasso.with(mContext).load(R.drawable.dust2_res2).noFade().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.de_dust2).noFade().into(smokesViewHolder.vRowImage);
                 break;
         }
 
@@ -84,7 +83,7 @@ public class MySmokesAdapter extends RecyclerView.Adapter<MySmokesAdapter.Smokes
         return new SmokesViewHolder(itemView);
     }
 
-    public static class SmokesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class SmokesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         protected TextView vRowName;
         protected CircleImageView vRowImage;
@@ -104,30 +103,18 @@ public class MySmokesAdapter extends RecyclerView.Adapter<MySmokesAdapter.Smokes
 
         @Override
         public void onClick(View v) {
-
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent myIntent = null;
-                    switch (getLayoutPosition()){
-                        case 0:
-                            myIntent = new Intent(context, SmokesActivity.class);
-                            break;
-                        case 1:
-                            break;
-                        default:
-                            break;
-
-                    }
-                    if (myIntent != null) {
-                        context.startActivity(myIntent);
-                    }
-                }
-            }, 600);
-
-
+            if (mItemClickListener != null) {
+                mItemClickListener.onItemClick(v, getLayoutPosition());
+            }
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view , int position);
+    }
+
+    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener) {
+        this.mItemClickListener = mItemClickListener;
     }
 
 

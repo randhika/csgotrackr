@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 
 import com.melnykov.fab.FloatingActionButton;
 
-import java.util.Random;
-
 import de.greenrobot.event.EventBus;
 
 
@@ -28,6 +26,19 @@ public class FragmentA extends Fragment {
     public FragmentA() {
         // Required empty public constructor
         }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mTestArray = getResources().getStringArray(R.array.maps_array);
+
+        for (int i = 0; i < 8; i++) {
+            Match dummyTest = new Match(16, 4, i, 2, 3, 4, 9, mTestArray[i]);
+            MatchList.getInstance().matchList.add(dummyTest);
+        }
+        MatchList.getInstance().matchList.add(0, new Match(16, 1, 25, 25, 7, 10, 10, "de_train"));
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,19 +59,6 @@ public class FragmentA extends Fragment {
         // specify an adapter
         mAdapter = new MyMatchAdapter(getActivity(), MatchList.getInstance().matchList);
         mRecyclerView.setAdapter(mAdapter);
-
-        mTestArray = getResources().getStringArray(R.array.maps_array);
-        for (int i = 0; i < 15; i++) {
-            Random random = new Random();
-
-            int maxIndex = mTestArray.length;
-            int generatedIndex = random.nextInt(maxIndex);
-
-            Match dummyTest = new Match(16, 4, i, 2, 3, 4, 9, mTestArray[generatedIndex]);
-            MatchList.getInstance().matchList.add(dummyTest);
-        }
-        MatchList.getInstance().matchList.add(0, new Match(16, 1, 25, 25, 7, 10, 10, "de_train"));
-
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.attachToRecyclerView(mRecyclerView);

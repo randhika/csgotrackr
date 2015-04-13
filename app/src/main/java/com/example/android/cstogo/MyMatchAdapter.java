@@ -51,34 +51,34 @@ public class MyMatchAdapter extends RecyclerView.Adapter<MyMatchAdapter.MatchVie
         //todo: remove this switch
         switch (ci.getMap()) {
             case "de_nuke":
-                Picasso.with(mContext).load(R.drawable.nuke_res).fit().centerCrop().into(matchViewHolder.vMapPic);
+                Picasso.with(mContext).load(R.drawable.de_nuke).fit().centerCrop().into(matchViewHolder.vMapPic);
                 break;
             case "de_dust2":
-                Picasso.with(mContext).load(R.drawable.dust2_res2).fit().centerCrop().into(matchViewHolder.vMapPic);
+                Picasso.with(mContext).load(R.drawable.de_dust2).fit().centerCrop().into(matchViewHolder.vMapPic);
                 break;
             case "de_inferno":
-                Picasso.with(mContext).load(R.drawable.inferno_res2).fit().centerCrop().into(matchViewHolder.vMapPic);
+                Picasso.with(mContext).load(R.drawable.de_inferno).fit().centerCrop().into(matchViewHolder.vMapPic);
                 break;
             case "de_cache":
-                Picasso.with(mContext).load(R.drawable.cache_res2).fit().centerCrop().into(matchViewHolder.vMapPic);
+                Picasso.with(mContext).load(R.drawable.de_cache).fit().centerCrop().into(matchViewHolder.vMapPic);
                 break;
             case "de_cbble":
-                Picasso.with(mContext).load(R.drawable.cbble_res).fit().centerCrop().into(matchViewHolder.vMapPic);
+                Picasso.with(mContext).load(R.drawable.de_cbble).fit().centerCrop().into(matchViewHolder.vMapPic);
                 break;
             case "de_overpass":
-                Picasso.with(mContext).load(R.drawable.overpass_res2).fit().centerCrop().into(matchViewHolder.vMapPic);
+                Picasso.with(mContext).load(R.drawable.de_overpass).fit().centerCrop().into(matchViewHolder.vMapPic);
                 break;
             case "de_season":
-                Picasso.with(mContext).load(R.drawable.season_res).fit().centerCrop().into(matchViewHolder.vMapPic);
+                Picasso.with(mContext).load(R.drawable.de_season).fit().centerCrop().into(matchViewHolder.vMapPic);
                 break;
             case "de_mirage":
-                Picasso.with(mContext).load(R.drawable.mirage_res).fit().centerCrop().into(matchViewHolder.vMapPic);
+                Picasso.with(mContext).load(R.drawable.de_mirage).fit().centerCrop().into(matchViewHolder.vMapPic);
                 break;
             case "de_train":
-                Picasso.with(mContext).load(R.drawable.train_res).fit().centerCrop().into(matchViewHolder.vMapPic);
+                Picasso.with(mContext).load(R.drawable.de_train).fit().centerCrop().into(matchViewHolder.vMapPic);
                 break;
             default:
-                Picasso.with(mContext).load(R.drawable.dust2_res2).fit().centerCrop().into(matchViewHolder.vMapPic);
+                Picasso.with(mContext).load(R.drawable.de_dust2).fit().centerCrop().into(matchViewHolder.vMapPic);
                 break;
         }
 

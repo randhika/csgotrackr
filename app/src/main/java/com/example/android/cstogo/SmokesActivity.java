@@ -1,5 +1,6 @@
 package com.example.android.cstogo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class SmokesActivity extends ActionBarActivity {
@@ -25,30 +25,24 @@ public class SmokesActivity extends ActionBarActivity {
 
         setSupportActionBar(toolbar);
 
+        Intent intent = getIntent();
+        @SuppressWarnings("unchecked cast")
+        final ArrayList<Smoke> tempList = (ArrayList<Smoke>) intent.getSerializableExtra("TEMP");
+
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recycler_smokes);
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        final List<Smoke> tempList = createItems();
-        MyRecyclerSmokesActivityAdapter adapter = new MyRecyclerSmokesActivityAdapter(this, tempList);
+        MySmokesGridAdapter adapter = new MySmokesGridAdapter(this, tempList);
         mRecyclerView.setAdapter(adapter);
 
-        adapter.SetOnItemClickListener(new MyRecyclerSmokesActivityAdapter.OnItemClickListener() {
+        adapter.SetOnItemClickListener(new MySmokesGridAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 Smoke tempSmoke = tempList.get(position);
                 Toast.makeText(SmokesActivity.this, "clicked: " + tempSmoke.getMapId(), Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private List<Smoke> createItems() {
-        List<Smoke> tempList = new ArrayList<>();
-        tempList.clear();
-        for (int i = 0; i < 15; i++) {
-            tempList.add(new Smoke("de_dust" + i));
-        }
-        return tempList;
     }
 
     @Override

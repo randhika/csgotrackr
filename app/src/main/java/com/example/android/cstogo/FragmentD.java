@@ -1,8 +1,10 @@
 package com.example.android.cstogo;
 
 
-import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,9 +19,6 @@ import java.util.ArrayList;
  */
 public class FragmentD extends Fragment{
 
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<String> smokeMapList = new ArrayList<>();
 
     public FragmentD() {
@@ -44,21 +43,57 @@ public class FragmentD extends Fragment{
         smokeMapList.add("de_train");
         smokeMapList.add("de_nuke");
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.smokesMapList);
+        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.smokesMapList);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // specify an adapter
-        mAdapter = new MySmokesAdapter(getActivity(), smokeMapList);
+        MySmokesListAdapter mAdapter = new MySmokesListAdapter(getActivity(), smokeMapList);
         mRecyclerView.setAdapter(mAdapter);
 
+        mAdapter.SetOnItemClickListener(new MySmokesListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                final int tempPosition = position;
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent myIntent = new Intent(getActivity(), SmokesActivity.class);
+                        switch (tempPosition){
+                            case 0:
+                                myIntent.putExtra("TEMP", createItems("de_dust"));
+                                break;
+                            case 1:
+                                myIntent.putExtra("TEMP", createItems("de_inferno"));
+                                break;
+                            default:
+                                myIntent.putExtra("TEMP", createItems("de_69"));
+                                break;
+
+                        }
+                        getActivity().startActivity(myIntent);
+                    }
+                }, 600);
+            }
+        });
+
         return view;
+    }
+
+    private ArrayList<Smoke> createItems(String name) {
+        ArrayList<Smoke> tempList = new ArrayList<>();
+        tempList.clear();
+        for (int i = 0; i < 15; i++) {
+            tempList.add(new Smoke(name + i));
+        }
+        return tempList;
     }
 
 

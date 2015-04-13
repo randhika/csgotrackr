@@ -18,7 +18,6 @@
         android:id="@+id/rowImage"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:src="@drawable/nuke_res"
         app:border_width="0dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
