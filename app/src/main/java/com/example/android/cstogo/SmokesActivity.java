@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -26,6 +25,8 @@ public class SmokesActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
+        /*nobody cares about you warning
+        * but really - I have full control over ArrayList so dynamic check would be waste*/
         @SuppressWarnings("unchecked cast")
         final ArrayList<Smoke> tempList = (ArrayList<Smoke>) intent.getSerializableExtra("TEMP");
 
@@ -40,7 +41,11 @@ public class SmokesActivity extends ActionBarActivity {
             @Override
             public void onItemClick(View view, int position) {
                 Smoke tempSmoke = tempList.get(position);
-                Toast.makeText(SmokesActivity.this, "clicked: " + tempSmoke.getMapId(), Toast.LENGTH_SHORT).show();
+                Intent myIntent = new Intent(getApplicationContext(), ViewImageActivity.class);
+                myIntent.putExtra("TITLE", tempSmoke.getMapId());
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(myIntent);
+                //Toast.makeText(SmokesActivity.this, "clicked: " + tempSmoke.getMapId(), Toast.LENGTH_SHORT).show();
             }
         });
     }

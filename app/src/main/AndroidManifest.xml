@@ -34,6 +34,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.cstogo.MainActivity" />
         </activity>
+        <activity
+            android:name=".ViewImageActivity"
+            android:label="@string/title_activity_view_image"
+            android:parentActivityName=".SmokesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.cstogo.SmokesActivity" />
+        </activity>
     </application>
 
 </manifest>

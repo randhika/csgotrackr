@@ -39,6 +39,9 @@
     </string-array>
     <string name="title_activity_dust2_smokes">Dust2 Smokes</string>
     <string name="pic_of_smoke_thumb_desc">Picture of smoke, thumbnail</string>
+    <string name="title_activity_view_image">ViewImageActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 
 
 </resources>
