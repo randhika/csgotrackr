@@ -36,7 +36,8 @@
         </activity>
         <activity
             android:name=".ViewImageActivity"
-            android:label="@string/title_activity_view_image"
+            android:theme="@style/Theme.AppCompat.Translucent"
+            android:label=""
             android:parentActivityName=".SmokesActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

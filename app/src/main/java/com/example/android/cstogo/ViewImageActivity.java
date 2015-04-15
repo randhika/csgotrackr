@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+
 
 public class ViewImageActivity extends ActionBarActivity {
 
@@ -22,13 +25,15 @@ public class ViewImageActivity extends ActionBarActivity {
 
         setSupportActionBar(toolbar);
 
-        toolbar.setTitle("");
-
         Intent intent = getIntent();
         String title = intent.getStringExtra("TITLE");
+        int full = intent.getIntExtra("PICTURE", 0);
 
         TextView titleFullPicture = (TextView) findViewById(R.id.titleFullPicture);
         titleFullPicture.setText(title);
+
+        SubsamplingScaleImageView imageView = (SubsamplingScaleImageView)findViewById(R.id.smokeFullPicture);
+        imageView.setImage(ImageSource.resource(full));
 
         ImageView close = (ImageView) findViewById(R.id.closeFullPicture);
         close.setOnClickListener(new View.OnClickListener() {

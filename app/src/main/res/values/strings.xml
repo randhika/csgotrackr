@@ -42,6 +42,7 @@
     <string name="title_activity_view_image">ViewImageActivity</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="close">Close</string>
 
 
 </resources>

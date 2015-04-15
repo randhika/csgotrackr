@@ -42,7 +42,7 @@ public class MySmokesGridAdapter extends RecyclerView.Adapter<MySmokesGridAdapte
 
         holder.title.setText(smokeItem.getMapId());
 
-        Picasso.with(mContext).load(R.drawable.de_mirage).fit().centerCrop().into(holder.thumbnail);
+        Picasso.with(mContext).load(smokeItem.getThumbId()).fit().centerCrop().into(holder.thumbnail);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class MySmokesGridAdapter extends RecyclerView.Adapter<MySmokesGridAdapte
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view , int position);
+        void onItemClick(View view, int position);
     }
 
     public void SetOnItemClickListener(final OnItemClickListener mItemClickListener) {

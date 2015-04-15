@@ -26,7 +26,8 @@ public class SmokesActivity extends ActionBarActivity {
 
         Intent intent = getIntent();
         /*nobody cares about you warning
-        * but really - I have full control over ArrayList so dynamic check would be waste*/
+        * but really - I have full control over ArrayList so dynamic check would be waste of resources
+        * */
         @SuppressWarnings("unchecked cast")
         final ArrayList<Smoke> tempList = (ArrayList<Smoke>) intent.getSerializableExtra("TEMP");
 
@@ -41,11 +42,10 @@ public class SmokesActivity extends ActionBarActivity {
             @Override
             public void onItemClick(View view, int position) {
                 Smoke tempSmoke = tempList.get(position);
-                Intent myIntent = new Intent(getApplicationContext(), ViewImageActivity.class);
+                Intent myIntent = new Intent(view.getContext(), ViewImageActivity.class);
                 myIntent.putExtra("TITLE", tempSmoke.getMapId());
-                myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getApplicationContext().startActivity(myIntent);
-                //Toast.makeText(SmokesActivity.this, "clicked: " + tempSmoke.getMapId(), Toast.LENGTH_SHORT).show();
+                myIntent.putExtra("PICTURE", tempSmoke.getFullMapId());
+                view.getContext().startActivity(myIntent);
             }
         });
     }

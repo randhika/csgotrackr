@@ -91,7 +91,18 @@ public class FragmentD extends Fragment{
         ArrayList<Smoke> tempList = new ArrayList<>();
         tempList.clear();
         for (int i = 0; i < 15; i++) {
-            tempList.add(new Smoke(name + i));
+            switch (name) {
+                case "de_dust":
+                    tempList.add(new Smoke(name + i, R.drawable.de_dust2, R.drawable.de_dust2));
+                    break;
+                case "de_inferno":
+                    tempList.add(new Smoke(name + i, R.drawable.de_inferno, R.drawable.de_inferno));
+                    break;
+                case "de_69":
+                    tempList.add(new Smoke(name + i, R.drawable.de_season, R.drawable.de_season));
+                    break;
+            }
+
         }
         return tempList;
     }

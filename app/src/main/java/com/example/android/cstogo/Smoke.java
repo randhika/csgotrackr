@@ -8,12 +8,24 @@ import java.io.Serializable;
 public class Smoke implements Serializable{
 
     private String mapId;
+    private int thumbId;
+    private int fullMapId;
 
-    public Smoke(String mapId) {
+    public Smoke(String mapId, int thumbId, int fullMapId) {
         this.mapId = mapId;
+        this.thumbId = thumbId;
+        this.fullMapId = fullMapId;
     }
 
     public String getMapId() {
         return mapId;
+    }
+
+    public int getThumbId() {
+        return thumbId;
+    }
+
+    public int getFullMapId() {
+        return fullMapId;
     }
 }
