@@ -4,11 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 
 import java.util.ArrayList;
 
@@ -31,7 +32,7 @@ public class SmokesActivity extends ActionBarActivity {
         @SuppressWarnings("unchecked cast")
         final ArrayList<Smoke> tempList = (ArrayList<Smoke>) intent.getSerializableExtra("TEMP");
 
-        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recycler_smokes);
+        ObservableRecyclerView mRecyclerView = (ObservableRecyclerView) findViewById(R.id.recycler_smokes);
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));

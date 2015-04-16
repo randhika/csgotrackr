@@ -17,7 +17,6 @@ import de.greenrobot.event.EventBus;
 
 public class FragmentA extends Fragment {
 
-    private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private String[] mTestArray;
@@ -46,7 +45,7 @@ public class FragmentA extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_a, container, false);
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.cardList);
+        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.cardList);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView

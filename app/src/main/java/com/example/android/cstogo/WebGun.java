@@ -21,10 +21,6 @@ public class WebGun {
         return gunName;
     }
 
-    public void setGunName(String gunName) {
-        this.gunName = gunName;
-    }
-
     public int getShots() {
         return shots;
     }
