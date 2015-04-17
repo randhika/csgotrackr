@@ -1,5 +1,6 @@
 package com.example.android.cstogo;
 
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -8,22 +9,28 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
 
 import java.util.ArrayList;
 
 
-public class SmokesActivity extends ActionBarActivity {
+public class SmokesActivity extends ActionBarActivity implements ObservableScrollViewCallbacks {
+
+    private Toolbar mToolbar;
+    private ObservableRecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_smokes);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        setSupportActionBar(toolbar);
+        setSupportActionBar(mToolbar);
 
         Intent intent = getIntent();
         /*nobody cares about you warning
@@ -32,7 +39,8 @@ public class SmokesActivity extends ActionBarActivity {
         @SuppressWarnings("unchecked cast")
         final ArrayList<Smoke> tempList = (ArrayList<Smoke>) intent.getSerializableExtra("TEMP");
 
-        ObservableRecyclerView mRecyclerView = (ObservableRecyclerView) findViewById(R.id.recycler_smokes);
+        mRecyclerView = (ObservableRecyclerView) findViewById(R.id.recycler_smokes);
+        mRecyclerView.setScrollViewCallbacks(this);
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
@@ -71,5 +79,62 @@ public class SmokesActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
+    }
+
+    @Override
+    public void onDownMotionEvent() {
+    }
+
+    @Override
+    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+        //Log.e("DEBUG", "onUpOrCancelMotionEvent: " + scrollState);
+        if (scrollState == ScrollState.UP) {
+            if (toolbarIsShown()) {
+                hideToolbar();
+            }
+        } else if (scrollState == ScrollState.DOWN) {
+            if (toolbarIsHidden()) {
+                showToolbar();
+            }
+        }
+    }
+
+    private boolean toolbarIsShown() {
+        return mToolbar.getTranslationY() == 0;
+    }
+
+    private boolean toolbarIsHidden() {
+        return mToolbar.getTranslationY() == -mToolbar.getHeight();
+    }
+
+    private void showToolbar() {
+        moveToolbar(0);
+    }
+
+    private void hideToolbar() {
+        moveToolbar(-mToolbar.getHeight());
+    }
+
+    private void moveToolbar(float toTranslationY) {
+        if (mToolbar.getTranslationY() == toTranslationY) {
+            return;
+        }
+        ValueAnimator animator = ValueAnimator.ofFloat(mToolbar.getTranslationY(), toTranslationY).setDuration(200);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float translationY = (float) animation.getAnimatedValue();
+                mToolbar.setTranslationY(translationY);
+                mRecyclerView.setTranslationY(translationY);
+                RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mRecyclerView.getLayoutParams();
+                lp.height = (int) -translationY + findViewById(R.id.smokes_activity_relative).getHeight() - lp.topMargin;
+                mRecyclerView.requestLayout();
+            }
+        });
+        animator.start();
     }
 }
