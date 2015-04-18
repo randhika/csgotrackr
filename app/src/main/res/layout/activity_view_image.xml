@@ -30,8 +30,8 @@
     </android.support.v7.widget.Toolbar>
 
     <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-        android:id="@+id/smokeFullPicture"
         android:layout_below="@id/toolbar"
+        android:id="@+id/smokeFullPicture"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/titleFullPicture"
-        android:layout_alignTop="@+id/smokeFullPicture"
+        android:layout_below="@id/toolbar"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

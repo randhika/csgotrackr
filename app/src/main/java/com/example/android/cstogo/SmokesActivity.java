@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
@@ -22,6 +22,7 @@ public class SmokesActivity extends ActionBarActivity implements ObservableScrol
 
     private Toolbar mToolbar;
     private ObservableRecyclerView mRecyclerView;
+    private FrameLayout mFrameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class SmokesActivity extends ActionBarActivity implements ObservableScrol
         setContentView(R.layout.activity_smokes);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mFrameLayout = (FrameLayout) findViewById(R.id.smokes_activity_frame);
 
         setSupportActionBar(mToolbar);
 
@@ -130,8 +132,8 @@ public class SmokesActivity extends ActionBarActivity implements ObservableScrol
                 float translationY = (float) animation.getAnimatedValue();
                 mToolbar.setTranslationY(translationY);
                 mRecyclerView.setTranslationY(translationY);
-                RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mRecyclerView.getLayoutParams();
-                lp.height = (int) -translationY + findViewById(R.id.smokes_activity_relative).getHeight() - lp.topMargin;
+                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mRecyclerView.getLayoutParams();
+                lp.height = (int) -translationY + mFrameLayout.getHeight() - lp.topMargin;
                 mRecyclerView.requestLayout();
             }
         });

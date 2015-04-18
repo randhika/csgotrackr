@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.melnykov.fab.FloatingActionButton;
 
 import de.greenrobot.event.EventBus;
@@ -17,8 +17,9 @@ import de.greenrobot.event.EventBus;
 
 public class FragmentA extends Fragment {
 
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private MyMatchAdapter mAdapter;
+    private LinearLayoutManager mLayoutManager;
+    private ObservableRecyclerView mRecyclerView;
     private String[] mTestArray;
 
 
@@ -45,7 +46,7 @@ public class FragmentA extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_a, container, false);
 
-        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.cardList);
+        mRecyclerView = (ObservableRecyclerView) view.findViewById(R.id.cardList);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -58,6 +59,7 @@ public class FragmentA extends Fragment {
         // specify an adapter
         mAdapter = new MyMatchAdapter(getActivity(), MatchList.getInstance().matchList);
         mRecyclerView.setAdapter(mAdapter);
+        //mRecyclerView.setScrollViewCallbacks(this);
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.attachToRecyclerView(mRecyclerView);
@@ -83,5 +85,6 @@ public class FragmentA extends Fragment {
             }
         }
     }
+
 
 }
