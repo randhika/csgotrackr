@@ -10,8 +10,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.NumberPicker;
-import android.widget.Spinner;
 
+import com.rey.material.widget.Spinner;
 import com.melnykov.fab.FloatingActionButton;
 
 
@@ -41,14 +41,14 @@ public class NewMatchActivity extends ActionBarActivity {
         np2.setMinValue(0);
         np2.setMaxValue(16);
 
-        Spinner spinner = (Spinner) findViewById(R.id.new_match_spinner);
+        Spinner spn_label = (Spinner) findViewById(R.id.spinner_label);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
                 R.array.maps_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter2.setDropDownViewResource(R.layout.row_spn);
         // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
+        spn_label.setAdapter(adapter2);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.new_match_fab);
 
@@ -64,8 +64,9 @@ public class NewMatchActivity extends ActionBarActivity {
 
         NumberPicker np1 = (NumberPicker) findViewById(R.id.new_match_picker1);
         NumberPicker np2 = (NumberPicker) findViewById(R.id.new_match_picker2);
-        Spinner mapSpinner = (Spinner) findViewById(R.id.new_match_spinner);
-        String map = mapSpinner.getSelectedItem().toString();
+        Spinner mapSpinner = (Spinner) findViewById(R.id.spinner_label);
+        //String map = mapSpinner.getSelectedItem().toString();
+        String map = getResources().getStringArray(R.array.maps_array)[mapSpinner.getSelectedItemPosition()];
 
         EditText kills = (EditText) findViewById(R.id.new_match_kills);
         EditText assists = (EditText) findViewById(R.id.new_match_assists);
