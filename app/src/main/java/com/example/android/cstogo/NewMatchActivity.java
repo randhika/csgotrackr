@@ -65,7 +65,6 @@ public class NewMatchActivity extends ActionBarActivity {
         NumberPicker np1 = (NumberPicker) findViewById(R.id.new_match_picker1);
         NumberPicker np2 = (NumberPicker) findViewById(R.id.new_match_picker2);
         Spinner mapSpinner = (Spinner) findViewById(R.id.spinner_label);
-        //String map = mapSpinner.getSelectedItem().toString();
         String map = getResources().getStringArray(R.array.maps_array)[mapSpinner.getSelectedItemPosition()];
 
         EditText kills = (EditText) findViewById(R.id.new_match_kills);
