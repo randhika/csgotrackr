@@ -1,5 +1,7 @@
 package com.example.android.cstogo;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,28 +14,44 @@ import java.util.List;
 
 public class SettingsActivity extends PreferenceActivity {
 
-    Toolbar mToolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        prepareLayout();
+
+    }
+
+    private void prepareLayout() {
         ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
-        LinearLayout content = (LinearLayout) root.getChildAt(0);
+        View content = root.getChildAt(0);
         LinearLayout toolbarContainer = (LinearLayout) View.inflate(this, R.layout.settings_page, null);
 
         root.removeAllViews();
         toolbarContainer.addView(content);
         root.addView(toolbarContainer);
 
-        mToolbar = (Toolbar) toolbarContainer.findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) toolbarContainer.findViewById(R.id.toolbar);
+        toolbar.setTitle(getTitle());
+        toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
     public void onBuildHeaders(List<PreferenceActivity.Header> target) {
-        loadHeadersFromResource(R.xml.pref_headers, target);
+        super.onBuildHeaders(target);
+        loadHeadersFromResource(R.xml.headers, target);
     }
 
-    // Other methods
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    @Override
+    protected boolean isValidFragment(String fragmentName) {
+        return fragmentName.equals(PrefsFragment.class.getName());
+    }
 
 }

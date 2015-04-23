@@ -45,8 +45,12 @@
     <string name="close">Close</string>
     <string name="title_activity_whatever">Whatever</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="header_style">Style</string>
+    <string name="header_steam">Steam</string>
+
+    <string name="extra_category">category</string>
+    <string name="category_style">category_style</string>
+    <string name="category_steam">category_steam</string>
 
 
 </resources>
