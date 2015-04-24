@@ -1,4 +1,4 @@
-package com.example.android.cstogo;
+package com.example.android.cstogo.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+import com.example.android.cstogo.R;
 
 
 public class ViewImageActivity extends ActionBarActivity {

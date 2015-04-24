@@ -1,4 +1,4 @@
-package com.example.android.cstogo;
+package com.example.android.cstogo.fragments;
 
 
 import android.content.Intent;
@@ -10,6 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.android.cstogo.adapters.MySmokesListAdapter;
+import com.example.android.cstogo.R;
+import com.example.android.cstogo.activities.SmokesActivity;
+import com.example.android.cstogo.helpers.Smoke;
 
 import java.util.ArrayList;
 

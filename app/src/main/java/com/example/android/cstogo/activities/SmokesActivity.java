@@ -1,4 +1,4 @@
-package com.example.android.cstogo;
+package com.example.android.cstogo.activities;
 
 import android.animation.ValueAnimator;
 import android.content.Intent;
@@ -11,6 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.example.android.cstogo.adapters.MySmokesGridAdapter;
+import com.example.android.cstogo.R;
+import com.example.android.cstogo.helpers.Smoke;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;

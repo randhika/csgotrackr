@@ -1,4 +1,4 @@
-package com.example.android.cstogo;
+package com.example.android.cstogo.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.astuetz.PagerSlidingTabStrip;
-
+import com.example.android.cstogo.adapters.MyPagerAdapter;
+import com.example.android.cstogo.R;
 
 
 public class MainActivity extends ActionBarActivity {

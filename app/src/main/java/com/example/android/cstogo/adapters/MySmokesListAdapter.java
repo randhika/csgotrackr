@@ -1,4 +1,4 @@
-package com.example.android.cstogo;
+package com.example.android.cstogo.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.android.cstogo.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

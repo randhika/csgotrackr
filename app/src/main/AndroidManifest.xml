@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,32 +19,32 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NewMatchActivity"
+            android:name=".activities.NewMatchActivity"
             android:label="@string/title_activity_new_match"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".activities.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.cstogo.MainActivity" />
+                android:value=".activities.MainActivity" />
         </activity>
         <activity
-            android:name=".SmokesActivity"
+            android:name=".activities.SmokesActivity"
             android:label="@string/title_activity_dust2_smokes"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".activities.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.cstogo.MainActivity" />
+                android:value=".activities.MainActivity" />
         </activity>
         <activity
-            android:name=".ViewImageActivity"
+            android:name=".activities.ViewImageActivity"
             android:label=""
-            android:parentActivityName=".SmokesActivity"
+            android:parentActivityName=".activities.SmokesActivity"
             android:theme="@style/Theme.AppCompat.Translucent" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.cstogo.SmokesActivity" />
+                android:value=".activities.SmokesActivity" />
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
     </application>

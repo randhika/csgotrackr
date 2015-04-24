@@ -1,4 +1,4 @@
-package com.example.android.cstogo;
+package com.example.android.cstogo.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.android.cstogo.R;
+import com.example.android.cstogo.helpers.Match;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

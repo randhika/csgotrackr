@@ -3,7 +3,7 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.android.cstogo.FragmentA">
+    tools:context="com.example.android.cstogo.fragments.FragmentA">
 
     <com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView
         android:id="@+id/cardList"

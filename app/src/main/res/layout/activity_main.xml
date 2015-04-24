@@ -22,10 +22,12 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:background="?attr/colorPrimary"
-        app:pstsPaddingMiddle="true"
+        app:pstsPaddingMiddle="false"
         android:layout_below="@+id/toolbar"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:textColorPrimary="#FFFFFF"
+        android:textColor="#80FFFFFF"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"

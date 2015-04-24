@@ -2,14 +2,14 @@
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
     <header
         android:title="@string/header_style"
-        android:fragment="com.example.android.cstogo.PrefsFragment" >
+        android:fragment="com.example.android.cstogo.fragments.PrefsFragment" >
         <extra
             android:name="category"
             android:value="@string/category_style" />
     </header>
     <header
         android:title="@string/header_steam"
-        android:fragment="com.example.android.cstogo.PrefsFragment" >
+        android:fragment="com.example.android.cstogo.fragments.PrefsFragment" >
         <extra
             android:name="category"
             android:value="@string/category_steam" />

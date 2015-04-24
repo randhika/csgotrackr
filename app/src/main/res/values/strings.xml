@@ -52,5 +52,8 @@
     <string name="category_style">category_style</string>
     <string name="category_steam">category_steam</string>
 
+    <string name="pref_style_matchpage_default">small_card</string>
+    <string name="title_activity_settings">Settings</string>
+
 
 </resources>

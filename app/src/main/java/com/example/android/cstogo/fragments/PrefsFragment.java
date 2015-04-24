@@ -1,4 +1,4 @@
-package com.example.android.cstogo;
+package com.example.android.cstogo.fragments;
 
 
 import android.annotation.TargetApi;
@@ -6,6 +6,8 @@ import android.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+
+import com.example.android.cstogo.R;
 
 
 /**
@@ -28,6 +30,4 @@ public class PrefsFragment extends PreferenceFragment {
             }
         }
     }
-
-
 }

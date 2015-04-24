@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="pref_style_matchpage_entries">
+        <item>Big Cards</item>
+        <item>Small Cards</item>
+        <item>List</item>
+    </string-array>
+
+    <string-array name="pref_style_matchpage_values">
+        <item>big_card</item>
+        <item>small_card</item>
+        <item>list</item>
+    </string-array>
+
+
+</resources>

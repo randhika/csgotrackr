@@ -1,4 +1,4 @@
-package com.example.android.cstogo;
+package com.example.android.cstogo.adapters;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -9,6 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.example.android.cstogo.R;
+import com.example.android.cstogo.fragments.FragmentA;
+import com.example.android.cstogo.fragments.FragmentB;
+import com.example.android.cstogo.fragments.FragmentC;
+import com.example.android.cstogo.fragments.FragmentD;
 
 /**
  * - Yuro - 18.3.2015.

@@ -1,4 +1,4 @@
-package com.example.android.cstogo;
+package com.example.android.cstogo.activities;
 
 import android.annotation.TargetApi;
 import android.os.Build;
@@ -8,6 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import com.example.android.cstogo.fragments.PrefsFragment;
+import com.example.android.cstogo.R;
 
 import java.util.List;
 

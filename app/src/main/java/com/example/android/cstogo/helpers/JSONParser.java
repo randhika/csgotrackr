@@ -1,4 +1,4 @@
-package com.example.android.cstogo;
+package com.example.android.cstogo.helpers;
 
 import android.util.Log;
 

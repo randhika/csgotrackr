@@ -1,4 +1,4 @@
-package com.example.android.cstogo;
+package com.example.android.cstogo.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 
+import com.example.android.cstogo.helpers.Match;
+import com.example.android.cstogo.helpers.MatchList;
+import com.example.android.cstogo.R;
 import com.rey.material.widget.Spinner;
 import com.melnykov.fab.FloatingActionButton;
 

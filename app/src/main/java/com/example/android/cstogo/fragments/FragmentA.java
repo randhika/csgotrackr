@@ -1,4 +1,4 @@
-package com.example.android.cstogo;
+package com.example.android.cstogo.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.android.cstogo.helpers.Match;
+import com.example.android.cstogo.adapters.MyMatchAdapter;
+import com.example.android.cstogo.R;
+import com.example.android.cstogo.UpdateStatsEvent;
+import com.example.android.cstogo.activities.NewMatchActivity;
+import com.example.android.cstogo.helpers.MatchList;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.melnykov.fab.FloatingActionButton;
 

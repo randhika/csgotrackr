@@ -1,4 +1,4 @@
-package com.example.android.cstogo;
+package com.example.android.cstogo.fragments;
 
 
 import android.graphics.Color;
@@ -10,6 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.android.cstogo.helpers.Match;
+import com.example.android.cstogo.R;
+import com.example.android.cstogo.UpdateStatsEvent;
+import com.example.android.cstogo.helpers.MatchList;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
