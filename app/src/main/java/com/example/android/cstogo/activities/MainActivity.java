@@ -1,7 +1,9 @@
 package com.example.android.cstogo.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,15 +11,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.example.android.cstogo.adapters.MyPagerAdapter;
+import com.example.android.cstogo.MyApplication;
 import com.example.android.cstogo.R;
+import com.example.android.cstogo.adapters.MyPagerAdapter;
 
 
 public class MainActivity extends ActionBarActivity {
 
+    static SharedPreferences sp = null;
+    SharedPreferences.OnSharedPreferenceChangeListener listener;
+    boolean scheduledRestart = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(MyApplication.getThemeId());
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -35,6 +43,23 @@ public class MainActivity extends ActionBarActivity {
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(pager);
 
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+
+        listener = new themeListener();
+        sp.registerOnSharedPreferenceChangeListener(listener);
+
+    }
+
+    private class themeListener implements SharedPreferences.OnSharedPreferenceChangeListener {
+
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences spref, String key) {
+            if(key.equals("prefs_style_nightmode") && !spref.getBoolean(key, false) == (MyApplication.getThemeSetting()))
+            {
+                MyApplication.reloadTheme();
+                scheduledRestart = true;
+            }
+        }
     }
 
 
@@ -59,6 +84,18 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(scheduledRestart)
+        {
+            scheduledRestart = false;
+            Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage( getBaseContext().getPackageName() );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        }
     }
 
 

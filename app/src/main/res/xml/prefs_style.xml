@@ -9,4 +9,9 @@
         android:defaultValue="@string/pref_style_matchpage_default"
         android:summary="Using %s for matchpage"/>
 
+    <CheckBoxPreference
+        android:title="Night Theme"
+        android:key="prefs_style_nightmode"
+        android:defaultValue="false"/>
+
 </PreferenceScreen>

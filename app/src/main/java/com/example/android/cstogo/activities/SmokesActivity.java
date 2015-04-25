@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.example.android.cstogo.MyApplication;
 import com.example.android.cstogo.adapters.MySmokesGridAdapter;
 import com.example.android.cstogo.R;
 import com.example.android.cstogo.helpers.Smoke;
@@ -29,6 +30,7 @@ public class SmokesActivity extends ActionBarActivity implements ObservableScrol
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(MyApplication.getThemeId());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_smokes);
 

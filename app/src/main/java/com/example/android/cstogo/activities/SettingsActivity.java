@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.example.android.cstogo.MyApplication;
 import com.example.android.cstogo.fragments.PrefsFragment;
 import com.example.android.cstogo.R;
 
@@ -19,6 +20,7 @@ public class SettingsActivity extends PreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(MyApplication.getThemeId());
         super.onCreate(savedInstanceState);
 
         prepareLayout();

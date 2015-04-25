@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 
+import com.example.android.cstogo.MyApplication;
 import com.example.android.cstogo.helpers.Match;
 import com.example.android.cstogo.helpers.MatchList;
 import com.example.android.cstogo.R;
@@ -23,6 +24,7 @@ public class NewMatchActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(MyApplication.getThemeId());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_match);
         //TODO: change layout
