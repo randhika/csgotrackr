@@ -7,8 +7,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
@@ -22,7 +20,7 @@ public class ViewImageActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_image);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.smoke_toolbar);
 
         setSupportActionBar(toolbar);
 
@@ -30,12 +28,18 @@ public class ViewImageActivity extends ActionBarActivity {
         String title = intent.getStringExtra("TITLE");
         int full = intent.getIntExtra("PICTURE", 0);
 
-        TextView titleFullPicture = (TextView) findViewById(R.id.titleFullPicture);
-        titleFullPicture.setText(title);
+        getSupportActionBar().setTitle(title);
+        toolbar.setNavigationIcon(R.drawable.ic_launcher);//TODO: placeholder
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         SubsamplingScaleImageView imageView = (SubsamplingScaleImageView)findViewById(R.id.smokeFullPicture);
         imageView.setImage(ImageSource.resource(full));
-
+/*
         ImageView close = (ImageView) findViewById(R.id.closeFullPicture);
         close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +47,7 @@ public class ViewImageActivity extends ActionBarActivity {
                 finish();
             }
         });
-
+*/
     }
 
     @Override

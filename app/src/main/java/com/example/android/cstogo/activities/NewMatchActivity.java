@@ -1,9 +1,11 @@
 package com.example.android.cstogo.activities;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,11 +14,13 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 
 import com.example.android.cstogo.MyApplication;
+import com.example.android.cstogo.R;
 import com.example.android.cstogo.helpers.Match;
 import com.example.android.cstogo.helpers.MatchList;
-import com.example.android.cstogo.R;
-import com.rey.material.widget.Spinner;
 import com.melnykov.fab.FloatingActionButton;
+import com.rey.material.widget.Spinner;
+
+import java.lang.reflect.Field;
 
 
 public class NewMatchActivity extends ActionBarActivity {
@@ -29,7 +33,7 @@ public class NewMatchActivity extends ActionBarActivity {
         setContentView(R.layout.activity_new_match);
         //TODO: change layout
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.new_match_toolbar);
 
         setSupportActionBar(toolbar);
 
@@ -45,6 +49,9 @@ public class NewMatchActivity extends ActionBarActivity {
 
         np2.setMinValue(0);
         np2.setMaxValue(16);
+
+        setNumberPickerTextColor(np1, getResources().getColor(R.color.accent));
+        setNumberPickerTextColor(np2, getResources().getColor(R.color.accent));
 
         Spinner spn_label = (Spinner) findViewById(R.id.spinner_label);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -97,7 +104,28 @@ public class NewMatchActivity extends ActionBarActivity {
 
     }
 
-
+    public static boolean setNumberPickerTextColor(NumberPicker numberPicker, int color)
+    {
+        final int count = numberPicker.getChildCount();
+        for(int i = 0; i < count; i++){
+            View child = numberPicker.getChildAt(i);
+            if(child instanceof EditText){
+                try{
+                    Field selectorWheelPaintField = numberPicker.getClass()
+                            .getDeclaredField("mSelectorWheelPaint");
+                    selectorWheelPaintField.setAccessible(true);
+                    ((Paint)selectorWheelPaintField.get(numberPicker)).setColor(color);
+                    ((EditText)child).setTextColor(color);
+                    numberPicker.invalidate();
+                    return true;
+                }
+                catch(NoSuchFieldException | IllegalAccessException | IllegalArgumentException e){
+                    Log.w("setNumberPickerTextCol", e);
+                }
+            }
+        }
+        return false;
+    }
 
 
 
