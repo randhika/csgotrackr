@@ -50,39 +50,8 @@ public class MyMatchAdapter extends RecyclerView.Adapter<MyMatchAdapter.MatchVie
         } else {
             matchViewHolder.vResultStrip.setBackgroundColor(Color.rgb(114, 137, 186));
         }
-        //todo: remove this switch
-        switch (ci.getMap()) {
-            case "de_nuke":
-                Picasso.with(mContext).load(R.drawable.de_nuke).fit().centerCrop().into(matchViewHolder.vMapPic);
-                break;
-            case "de_dust2":
-                Picasso.with(mContext).load(R.drawable.de_dust2).fit().centerCrop().into(matchViewHolder.vMapPic);
-                break;
-            case "de_inferno":
-                Picasso.with(mContext).load(R.drawable.de_inferno).fit().centerCrop().into(matchViewHolder.vMapPic);
-                break;
-            case "de_cache":
-                Picasso.with(mContext).load(R.drawable.de_cache).fit().centerCrop().into(matchViewHolder.vMapPic);
-                break;
-            case "de_cbble":
-                Picasso.with(mContext).load(R.drawable.de_cbble).fit().centerCrop().into(matchViewHolder.vMapPic);
-                break;
-            case "de_overpass":
-                Picasso.with(mContext).load(R.drawable.de_overpass).fit().centerCrop().into(matchViewHolder.vMapPic);
-                break;
-            case "de_season":
-                Picasso.with(mContext).load(R.drawable.de_season).fit().centerCrop().into(matchViewHolder.vMapPic);
-                break;
-            case "de_mirage":
-                Picasso.with(mContext).load(R.drawable.de_mirage).fit().centerCrop().into(matchViewHolder.vMapPic);
-                break;
-            case "de_train":
-                Picasso.with(mContext).load(R.drawable.de_train).fit().centerCrop().into(matchViewHolder.vMapPic);
-                break;
-            default:
-                Picasso.with(mContext).load(R.drawable.de_dust2).fit().centerCrop().into(matchViewHolder.vMapPic);
-                break;
-        }
+
+        Picasso.with(mContext).load(ci.getDrawable()).fit().centerCrop().into(matchViewHolder.vMapPic);
 
     }
 

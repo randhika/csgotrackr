@@ -39,15 +39,6 @@ public class ViewImageActivity extends ActionBarActivity {
 
         SubsamplingScaleImageView imageView = (SubsamplingScaleImageView)findViewById(R.id.smokeFullPicture);
         imageView.setImage(ImageSource.resource(full));
-/*
-        ImageView close = (ImageView) findViewById(R.id.closeFullPicture);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-*/
     }
 
     @Override

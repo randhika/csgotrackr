@@ -1,5 +1,7 @@
 package com.example.android.cstogo.helpers;
 
+import com.example.android.cstogo.R;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -19,6 +21,8 @@ public class Match {
     private BigDecimal kd;
     private BigDecimal kad;
     private String map;
+    private int drawable;
+    private int dominantColor;
 
 
     public Match(int teamRounds, int enemyRounds, int kills, int assists, int deaths, int mvps, int score, String map) {
@@ -37,6 +41,59 @@ public class Match {
 
         this.kd = bKills.divide(bDeaths, 2, RoundingMode.HALF_UP);
         this.kad = (bKills.add(bAssists)).divide(bDeaths, 2, RoundingMode.HALF_UP);
+
+        this.drawable = calculateDrawable();
+        this.dominantColor = calculateDominantColor();
+    }
+
+    private int calculateDominantColor() {
+        switch (getMap()) {
+            case "de_nuke":
+                return R.color.de_nuke;
+            case "de_dust2":
+                return R.color.de_dust2;
+            case "de_inferno":
+                return R.color.de_inferno;
+            case "de_cache":
+                return R.color.de_cache;
+            case "de_cbble":
+                return R.color.de_cbble;
+            case "de_overpass":
+                return R.color.de_overpass;
+            case "de_season":
+                return R.color.de_season;
+            case "de_mirage":
+                return R.color.de_mirage;
+            case "de_train":
+                return R.color.de_train;
+            default:
+                return R.color.de_dust2;
+        }
+    }
+
+    private int calculateDrawable() {
+        switch (getMap()) {
+            case "de_nuke":
+                return R.drawable.de_nuke;
+            case "de_dust2":
+                return R.drawable.de_dust2;
+            case "de_inferno":
+                return R.drawable.de_inferno;
+            case "de_cache":
+                return R.drawable.de_cache;
+            case "de_cbble":
+                return R.drawable.de_cbble;
+            case "de_overpass":
+                return R.drawable.de_overpass;
+            case "de_season":
+                return R.drawable.de_season;
+            case "de_mirage":
+                return R.drawable.de_mirage;
+            case "de_train":
+                return R.drawable.de_train;
+            default:
+                return R.drawable.de_dust2;
+        }
     }
 
 
@@ -84,5 +141,13 @@ public class Match {
 
     public String getMap() {
         return map;
+    }
+
+    public int getDrawable() {
+        return drawable;
+    }
+
+    public int getDominantColor() {
+        return dominantColor;
     }
 }

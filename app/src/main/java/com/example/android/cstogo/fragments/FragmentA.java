@@ -2,18 +2,23 @@ package com.example.android.cstogo.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.android.cstogo.helpers.Match;
-import com.example.android.cstogo.adapters.MyMatchAdapter;
 import com.example.android.cstogo.R;
 import com.example.android.cstogo.UpdateStatsEvent;
 import com.example.android.cstogo.activities.NewMatchActivity;
+import com.example.android.cstogo.adapters.MyMatchAdapter;
+import com.example.android.cstogo.adapters.MyMatchAdapterList;
+import com.example.android.cstogo.helpers.Match;
 import com.example.android.cstogo.helpers.MatchList;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.melnykov.fab.FloatingActionButton;
@@ -23,7 +28,7 @@ import de.greenrobot.event.EventBus;
 
 public class FragmentA extends Fragment {
 
-    private MyMatchAdapter mAdapter;
+    private RecyclerView.Adapter mAdapter;
     private LinearLayoutManager mLayoutManager;
     private ObservableRecyclerView mRecyclerView;
     private String[] mTestArray;
@@ -62,8 +67,27 @@ public class FragmentA extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String matchpageStyle = prefs.getString("prefs_style_matchpage", "list");
+
+        Log.d("TAG", "onCreateViewHolder " + matchpageStyle);
+
         // specify an adapter
-        mAdapter = new MyMatchAdapter(getActivity(), MatchList.getInstance().matchList);
+        if (matchpageStyle != null) {
+            switch (matchpageStyle){
+                case "small_card":
+                    mAdapter = new MyMatchAdapter(getActivity(), MatchList.getInstance().matchList);
+                    break;
+                case "list":
+                    mAdapter = new MyMatchAdapterList(getActivity(), MatchList.getInstance().matchList);
+                    break;
+                default:
+                    mAdapter = new MyMatchAdapter(getActivity(), MatchList.getInstance().matchList);
+                    break;
+            }
+        } else {
+            mAdapter = new MyMatchAdapter(getActivity(), MatchList.getInstance().matchList);
+        }
         mRecyclerView.setAdapter(mAdapter);
         //mRecyclerView.setScrollViewCallbacks(this);
 

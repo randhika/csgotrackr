@@ -10,4 +10,14 @@
     <color name="ripple">#ff80ab</color>
     <color name="accent">#ff4081</color>
     <color name="accent_pressed">#f50057</color>
+
+    <color name="de_nuke">#5E5D98</color>
+    <color name="de_dust2">#FFB95B</color>
+    <color name="de_inferno">#A33B3A</color>
+    <color name="de_cache">#A36E4C</color>
+    <color name="de_cbble">#4AA365</color>
+    <color name="de_overpass">#3D85A3</color>
+    <color name="de_season">#62B025</color>
+    <color name="de_mirage">#B09917</color>
+    <color name="de_train">#5A41B0</color>
 </resources>
