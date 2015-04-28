@@ -6,98 +6,8 @@
                 android:layout_height="match_parent"
                 tools:context="com.example.android.cstogo.activities.NewMatchActivity">
 
-    <include
-        android:id="@+id/new_match_toolbar"
-        layout="@layout/toolbar_base"/>
-
-    <NumberPicker
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/new_match_picker2"
-        android:layout_below="@+id/new_match_toolbar"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="50dp"/>
-
-    <NumberPicker
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/new_match_picker1"
-        android:layout_alignTop="@+id/new_match_picker2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/new_match_kills"
-        android:gravity="center"
-        android:layout_alignTop="@+id/new_match_picker2"
-        android:layout_alignLeft="@+id/new_match_assists"
-        android:layout_alignStart="@+id/new_match_assists"
-        android:hint="kills"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/new_match_assists"
-        android:layout_below="@+id/new_match_kills"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:hint="assists"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/new_match_deaths"
-        android:layout_below="@+id/new_match_assists"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:hint="deaths"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/new_match_mvps"
-        android:layout_below="@+id/new_match_deaths"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:hint="mvp"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/new_match_score"
-        android:layout_below="@+id/new_match_mvps"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:hint="score"/>
-
-    <com.rey.material.widget.Spinner
-        style="@style/Material.Widget.Spinner.Light"
-        android:id="@+id/spinner_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minWidth="128dp"
-        android:layout_above="@id/new_match_kills"
-        app:rd_style="@style/Material.Drawable.Ripple.Wave.Light"
-        app:rd_enable="true"
-        app:rd_delayClick="false"
-        app:spn_labelEnable="true"
-        app:spn_label="Pick Map"
-        app:spn_arrowSwitchMode="true"
-        app:spn_arrowAnimDuration="@android:integer/config_shortAnimTime"
-        app:spn_arrowInterpolator="@android:anim/decelerate_interpolator"/>
+    <include layout="@layout/toolbar_base"
+        android:id="@+id/new_match_toolbar"/>
 
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/new_match_fab"
@@ -107,12 +17,113 @@
         fab:fab_colorNormal="@color/primary"
         fab:fab_colorPressed="@color/primary_pressed"
         fab:fab_colorRipple="@color/ripple"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="20dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp" />
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/new_match_kills"
+        android:gravity="center"
+        android:hint="kills"
+        android:layout_alignTop="@+id/new_match_picker2"
+        android:layout_toRightOf="@+id/new_match_picker2"
+        android:layout_toEndOf="@+id/new_match_picker2"
+        android:layout_marginLeft="28dp"
+        android:layout_marginStart="28dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/new_match_assists"
+        android:gravity="center"
+        android:hint="assists"
+        android:layout_alignTop="@+id/new_match_kills"
+        android:layout_alignLeft="@+id/new_match_kills"
+        android:layout_alignStart="@+id/new_match_kills"
+        android:layout_marginTop="48dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/new_match_deaths"
+        android:gravity="center"
+        android:hint="deaths"
+        android:layout_below="@+id/new_match_assists"
+        android:layout_alignLeft="@+id/new_match_assists"
+        android:layout_alignStart="@+id/new_match_assists" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/new_match_mvps"
+        android:gravity="center"
+        android:hint="mvp"
+        android:layout_below="@+id/new_match_deaths"
+        android:layout_alignLeft="@+id/new_match_deaths"
+        android:layout_alignStart="@+id/new_match_deaths" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/new_match_score"
+        android:gravity="center"
+        android:hint="score"
+        android:layout_below="@+id/new_match_mvps"
+        android:layout_alignLeft="@+id/new_match_mvps"
+        android:layout_alignStart="@+id/new_match_mvps" />
+
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/new_match_picker1"
+        android:layout_below="@+id/new_match_toolbar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp" />
+
+    <com.rey.material.widget.Spinner
+        style="@style/Material.Widget.Spinner.Light"
+        android:id="@+id/spinner_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="128dp"
+        app:rd_style="@style/Material.Drawable.Ripple.Wave.Light"
+        app:rd_enable="true"
+        app:rd_delayClick="false"
+        app:spn_labelEnable="true"
+        app:spn_label="Pick Map"
+        app:spn_arrowSwitchMode="true"
+        app:spn_arrowAnimDuration="@android:integer/config_shortAnimTime"
+        app:spn_arrowInterpolator="@android:anim/decelerate_interpolator"
+        android:layout_below="@+id/new_match_picker1"
+        android:layout_alignLeft="@+id/new_match_picker1"
+        android:layout_alignStart="@+id/new_match_picker1"
+        android:layout_marginTop="15dp" />
+
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/new_match_picker2"
+        android:layout_alignTop="@+id/new_match_picker1"
+        android:layout_toRightOf="@+id/new_match_picker1"
+        android:layout_toEndOf="@+id/new_match_picker1"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp" />
 
 
 </RelativeLayout>

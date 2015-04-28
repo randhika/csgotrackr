@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -20,7 +21,6 @@ public class MainActivity extends ActionBarActivity {
 
     static SharedPreferences sp = null;
     SharedPreferences.OnSharedPreferenceChangeListener listener;
-    boolean scheduledRestart = false;
 
 
     @Override
@@ -51,13 +51,13 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private class themeListener implements SharedPreferences.OnSharedPreferenceChangeListener {
-
         @Override
         public void onSharedPreferenceChanged(SharedPreferences spref, String key) {
+            Log.i("TAG", "Pref changed");
             if(key.equals("prefs_style_nightmode") && !spref.getBoolean(key, false) == (MyApplication.getThemeSetting()))
             {
                 MyApplication.reloadTheme();
-                scheduledRestart = true;
+                MyApplication.setScheduledRestart(true);
             }
         }
     }
@@ -89,9 +89,10 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(scheduledRestart)
+        if(MyApplication.isScheduledRestart())
         {
-            scheduledRestart = false;
+            Log.i("TAG", "doing restart");
+            MyApplication.setScheduledRestart(false);
             Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage( getBaseContext().getPackageName() );
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);

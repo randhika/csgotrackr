@@ -41,7 +41,7 @@ public class FragmentA extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //TODO: sql database
         mTestArray = getResources().getStringArray(R.array.maps_array);
 
         for (int i = 0; i < 8; i++) {
@@ -73,6 +73,7 @@ public class FragmentA extends Fragment {
         Log.d("TAG", "onCreateViewHolder " + matchpageStyle);
 
         // specify an adapter
+        // TODO: sharedpreference listener
         if (matchpageStyle != null) {
             switch (matchpageStyle){
                 case "small_card":

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 /**
  * - Yuro - 24.4.2015.
@@ -14,6 +15,7 @@ public class MyApplication extends Application {
     private static int themeId;
     private static boolean themeSetting;
     private static SharedPreferences sharedPreferences;
+    private static boolean scheduledRestart = false;
 
     @Override
     public void onCreate() {
@@ -44,7 +46,14 @@ public class MyApplication extends Application {
 
     public static boolean getThemeSetting()
     {
-        return themeSetting;
+        Log.i("TAG", "ThemeSetting : " + themeSetting);return themeSetting;
     }
 
+    public static boolean isScheduledRestart() {
+        return scheduledRestart;
+    }
+
+    public static void setScheduledRestart(boolean scheduledRestart) {
+        MyApplication.scheduledRestart = scheduledRestart;
+    }
 }
