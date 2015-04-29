@@ -13,6 +13,7 @@
         <!-- colorAccent is used as the default value for colorControlActivated
              which is used to tint widgets -->
         <item name="colorAccent">#FF4081</item>
+        <item name="edt_colorAccent">#1976D2</item>
         <!-- You can also set colorControlNormal, colorControlActivated
             colorControlHighlight and colorSwitchThumbNormal. -->
         <item name="android:textColorPrimary">#FFFFFF</item>
@@ -45,6 +46,7 @@
         <!-- colorAccent is used as the default value for colorControlActivated
              which is used to tint widgets -->
         <item name="colorAccent">#3E3E3E</item>
+        <item name="edt_colorAccent">#FF4081</item>
         <!-- You can also set colorControlNormal, colorControlActivated
             colorControlHighlight and colorSwitchThumbNormal. -->
         <item name="android:textColorPrimary">#FF606060</item>

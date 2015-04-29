@@ -12,4 +12,7 @@
             <enum name="mini" value="1" />
         </attr>
     </declare-styleable>
+
+    <attr name="edt_colorAccent" format="color" />
+
 </resources>

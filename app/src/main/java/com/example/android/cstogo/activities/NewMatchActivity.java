@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.NumberPicker;
 
 import com.example.android.cstogo.MyApplication;
@@ -18,6 +17,7 @@ import com.example.android.cstogo.R;
 import com.example.android.cstogo.helpers.Match;
 import com.example.android.cstogo.helpers.MatchList;
 import com.melnykov.fab.FloatingActionButton;
+import com.rey.material.widget.EditText;
 import com.rey.material.widget.Spinner;
 
 import java.lang.reflect.Field;
@@ -106,17 +106,19 @@ public class NewMatchActivity extends ActionBarActivity {
 
     public static boolean setNumberPickerTextColor(NumberPicker numberPicker, int color)
     {
+        Log.i("TAG", "setNumberPickerTextColor called");
         final int count = numberPicker.getChildCount();
         for(int i = 0; i < count; i++){
             View child = numberPicker.getChildAt(i);
-            if(child instanceof EditText){
+            if(child instanceof android.widget.EditText){
                 try{
                     Field selectorWheelPaintField = numberPicker.getClass()
                             .getDeclaredField("mSelectorWheelPaint");
                     selectorWheelPaintField.setAccessible(true);
                     ((Paint)selectorWheelPaintField.get(numberPicker)).setColor(color);
-                    ((EditText)child).setTextColor(color);
+                    ((android.widget.EditText)child).setTextColor(color);
                     numberPicker.invalidate();
+                    Log.i("TAG", "setNumberPickerTextColor return");
                     return true;
                 }
                 catch(NoSuchFieldException | IllegalAccessException | IllegalArgumentException e){
