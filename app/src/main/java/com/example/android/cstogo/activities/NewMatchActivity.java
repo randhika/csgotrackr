@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.NumberPicker;
 
@@ -64,6 +66,9 @@ public class NewMatchActivity extends ActionBarActivity {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.new_match_fab);
 
+        Animation fabGrow = AnimationUtils.loadAnimation(this, R.anim.anim_fab);
+        fab.startAnimation(fabGrow);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,7 +111,6 @@ public class NewMatchActivity extends ActionBarActivity {
 
     public static boolean setNumberPickerTextColor(NumberPicker numberPicker, int color)
     {
-        Log.i("TAG", "setNumberPickerTextColor called");
         final int count = numberPicker.getChildCount();
         for(int i = 0; i < count; i++){
             View child = numberPicker.getChildAt(i);
@@ -118,7 +122,6 @@ public class NewMatchActivity extends ActionBarActivity {
                     ((Paint)selectorWheelPaintField.get(numberPicker)).setColor(color);
                     ((android.widget.EditText)child).setTextColor(color);
                     numberPicker.invalidate();
-                    Log.i("TAG", "setNumberPickerTextColor return");
                     return true;
                 }
                 catch(NoSuchFieldException | IllegalAccessException | IllegalArgumentException e){

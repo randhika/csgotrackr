@@ -8,10 +8,11 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.example.android.cstogo.R;
 import com.example.android.cstogo.UpdateStatsEvent;
@@ -70,10 +71,8 @@ public class FragmentA extends Fragment {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String matchpageStyle = prefs.getString("prefs_style_matchpage", "list");
 
-        Log.d("TAG", "onCreateViewHolder " + matchpageStyle);
-
         // specify an adapter
-        // TODO: sharedpreference listener
+        // TODO: sharedPreference listener
         if (matchpageStyle != null) {
             switch (matchpageStyle){
                 case "small_card":
@@ -94,6 +93,9 @@ public class FragmentA extends Fragment {
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.attachToRecyclerView(mRecyclerView);
+
+        Animation fabGrow = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_fab);
+        fab.startAnimation(fabGrow);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
