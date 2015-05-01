@@ -234,7 +234,8 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         statsAvgPPM.setText(getAvgPoints().toString());
         statsAvgKAD.setText(getOverallKad().toString());
         statsDustKaD.setText(getDustAvgKad().toString());
-        statsNukeKaD.setText(getLast3Kad().toString());//getNukeAvgKad().toString());
+        //statsNukeKaD.setText(getLast3Kad().toString());
+        statsNukeKaD.setText(getNukeAvgKad().toString());
 
     }
 

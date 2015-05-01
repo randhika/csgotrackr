@@ -19,7 +19,6 @@ import com.example.android.cstogo.UpdateStatsEvent;
 import com.example.android.cstogo.activities.NewMatchActivity;
 import com.example.android.cstogo.adapters.MyMatchAdapter;
 import com.example.android.cstogo.adapters.MyMatchAdapterList;
-import com.example.android.cstogo.helpers.Match;
 import com.example.android.cstogo.helpers.MatchList;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.melnykov.fab.FloatingActionButton;
@@ -32,25 +31,11 @@ public class FragmentA extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private LinearLayoutManager mLayoutManager;
     private ObservableRecyclerView mRecyclerView;
-    private String[] mTestArray;
 
 
     public FragmentA() {
         // Required empty public constructor
         }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //TODO: sql database
-        mTestArray = getResources().getStringArray(R.array.maps_array);
-
-        for (int i = 0; i < 8; i++) {
-            Match dummyTest = new Match(16, 4, i, 2, 3, 4, 9, mTestArray[i]);
-            MatchList.getInstance().matchList.add(dummyTest);
-        }
-        MatchList.getInstance().matchList.add(0, new Match(16, 1, 25, 25, 7, 10, 10, "de_train"));
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,7 +54,7 @@ public class FragmentA extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String matchpageStyle = prefs.getString("prefs_style_matchpage", "list");
+        String matchpageStyle = prefs.getString("prefs_style_matchpage", "small_card");
 
         // specify an adapter
         // TODO: sharedPreference listener

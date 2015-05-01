@@ -1,11 +1,17 @@
 package com.example.android.cstogo.activities;
 
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +28,11 @@ import com.melnykov.fab.FloatingActionButton;
 import com.rey.material.widget.EditText;
 import com.rey.material.widget.Spinner;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
 
 
@@ -33,7 +44,6 @@ public class NewMatchActivity extends ActionBarActivity {
         setTheme(MyApplication.getThemeId());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_match);
-        //TODO: change layout
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.new_match_toolbar);
 
@@ -72,9 +82,30 @@ public class NewMatchActivity extends ActionBarActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveMatch();
+                changeColor();
+                //saveMatch();
             }
         });
+    }
+
+    private void changeColor(){
+        int newColor = getResources().getColor(android.R.color.holo_red_dark);
+
+        TypedValue typedValue = new TypedValue();
+
+        TypedArray a = obtainStyledAttributes(typedValue.data, new int[] { R.attr.colorPrimary });
+        int color = a.getColor(0, 0);
+
+        a.recycle();
+
+        Drawable oldBackground = new ColorDrawable(color);
+        Drawable colorDrawable = new ColorDrawable(newColor);
+        Drawable bottomDrawable = new ColorDrawable(getResources().getColor(android.R.color.transparent));
+        LayerDrawable ld = new LayerDrawable(new Drawable[]{colorDrawable, bottomDrawable});
+        TransitionDrawable td = new TransitionDrawable(new Drawable[]{oldBackground, ld});
+        getSupportActionBar().setBackgroundDrawable(td);
+        td.startTransition(850);
+        td.reverseTransition(650);
     }
 
     private void saveMatch() {
@@ -103,6 +134,24 @@ public class NewMatchActivity extends ActionBarActivity {
 
         Intent returnIntent = new Intent();
         setResult(RESULT_OK, returnIntent);
+
+        File file = new File(MyApplication.getAppContext().getFilesDir(), "match_list.dat");
+        FileOutputStream outStream = null;
+        try {
+            outStream = new FileOutputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        ObjectOutputStream objectOutStream;
+        try {
+            objectOutStream = new ObjectOutputStream(outStream);
+            objectOutStream.writeInt(MatchList.getInstance().matchList.size()); // Save size first
+            for(Match m:MatchList.getInstance().matchList)
+                objectOutStream.writeObject(m);
+            objectOutStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         //TODO: Check for valid input
         finish();

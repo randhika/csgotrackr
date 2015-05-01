@@ -2,13 +2,14 @@ package com.example.android.cstogo.helpers;
 
 import com.example.android.cstogo.R;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 /**
  * - Yuro - 20.3.2015.
  */
-public class Match {
+public class Match implements Serializable{
 
     private int teamRounds;
     private int enemyRounds;
