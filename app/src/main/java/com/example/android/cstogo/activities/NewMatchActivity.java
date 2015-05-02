@@ -19,6 +19,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
 import com.example.android.cstogo.MyApplication;
 import com.example.android.cstogo.R;
@@ -82,10 +83,64 @@ public class NewMatchActivity extends ActionBarActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeColor();
-                //saveMatch();
+                if(checkInputs()){
+                    changeColor();
+                } else {
+                    saveMatch();
+                }
             }
         });
+    }
+
+    //it's used, i promise
+    @SuppressWarnings("unused")
+    private boolean checkInputs() {
+        //Do not trust user input. Check for empty or non-int input
+        //RETURN: true for bad input
+
+        EditText kills = (EditText) findViewById(R.id.new_match_kills);
+        EditText assists = (EditText) findViewById(R.id.new_match_assists);
+        EditText deaths = (EditText) findViewById(R.id.new_match_deaths);
+        EditText mvps = (EditText) findViewById(R.id.new_match_mvps);
+        EditText score = (EditText) findViewById(R.id.new_match_score);
+
+        if (isEmpty(kills) || isEmpty(assists) || isEmpty(deaths) || isEmpty(mvps) || isEmpty(score)){
+            Toast.makeText(this, "Match stats are not filled", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        try {
+            String killsString = kills.getText().toString();
+            String assistsString = assists.getText().toString();
+            String deathsString = deaths.getText().toString();
+            String mvpsString = mvps.getText().toString();
+            String scoreString = score.getText().toString();
+            int killsNum = Integer.parseInt(killsString);
+            int assistsNum = Integer.parseInt(assistsString);
+            int deathsNum = Integer.parseInt(deathsString);
+            int mvpsNum = Integer.parseInt(mvpsString);
+            int scoreNum = Integer.parseInt(scoreString);
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Match stats are filled incorrectly", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        NumberPicker np1 = (NumberPicker) findViewById(R.id.new_match_picker1);
+        NumberPicker np2 = (NumberPicker) findViewById(R.id.new_match_picker2);
+
+        int np1Val = np1.getValue();
+        int np2Val = np2.getValue();
+
+        if (np1Val == 0 && np2Val == 0){
+            Toast.makeText(this, "Match result not filled", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean isEmpty(EditText etText) {
+        return etText.getText().toString().trim().length() <= 0;
     }
 
     private void changeColor(){
@@ -93,7 +148,7 @@ public class NewMatchActivity extends ActionBarActivity {
 
         TypedValue typedValue = new TypedValue();
 
-        TypedArray a = obtainStyledAttributes(typedValue.data, new int[] { R.attr.colorPrimary });
+        TypedArray a = obtainStyledAttributes(typedValue.data, new int[]{R.attr.colorPrimary});
         int color = a.getColor(0, 0);
 
         a.recycle();
@@ -153,7 +208,6 @@ public class NewMatchActivity extends ActionBarActivity {
             e.printStackTrace();
         }
 
-        //TODO: Check for valid input
         finish();
 
     }

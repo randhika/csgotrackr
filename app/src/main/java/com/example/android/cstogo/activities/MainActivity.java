@@ -53,10 +53,25 @@ public class MainActivity extends ActionBarActivity {
     private class themeListener implements SharedPreferences.OnSharedPreferenceChangeListener {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences spref, String key) {
-            Log.i("TAG", "Pref changed");
             if(key.equals("prefs_style_nightmode") && !spref.getBoolean(key, false) == (MyApplication.getThemeSetting()))
             {
                 MyApplication.reloadTheme();
+                MyApplication.setScheduledRestart(true);
+            }
+            String sprefMatchpage = spref.getString("prefs_style_matchpage", "small_card");
+            String savedMatchpage = MyApplication.getMatchpageStyle();
+            assert sprefMatchpage != null;
+            boolean compareSprefSaved = sprefMatchpage.equals(savedMatchpage);
+            if(key.equals("prefs_style_matchpage") && !compareSprefSaved){
+                MyApplication.loadMatchlistSetting();
+                MyApplication.setScheduledRestart(true);
+            }
+            String sprefSteamId = spref.getString("prefs_steam_name", "");
+            String savedSteamId = MyApplication.getSteamId();
+            assert sprefSteamId != null;
+            boolean compareIds = sprefSteamId.equals(savedSteamId);
+            if(key.equals("prefs_steam_name") && !compareIds){
+                MyApplication.loadId();
                 MyApplication.setScheduledRestart(true);
             }
         }

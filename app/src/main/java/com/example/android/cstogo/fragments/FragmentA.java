@@ -57,7 +57,6 @@ public class FragmentA extends Fragment {
         String matchpageStyle = prefs.getString("prefs_style_matchpage", "small_card");
 
         // specify an adapter
-        // TODO: sharedPreference listener
         if (matchpageStyle != null) {
             switch (matchpageStyle){
                 case "small_card":

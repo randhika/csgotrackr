@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 /**
  * - Yuro - 24.4.2015.
@@ -14,6 +13,8 @@ public class MyApplication extends Application {
     private static Context context;
     private static int themeId;
     private static boolean themeSetting;
+    private static String matchpageStyle;
+    private static String steamId;
     private static SharedPreferences sharedPreferences;
     private static boolean scheduledRestart = false;
 
@@ -24,6 +25,16 @@ public class MyApplication extends Application {
         context = getApplicationContext();
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         reloadTheme();
+        loadMatchlistSetting();
+        loadId();
+    }
+
+    public static void loadId(){
+        steamId = sharedPreferences.getString("prefs_steam_name", "");
+    }
+
+    public static void loadMatchlistSetting() {
+        matchpageStyle = sharedPreferences.getString("prefs_style_matchpage", "small_card");
     }
 
     public static void reloadTheme() {
@@ -46,7 +57,15 @@ public class MyApplication extends Application {
 
     public static boolean getThemeSetting()
     {
-        Log.i("TAG", "ThemeSetting : " + themeSetting);return themeSetting;
+        return themeSetting;
+    }
+
+    public static String getMatchpageStyle() {
+        return matchpageStyle;
+    }
+
+    public static String getSteamId() {
+        return steamId;
     }
 
     public static boolean isScheduledRestart() {
