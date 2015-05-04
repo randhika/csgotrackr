@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +16,11 @@ import com.example.android.cstogo.R;
 import com.example.android.cstogo.helpers.JSONParser;
 import com.example.android.cstogo.helpers.WebGun;
 import com.example.android.cstogo.helpers.WebMap;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -135,7 +130,7 @@ public class FragmentC extends Fragment {
         assert sprefSteamId != null;
         if(sprefSteamId.equals("")){
             //TODO: inflate picture
-            new BackgroundWebRunner().execute("http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=X&vanityurl=");
+
             return inflater.inflate(R.layout.fragment_c_no_id, container, false);
         } else {
             // Inflate the layout for this fragment
@@ -146,35 +141,7 @@ public class FragmentC extends Fragment {
         }
     }
 
-    public class BackgroundWebRunner extends AsyncTask<String, Void, JSONObject> {
-
-        @Override
-        protected JSONObject doInBackground(String... ulr) {
-            Response response;
-            OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder()
-                    .url(ulr[0])
-                    .build();
-
-            try {
-                response = client.newCall(request).execute();
-                String jsonData = response.body().string();
-                JSONObject jObject = new JSONObject(jsonData);
-                return jObject;
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
-
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(JSONObject result) {
-            Log.d("TAG", "onPostExecute "+ result);
-        }
-    }
-
-    public class AsyncTaskParseJson extends AsyncTask<View, String, View> {
+    private class AsyncTaskParseJson extends AsyncTask<View, String, View> {
 
         // set json string url here
         String yourJsonStringUrl = "http://cityinfocen.zz.vc/stats.json"; //test offline site

@@ -37,4 +37,10 @@ public class FriendlyEditTextPreference extends EditTextPreference {
             }
         }
     }
+
+    @Override
+    public void setText(String text) {
+        String trimText = text.trim();
+        super.setText(trimText);
+    }
 }
