@@ -2,6 +2,7 @@ package com.example.android.cstogo.fragments;
 
 
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -126,18 +127,61 @@ public class FragmentC extends Fragment {
 
         SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String sprefSteamId = spref.getString("prefs_steam_name", "");
+        String sprefSteam64Id = spref.getString("steam_id_64", "");
+        int sprefSteam64Success = spref.getInt("steam_id_64_success", 0);
+        View view;
+        TextView title;
 
         assert sprefSteamId != null;
         if(sprefSteamId.equals("")){
             //TODO: inflate picture
-
             return inflater.inflate(R.layout.fragment_c_no_id, container, false);
         } else {
-            // Inflate the layout for this fragment
-            View view = inflater.inflate(R.layout.fragment_c, container, false);
-            //call Async with view param so I dont get nullpointer on updateview
-            new AsyncTaskParseJson().execute(view);
-            return view;
+            switch (sprefSteam64Success) {
+                case 0:
+                    view = inflater.inflate(R.layout.fragment_c_no_id, container, false);
+                    title = (TextView) view.findViewById(R.id.fragment_c_no_id_title);
+                    title.setText("Android internal problem with getting saved preferences. Please try killing and restarting the application and contact the developer.");
+                    return view;
+                case 1:
+                    // Inflate the layout for this fragment
+                    view = inflater.inflate(R.layout.fragment_c, container, false);
+
+                    //if (!EventBus.getDefault().isRegistered(this)) {
+                    //    EventBus.getDefault().register(this);
+                    //}
+
+                    String apiKey = getResources().getString(R.string.api_key);
+                    Uri.Builder builder = new Uri.Builder();
+                    builder.scheme("http")
+                            .authority("api.steampowered.com")
+                            .appendPath("ISteamUserStats")
+                            .appendPath("GetUserStatsForGame")
+                            .appendPath("v0002")
+                            .appendQueryParameter("appid", "730")
+                            .appendQueryParameter("key", apiKey)
+                            .appendQueryParameter("steamid", sprefSteam64Id);
+                    String myUrl = builder.build().toString();
+
+                    //call Async with view param so I don't get nullPointer on updateView
+                    new AsyncTaskParseJson().execute(view);
+                    return view;
+                case 42:
+                    view = inflater.inflate(R.layout.fragment_c_no_id, container, false);
+                    title = (TextView) view.findViewById(R.id.fragment_c_no_id_title);
+                    title.setText("Couldn't find ID specified in settings on Steam network. Typo?");
+                    return view;
+                case 99:
+                    view = inflater.inflate(R.layout.fragment_c_no_id, container, false);
+                    title = (TextView) view.findViewById(R.id.fragment_c_no_id_title);
+                    title.setText("Couldn't connect to steam API. Please check your network and try refresh.");
+                    return view;
+                default:
+                    view = inflater.inflate(R.layout.fragment_c_no_id, container, false);
+                    title = (TextView) view.findViewById(R.id.fragment_c_no_id_title);
+                    title.setText("Unexpected error. Please contact developer.");
+                    return view;
+            }
         }
     }
 

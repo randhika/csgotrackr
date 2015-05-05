@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/fragment_c_no_id_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Please set up your steam id in settings"

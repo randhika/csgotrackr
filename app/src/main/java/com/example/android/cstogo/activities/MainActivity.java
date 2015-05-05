@@ -123,23 +123,30 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(JSONObject result) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
+            SharedPreferences.Editor editor = preferences.edit();
             if(result != null){
                 try {
-                    String jsonSuccess = result.getString("success");
-                    String jsonSteamId = result.getString("steamid");
+                    int jsonSuccess = result.getInt("success");
+                    if (jsonSuccess == 42) {
+                        editor.putInt("steam_id_64_success", jsonSuccess);
+                        editor.putString("steam_id_64", "0");
+                        Toast.makeText(MyApplication.getAppContext(), "Couldn't find specified ID. Typo?", Toast.LENGTH_LONG).show();
+                    } else {
+                        String jsonSteamId = result.getString("steamid");
 
-                    Log.d("TAG", "onPostExecute - " + jsonSuccess + " : " + jsonSteamId + " ");
-
-                    //SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
-                    //SharedPreferences.Editor editor = preferences.edit();
-                    //editor.putString("steam_id_64",jsonSuccess);
-                    //editor.apply();
+                        editor.putInt("steam_id_64_success", jsonSuccess);
+                        editor.putString("steam_id_64", jsonSteamId);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             } else {
+                editor.putInt("steam_id_64_success", 99);
+                editor.putString("steam_id_64", "0");
                 Toast.makeText(MyApplication.getAppContext(), "Error connecting to steam API. Please try again later.", Toast.LENGTH_LONG).show();
             }
+            editor.apply();
         }
     }
 
