@@ -605,6 +605,8 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         mLast3Bar = last3Bar;
     }
 
+
+    @SuppressWarnings("unused")
     public void onEvent(UpdateStatsEvent event){
         updateTextViews(getView());
     }

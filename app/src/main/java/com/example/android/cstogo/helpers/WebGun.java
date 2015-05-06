@@ -45,11 +45,14 @@ public class WebGun {
         this.kills = kills;
     }
 
-    public float getAccuracy(){
+    public float getAccuracy() {
         BigDecimal shots = new BigDecimal(getShots());
         BigDecimal hits = new BigDecimal(getHits());
-        BigDecimal acc = hits.divide(shots.divide(new BigDecimal(100), 2, RoundingMode.HALF_UP), 1, RoundingMode.HALF_UP);
-
-        return acc.floatValue();
+        try {
+            BigDecimal acc = hits.divide(shots.divide(new BigDecimal(100), 2, RoundingMode.HALF_UP), 1, RoundingMode.HALF_UP);
+            return acc.floatValue();
+        } catch (java.lang.ArithmeticException e) {
+            return 0;
+        }
     }
 }

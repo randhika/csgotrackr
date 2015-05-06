@@ -39,7 +39,12 @@ public class WebMap {
     public float getWinPerc() {
         BigDecimal bdRounds = new BigDecimal(getRounds());
         BigDecimal bdWins = new BigDecimal(getWins());
-        BigDecimal bdWinPerc = bdWins.divide(bdRounds.divide(new BigDecimal(100), 2, RoundingMode.HALF_UP), 2, RoundingMode.HALF_UP);
-        return bdWinPerc.floatValue();
+        try {
+            BigDecimal bdWinPerc = bdWins.divide(bdRounds.divide(new BigDecimal(100), 2, RoundingMode.HALF_UP), 2, RoundingMode.HALF_UP);
+            return bdWinPerc.floatValue();
+        } catch (java.lang.ArithmeticException e){
+            return 0;
+        }
+
     }
 }
