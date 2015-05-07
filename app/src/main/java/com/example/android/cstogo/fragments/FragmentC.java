@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -124,7 +127,7 @@ public class FragmentC extends Fragment {
 
     public FragmentC() {
         // Required empty public constructor
-        // TODO: Update on actionbar press, inflate different when no settings, build uri
+        // TODO: Update on actionbar press
     }
 
 
@@ -138,7 +141,7 @@ public class FragmentC extends Fragment {
         int sprefSteam64Success = spref.getInt("steam_id_64_success", 0);
         View view;
         TextView title;
-
+        setHasOptionsMenu(true);
         assert sprefSteamId != null;
         if (sprefSteamId.equals("")) {
             //TODO: inflate picture
@@ -858,6 +861,7 @@ public class FragmentC extends Fragment {
         web_map_rounds_number.setText(String.valueOf(highestRounds));
     }
 
+    @SuppressWarnings("ConstantConditions")
     private void createTextViewsBestWeapons (View view) {
 
         getWebGunList().clear();
@@ -1000,6 +1004,24 @@ public class FragmentC extends Fragment {
         web_other_donated.setText(String.valueOf(getTotalWeaponsDonated()));
         TextView web_other_broken_windows = (TextView) view.findViewById(R.id.web_other_broken_windows);
         web_other_broken_windows.setText(String.valueOf(getTotalBrokenWindows()));
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_fragment_c, menu);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.update_from_web) {
+            Toast.makeText(getActivity(), "Reload", Toast.LENGTH_SHORT).show();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public int getTotalKills() {
