@@ -54,6 +54,7 @@
 
     <string name="pref_style_matchpage_default">small_card</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="web_stats_steam_avatar">Steam Avatar</string>
 
 
 </resources>

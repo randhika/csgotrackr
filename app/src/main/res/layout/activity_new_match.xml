@@ -3,144 +3,221 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:fab="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         tools:context="com.example.android.cstogo.activities.NewMatchActivity">
 
-        <include
+        <android.support.v7.widget.Toolbar
             android:id="@+id/new_match_toolbar"
-            layout="@layout/toolbar_base" />
-
-        <com.rey.material.widget.EditText
-            style="@style/Material.Widget.EditText.Light"
-            android:id="@+id/new_match_kills"
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/new_match_picker2"
-            android:layout_marginLeft="28dp"
-            android:layout_marginStart="28dp"
-            android:layout_toEndOf="@+id/new_match_picker2"
-            android:layout_toRightOf="@+id/new_match_picker2"
-            android:hint="kills"
-            android:inputType="number"
-            android:gravity="center"
-            app:et_labelTextColor="?edt_colorAccent"
-            app:et_supportMode="none"/>
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize">
 
-        <com.rey.material.widget.EditText
-            style="@style/Material.Widget.EditText.Light"
-            android:id="@+id/new_match_assists"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.andexert.library.RippleView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/imageView"
+                    android:layout_toStartOf="@+id/imageView">
+
+                    <TextView
+                        android:id="@+id/new_match_toolbar_discard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@android:drawable/ic_menu_revert"
+                        android:drawablePadding="5dp"
+                        android:drawableStart="@android:drawable/ic_menu_revert"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="discard"
+                        android:textAllCaps="true"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </com.andexert.library.RippleView>
+
+                <View
+                    android:id="@+id/imageView"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+
+                <com.andexert.library.RippleView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/imageView"
+                    android:layout_toRightOf="@+id/imageView">
+
+                    <TextView
+                        android:id="@+id/new_match_toolbar_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@android:drawable/ic_menu_add"
+                        android:drawablePadding="5dp"
+                        android:drawableStart="@android:drawable/ic_menu_add"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="add"
+                        android:textAllCaps="true"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </com.andexert.library.RippleView>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/new_match_kills"
-            android:layout_alignStart="@+id/new_match_kills"
-            android:layout_below="@id/new_match_kills"
-            android:hint="assists"
-            android:inputType="number"
-            android:gravity="center"
-            app:et_labelTextColor="?edt_colorAccent"
-            app:et_supportMode="none"/>
+            android:foreground="?android:windowContentOverlay">
 
-        <com.rey.material.widget.EditText
-            style="@style/Material.Widget.EditText.Light"
-            android:id="@+id/new_match_deaths"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/new_match_assists"
-            android:layout_alignStart="@+id/new_match_assists"
-            android:layout_below="@+id/new_match_assists"
-            android:gravity="center"
-            android:hint="deaths"
-            android:inputType="number"
-            app:et_labelTextColor="?edt_colorAccent"
-            app:et_supportMode="none"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <com.rey.material.widget.EditText
-            style="@style/Material.Widget.EditText.Light"
-            android:id="@+id/new_match_mvps"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/new_match_deaths"
-            android:layout_alignStart="@+id/new_match_deaths"
-            android:layout_below="@+id/new_match_deaths"
-            android:gravity="center"
-            android:hint="mvp"
-            android:inputType="number"
-            app:et_labelTextColor="?edt_colorAccent"
-            app:et_supportMode="none"/>
+                <com.rey.material.widget.EditText
+                    android:id="@+id/new_match_kills"
+                    style="@style/Material.Widget.EditText.Light"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/new_match_picker2"
+                    android:layout_marginLeft="28dp"
+                    android:layout_marginStart="28dp"
+                    android:layout_toEndOf="@+id/new_match_picker2"
+                    android:layout_toRightOf="@+id/new_match_picker2"
+                    android:gravity="center"
+                    android:hint="kills"
+                    android:inputType="number"
+                    app:et_labelTextColor="?edt_colorAccent"
+                    app:et_supportMode="none" />
 
-        <com.rey.material.widget.EditText
-            style="@style/Material.Widget.EditText.Light"
-            android:id="@+id/new_match_score"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/new_match_mvps"
-            android:layout_alignStart="@+id/new_match_mvps"
-            android:layout_below="@+id/new_match_mvps"
-            android:gravity="center"
-            android:hint="score"
-            android:inputType="number"
-            app:et_labelTextColor="?edt_colorAccent"
-            app:et_supportMode="none"/>
+                <com.rey.material.widget.EditText
+                    android:id="@+id/new_match_assists"
+                    style="@style/Material.Widget.EditText.Light"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/new_match_kills"
+                    android:layout_alignStart="@+id/new_match_kills"
+                    android:layout_below="@id/new_match_kills"
+                    android:gravity="center"
+                    android:hint="assists"
+                    android:inputType="number"
+                    app:et_labelTextColor="?edt_colorAccent"
+                    app:et_supportMode="none" />
 
-        <NumberPicker
-            android:id="@+id/new_match_picker1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/new_match_toolbar"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp" />
+                <com.rey.material.widget.EditText
+                    android:id="@+id/new_match_deaths"
+                    style="@style/Material.Widget.EditText.Light"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/new_match_assists"
+                    android:layout_alignStart="@+id/new_match_assists"
+                    android:layout_below="@+id/new_match_assists"
+                    android:gravity="center"
+                    android:hint="deaths"
+                    android:inputType="number"
+                    app:et_labelTextColor="?edt_colorAccent"
+                    app:et_supportMode="none" />
 
-        <com.rey.material.widget.Spinner
-            android:id="@+id/spinner_label"
-            style="@style/Material.Widget.Spinner.Light"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/new_match_picker1"
-            android:layout_alignStart="@+id/new_match_picker1"
-            android:layout_below="@+id/new_match_picker1"
-            android:layout_marginTop="15dp"
-            android:minWidth="128dp"
-            app:rd_delayClick="false"
-            app:rd_enable="true"
-            app:rd_style="@style/Material.Drawable.Ripple.Wave.Light"
-            app:spn_arrowAnimDuration="@android:integer/config_shortAnimTime"
-            app:spn_arrowInterpolator="@android:anim/decelerate_interpolator"
-            app:spn_arrowSwitchMode="true"
-            app:spn_label="Pick Map"
-            app:spn_labelEnable="true" />
+                <com.rey.material.widget.EditText
+                    android:id="@+id/new_match_mvps"
+                    style="@style/Material.Widget.EditText.Light"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/new_match_deaths"
+                    android:layout_alignStart="@+id/new_match_deaths"
+                    android:layout_below="@+id/new_match_deaths"
+                    android:gravity="center"
+                    android:hint="mvp"
+                    android:inputType="number"
+                    app:et_labelTextColor="?edt_colorAccent"
+                    app:et_supportMode="none" />
 
-        <NumberPicker
-            android:id="@+id/new_match_picker2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/new_match_picker1"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_toEndOf="@+id/new_match_picker1"
-            android:layout_toRightOf="@+id/new_match_picker1" />
+                <com.rey.material.widget.EditText
+                    android:id="@+id/new_match_score"
+                    style="@style/Material.Widget.EditText.Light"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/new_match_mvps"
+                    android:layout_alignStart="@+id/new_match_mvps"
+                    android:layout_below="@+id/new_match_mvps"
+                    android:gravity="center"
+                    android:hint="score"
+                    android:inputType="number"
+                    app:et_labelTextColor="?edt_colorAccent"
+                    app:et_supportMode="none" />
 
-        <com.melnykov.fab.FloatingActionButton
-            android:id="@+id/new_match_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/new_match_score"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="16dp"
-            android:src="@drawable/ic_add_white_24dp"
-            fab:fab_colorNormal="@color/accent"
-            fab:fab_colorPressed="@color/accent_pressed"
-            fab:fab_colorRipple="@color/ripple" />
+                <NumberPicker
+                    android:id="@+id/new_match_picker1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp" />
 
+                <com.rey.material.widget.Spinner
+                    android:id="@+id/spinner_label"
+                    style="@style/Material.Widget.Spinner.Light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/new_match_picker1"
+                    android:layout_alignStart="@+id/new_match_picker1"
+                    android:layout_below="@+id/new_match_picker1"
+                    android:layout_marginTop="15dp"
+                    android:minWidth="128dp"
+                    app:rd_delayClick="false"
+                    app:rd_enable="true"
+                    app:rd_style="@style/Material.Drawable.Ripple.Wave.Light"
+                    app:spn_arrowAnimDuration="@android:integer/config_shortAnimTime"
+                    app:spn_arrowInterpolator="@android:anim/decelerate_interpolator"
+                    app:spn_arrowSwitchMode="true"
+                    app:spn_label="Pick Map"
+                    app:spn_labelEnable="true" />
 
-    </RelativeLayout>
+                <NumberPicker
+                    android:id="@+id/new_match_picker2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/new_match_picker1"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_toEndOf="@+id/new_match_picker1"
+                    android:layout_toRightOf="@+id/new_match_picker1" />
+
+                <com.melnykov.fab.FloatingActionButton
+                    android:id="@+id/new_match_fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/new_match_score"
+                    android:layout_margin="16dp"
+                    android:src="@drawable/ic_add_white_24dp"
+                    fab:fab_colorNormal="@color/accent"
+                    fab:fab_colorPressed="@color/accent_pressed"
+                    fab:fab_colorRipple="@color/ripple" />
+
+            </RelativeLayout>
+        </FrameLayout>
+    </LinearLayout>
 
 </ScrollView>

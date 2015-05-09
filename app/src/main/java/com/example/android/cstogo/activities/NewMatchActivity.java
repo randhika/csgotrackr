@@ -77,6 +77,8 @@ public class NewMatchActivity extends ActionBarActivity {
         // Apply the adapter to the spinner
         spn_label.setAdapter(adapter2);
 
+        android.widget.TextView toolbarAdd = (android.widget.TextView) findViewById(R.id.new_match_toolbar_add);
+        android.widget.TextView toolbarDiscard = (android.widget.TextView) findViewById(R.id.new_match_toolbar_discard);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.new_match_fab);
 
         Animation fabGrow = AnimationUtils.loadAnimation(this, R.anim.anim_fab);
@@ -85,11 +87,29 @@ public class NewMatchActivity extends ActionBarActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkInputs()){
+                if (checkInputs()) {
                     changeColor();
                 } else {
                     saveMatch();
                 }
+            }
+        });
+
+        toolbarAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkInputs()) {
+                    changeColor();
+                } else {
+                    saveMatch();
+                }
+            }
+        });
+
+        toolbarDiscard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

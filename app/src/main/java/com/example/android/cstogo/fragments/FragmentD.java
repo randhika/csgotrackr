@@ -11,9 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.android.cstogo.adapters.MySmokesListAdapter;
 import com.example.android.cstogo.R;
 import com.example.android.cstogo.activities.SmokesActivity;
+import com.example.android.cstogo.adapters.MySmokesListAdapter;
 import com.example.android.cstogo.helpers.Smoke;
 
 import java.util.ArrayList;
@@ -30,13 +30,9 @@ public class FragmentD extends Fragment{
         // Required empty public constructor
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_d, container, false);
-
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         smokeMapList.clear();
         smokeMapList.add("de_dust2");
         smokeMapList.add("de_inferno");
@@ -47,6 +43,13 @@ public class FragmentD extends Fragment{
         smokeMapList.add("de_season");
         smokeMapList.add("de_train");
         smokeMapList.add("de_nuke");
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_d, container, false);
 
         RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.smokesMapList);
 

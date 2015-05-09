@@ -97,7 +97,8 @@ public class FragmentA extends Fragment {
 
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
-                mAdapter.notifyDataSetChanged();
+                //mAdapter.notifyDataSetChanged();
+                mAdapter.notifyItemInserted(0);
                 EventBus.getDefault().post(new UpdateStatsEvent());
             }
         }
