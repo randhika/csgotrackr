@@ -13,12 +13,10 @@
     android:focusable="true"
     android:id="@+id/rowRelLayout">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <ImageView
         android:id="@+id/rowImage"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        app:border_width="0dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />

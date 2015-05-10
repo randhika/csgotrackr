@@ -221,7 +221,9 @@ public class FragmentC extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             if (result != null) {
+                if (!EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().post(new UpdateTextViewEvent());
+                }
             } else {
                 Toast.makeText(MyApplication.getAppContext(), "Error connecting to steam API. Please try again later.", Toast.LENGTH_LONG).show();
             }
