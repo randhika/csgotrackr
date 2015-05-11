@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.android.cstogo.R;
+import com.example.android.cstogo.helpers.CircleTransform;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -41,34 +42,34 @@ public class MySmokesListAdapter extends RecyclerView.Adapter<MySmokesListAdapte
         //todo: remove this switch
         switch (ci) {
             case "de_nuke":
-                Picasso.with(mContext).load(R.drawable.de_nuke).fit().centerCrop().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.de_nuke).transform(new CircleTransform()).fit().centerCrop().into(smokesViewHolder.vRowImage);
                 break;
             case "de_dust2":
-                Picasso.with(mContext).load(R.drawable.de_dust2).fit().centerCrop().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.de_dust2).transform(new CircleTransform()).fit().centerCrop().into(smokesViewHolder.vRowImage);
                 break;
             case "de_inferno":
-                Picasso.with(mContext).load(R.drawable.de_inferno).fit().centerCrop().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.de_inferno).transform(new CircleTransform()).fit().centerCrop().into(smokesViewHolder.vRowImage);
                 break;
             case "de_cache":
-                Picasso.with(mContext).load(R.drawable.de_cache).fit().centerCrop().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.de_cache).transform(new CircleTransform()).fit().centerCrop().into(smokesViewHolder.vRowImage);
                 break;
             case "de_cbble":
-                Picasso.with(mContext).load(R.drawable.de_cbble).fit().centerCrop().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.de_cbble).transform(new CircleTransform()).fit().centerCrop().into(smokesViewHolder.vRowImage);
                 break;
             case "de_overpass":
-                Picasso.with(mContext).load(R.drawable.de_overpass).fit().centerCrop().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.de_overpass).transform(new CircleTransform()).fit().centerCrop().into(smokesViewHolder.vRowImage);
                 break;
             case "de_season":
-                Picasso.with(mContext).load(R.drawable.de_season).fit().centerCrop().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.de_season).transform(new CircleTransform()).fit().centerCrop().into(smokesViewHolder.vRowImage);
                 break;
             case "de_mirage":
-                Picasso.with(mContext).load(R.drawable.de_mirage).fit().centerCrop().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.de_mirage).transform(new CircleTransform()).fit().centerCrop().into(smokesViewHolder.vRowImage);
                 break;
             case "de_train":
-                Picasso.with(mContext).load(R.drawable.de_train).fit().centerCrop().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.de_train).transform(new CircleTransform()).fit().centerCrop().into(smokesViewHolder.vRowImage);
                 break;
             default:
-                Picasso.with(mContext).load(R.drawable.de_dust2).fit().centerCrop().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.de_dust2).transform(new CircleTransform()).fit().centerCrop().into(smokesViewHolder.vRowImage);
                 break;
         }
 

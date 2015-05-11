@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.cstogo.R;
+import com.example.android.cstogo.helpers.CircleTransform;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -18,33 +19,45 @@ public class MySteamWebStatsAdapter extends RecyclerView.Adapter<MySteamWebStats
 
     private Context mContext;
     private List<String> steamWebHeader;
+    private List<String> steamWebWebMap;
 
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_WEBMAP = 1;
     private static final int TYPE_WEBGUN = 2;
 
-    public MySteamWebStatsAdapter(Context context, List<String> steamWebHeader) {
+    public MySteamWebStatsAdapter(Context context, List<String> steamWebHeader, List<String> steamWebWebMap) {
         this.mContext = context;
         this.steamWebHeader = steamWebHeader;
+        this.steamWebWebMap = steamWebWebMap;
     }
 
     @Override
     public int getItemCount() {
-        return (null != steamWebHeader ? 2 : -1);
+        if (steamWebHeader.size() == 0 || steamWebWebMap.size() == 0){
+            return 0;
+        } else {
+            return 2;
+        }
     }
 
     @Override
     public void onBindViewHolder(MySteamWebStatsAdapter.WebStatsViewHolder viewHolder, int i) {
-        if (steamWebHeader.size() != 0) {
+
             if (getItemViewType(i) == TYPE_HEADER) {
                 SteamWebStatsHeaderViewHolder headerHolder = (SteamWebStatsHeaderViewHolder) viewHolder;
-                headerHolder.vNickname.setText(steamWebHeader.get(0));
-                Picasso.with(mContext).load(steamWebHeader.get(1)).fit().centerCrop().into(headerHolder.vAvatar);
-                headerHolder.vStatus.setText(steamWebHeader.get(2));
+                headerHolder.vHeaderNickname.setText(steamWebHeader.get(0));
+                Picasso.with(mContext).load(steamWebHeader.get(1)).transform(new CircleTransform()).fit().centerCrop().into(headerHolder.vHeaderAvatar);
+                headerHolder.vHeaderStatus.setText(steamWebHeader.get(2));
             } else {
                 SteamWebStatsWebMapViewHolder webMapHolder = (SteamWebStatsWebMapViewHolder) viewHolder;
+                webMapHolder.vWebMapWinPercName.setText(steamWebWebMap.get(0));
+                webMapHolder.vWebMapWinPercNumber.setText(steamWebWebMap.get(1));
+                webMapHolder.vWebMapWinsName.setText(steamWebWebMap.get(2));
+                webMapHolder.vWebMapWinsNumber.setText(steamWebWebMap.get(3));
+                webMapHolder.vWebMapRoundsName.setText(steamWebWebMap.get(4));
+                webMapHolder.vWebMapRoundsNumber.setText(steamWebWebMap.get(5));
             }
-        }
+
     }
 
     @Override
@@ -96,21 +109,37 @@ public class MySteamWebStatsAdapter extends RecyclerView.Adapter<MySteamWebStats
 
     public class SteamWebStatsHeaderViewHolder extends WebStatsViewHolder {
 
-        protected TextView vNickname;
-        protected TextView vStatus;
-        protected ImageView vAvatar;
+        protected TextView vHeaderNickname;
+        protected TextView vHeaderStatus;
+        protected ImageView vHeaderAvatar;
 
         public SteamWebStatsHeaderViewHolder(View itemView) {
             super(itemView);
-            vNickname = (TextView) itemView.findViewById(R.id.steam_web_stats_header_nickname);
-            vStatus = (TextView) itemView.findViewById(R.id.steam_web_stats_header_status);
-            vAvatar = (ImageView) itemView.findViewById(R.id.steam_web_stats_header_avatar);
+            vHeaderNickname = (TextView) itemView.findViewById(R.id.steam_web_stats_header_nickname);
+            vHeaderStatus = (TextView) itemView.findViewById(R.id.steam_web_stats_header_status);
+            vHeaderAvatar = (ImageView) itemView.findViewById(R.id.steam_web_stats_header_avatar);
         }
     }
 
     public class SteamWebStatsWebMapViewHolder extends WebStatsViewHolder {
+
+        protected TextView vWebMapWinPercName;
+        protected TextView vWebMapWinPercNumber;
+        protected TextView vWebMapWinsName;
+        protected TextView vWebMapWinsNumber;
+        protected TextView vWebMapRoundsName;
+        protected TextView vWebMapRoundsNumber;
+
         public SteamWebStatsWebMapViewHolder(View itemView) {
             super(itemView);
+            vWebMapWinPercName = (TextView) itemView.findViewById(R.id.steam_web_stats_webmap_highest_win_perc_map);
+            vWebMapWinPercNumber = (TextView) itemView.findViewById(R.id.steam_web_stats_webmap_highest_win_perc_number);
+
+            vWebMapWinsName = (TextView) itemView.findViewById(R.id.steam_web_stats_webmap_highest_wins_map);
+            vWebMapWinsNumber = (TextView) itemView.findViewById(R.id.steam_web_stats_webmap_highest_wins_number);
+
+            vWebMapRoundsName = (TextView) itemView.findViewById(R.id.steam_web_stats_webmap_highest_rounds_map);
+            vWebMapRoundsNumber = (TextView) itemView.findViewById(R.id.steam_web_stats_webmap_highest_rounds_number);
         }
     }
 }
