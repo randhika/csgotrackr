@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,6 +27,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +39,12 @@ public class FragmentE extends Fragment {
 
     private RecyclerView.Adapter mAdapter;
     private List<String> steamWebHeader = new ArrayList<>();
+    private List<String> steamWebOverall = new ArrayList<>();
     private List<String> steamWebWebMap = new ArrayList<>();
+    private List<String> steamWebWebGun = new ArrayList<>();
+    private List<String> steamWebOther = new ArrayList<>();
+
+    private static final int CARDS = 5;
 
     private int mTotalKills;
     private int mTotalDeaths;
@@ -166,8 +174,15 @@ public class FragmentE extends Fragment {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new MySteamWebStatsAdapter(getActivity(), steamWebHeader, steamWebWebMap);
+        mAdapter = new MySteamWebStatsAdapter(getActivity(),
+                steamWebHeader,
+                steamWebOverall,
+                steamWebWebMap,
+                steamWebWebGun,
+                steamWebOther);
+
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         return view;
     }
@@ -204,7 +219,11 @@ public class FragmentE extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             if (result != null) {
-                mAdapter.notifyDataSetChanged();
+                if (mAdapter.getItemCount() == 0){
+                    mAdapter.notifyDataSetChanged();
+                } else {
+                    mAdapter.notifyItemRangeInserted(0, CARDS);
+                }
             } else {
                 Toast.makeText(MyApplication.getAppContext(), "Error connecting to steam API. Please try again later.", Toast.LENGTH_LONG).show();
             }
@@ -226,7 +245,10 @@ public class FragmentE extends Fragment {
                 String jsonData = response.body().string();
                 JSONArray dataJsonArr = new JSONObject(jsonData).getJSONObject("playerstats").getJSONArray("stats");
                 parseJsonStats(dataJsonArr);
+                createTextViewsHeader();
                 createTextViewsBestMaps();
+                createTextViewsBestWeapons();
+                createTextViewsOtherStats();
                 return "okay";
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
@@ -238,7 +260,11 @@ public class FragmentE extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             if (result != null) {
-                mAdapter.notifyDataSetChanged();
+                if (mAdapter.getItemCount() == 0){
+                    mAdapter.notifyDataSetChanged();
+                } else {
+                    mAdapter.notifyItemRangeInserted(0, CARDS);
+                }
             } else {
                 Toast.makeText(MyApplication.getAppContext(), "Error connecting to steam API. Please try again later.", Toast.LENGTH_LONG).show();
             }
@@ -764,9 +790,37 @@ public class FragmentE extends Fragment {
                     }
                 }
             } catch (JSONException e) {
-                e.printStackTrace();
+                //this catch block should be caught earlier and never happen
+                //just in case, throw Toast out there
+                Toast.makeText(MyApplication.getAppContext(), "Response Error", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void createTextViewsHeader() {
+        //HEADER START
+        BigDecimal kills = new BigDecimal(getTotalKills());
+        BigDecimal deaths = new BigDecimal(getTotalDeaths());
+        BigDecimal kd = kills.divide(deaths, 2, BigDecimal.ROUND_HALF_UP);
+        setTotalKd(kd.floatValue());
+
+        BigDecimal headshots = new BigDecimal(getTotalKillsHeadshot());
+        BigDecimal hs_perc = headshots.divide(kills.divide(new BigDecimal(100), 2, RoundingMode.HALF_UP), 1, RoundingMode.HALF_UP);
+
+        BigDecimal shots_fired = new BigDecimal(getTotalShotsFired());
+        BigDecimal shots_hit = new BigDecimal(getTotalShotsHit());
+        BigDecimal accuracy = shots_hit.divide(shots_fired.divide(new BigDecimal(100), 2, RoundingMode.HALF_UP), 1, RoundingMode.HALF_UP);
+
+        BigDecimal rounds = new BigDecimal(getTotalRounds());
+        BigDecimal win_rounds = new BigDecimal(getTotalWins());
+        BigDecimal win_perc = win_rounds.divide(rounds.divide(new BigDecimal(100), 2, RoundingMode.HALF_UP), 1, RoundingMode.HALF_UP);
+
+        steamWebOverall.clear();
+        steamWebOverall.add(String.valueOf(getTotalKd()));
+        steamWebOverall.add(String.valueOf(getTotalKills()));
+        steamWebOverall.add(win_perc + "%");
+        steamWebOverall.add(hs_perc + "%");
+        steamWebOverall.add(accuracy + "%");
     }
 
     private void createTextViewsBestMaps() {
@@ -830,6 +884,121 @@ public class FragmentE extends Fragment {
         steamWebWebMap.add(highestRoundsName);
         steamWebWebMap.add(String.valueOf(highestRounds));
 
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    private void createTextViewsBestWeapons() {
+
+        getWebGunList().clear();
+        getWebGunList().add(ak47);
+        getWebGunList().add(aug);
+        getWebGunList().add(awp);
+        getWebGunList().add(bizon);
+        getWebGunList().add(deagle);
+        getWebGunList().add(elite);
+        getWebGunList().add(famas);
+        getWebGunList().add(fiveseven);
+        getWebGunList().add(g3sg1);
+        getWebGunList().add(galilar);
+        getWebGunList().add(glock);
+        getWebGunList().add(hkp2000);
+        getWebGunList().add(m249);
+        getWebGunList().add(m4a1);
+        getWebGunList().add(mac10);
+        getWebGunList().add(mag7);
+        getWebGunList().add(mp7);
+        getWebGunList().add(mp9);
+        getWebGunList().add(negev);
+        getWebGunList().add(nova);
+        getWebGunList().add(p250);
+        getWebGunList().add(p90);
+        getWebGunList().add(sawedoff);
+        getWebGunList().add(scar20);
+        getWebGunList().add(sg556);
+        getWebGunList().add(ssg08);
+        getWebGunList().add(tec9);
+        getWebGunList().add(ump45);
+        getWebGunList().add(xm1014);
+
+        int highestShots = 0;
+        int highestHits = 0;
+        int highestKills = 0;
+        float highestAcc = 0;
+        String highestShotsName = "";
+        String highestHitsName = "";
+        String highestKillsName = "";
+        String highestAccName = "";
+
+        for (int i = 0; i < getWebGunList().size(); i++) {
+            WebGun ci = getWebGunList().get(i);
+
+            int tempShots = ci.getShots();
+            int tempHits = ci.getHits();
+            int tempKills = ci.getKills();
+            float tempAcc = ci.getAccuracy();
+
+            if (tempShots > highestShots) {
+                highestShots = tempShots;
+                highestShotsName = ci.getGunName();
+            }
+            if (tempHits > highestHits) {
+                highestHits = tempHits;
+                highestHitsName = ci.getGunName();
+            }
+            if (tempKills > highestKills) {
+                highestKills = tempKills;
+                highestKillsName = ci.getGunName();
+            }
+            if (tempAcc > highestAcc) {
+                highestAcc = tempAcc;
+                highestAccName = ci.getGunName();
+            }
+        }
+
+        steamWebWebGun.clear();
+        steamWebWebGun.add(highestShotsName);
+        steamWebWebGun.add(String.valueOf(highestShots));
+
+        steamWebWebGun.add(highestHitsName);
+        steamWebWebGun.add(String.valueOf(highestHits));
+
+        steamWebWebGun.add(highestKillsName);
+        steamWebWebGun.add(String.valueOf(highestKills));
+
+        steamWebWebGun.add(highestAccName);
+        steamWebWebGun.add(highestAcc + " %");
+    }
+
+    private void createTextViewsOtherStats() {
+
+        steamWebOther.clear();
+        steamWebOther.add(String.valueOf(getTotalKills()));
+        steamWebOther.add(String.valueOf(getTotalKills()));
+        steamWebOther.add(String.valueOf(getTotalKillsHeadshot()));
+        steamWebOther.add(String.valueOf(getTotalDeaths()));
+        steamWebOther.add(String.valueOf(getTotalWins()));
+        steamWebOther.add(String.valueOf(getTotalRounds()));
+        steamWebOther.add(String.valueOf(getTotalPlanted()));
+        steamWebOther.add(String.valueOf(getTotalDefused()));
+        steamWebOther.add(String.valueOf(getTotalDamageDone()));
+        steamWebOther.add("$" + String.valueOf(getTotalMoneyEarned()));
+        steamWebOther.add(String.valueOf(getTotalRescuedHostages()));
+        steamWebOther.add(String.valueOf(getTotalMvps()));
+        steamWebOther.add(String.valueOf(getTotalKillsEnemyWeapon()));
+        
+        steamWebOther.add(String.valueOf(getTotalShotsFired()));
+        steamWebOther.add(String.valueOf(getTotalShotsHit()));
+        steamWebOther.add(String.valueOf(getTotalShotsTaser()));
+        steamWebOther.add(String.valueOf(getTotalKillsTaser()));
+        steamWebOther.add(String.valueOf(getTotalKillsMolotov()));
+        steamWebOther.add(String.valueOf(getTotalKillsHeGrenade()));
+        steamWebOther.add(String.valueOf(getTotalKillsKnife()));
+        steamWebOther.add(String.valueOf(getTotalKillsEnemyBlinded()));
+        steamWebOther.add(String.valueOf(getTotalKillsAgainstZoomedSniper()));
+        steamWebOther.add(String.valueOf(getTotalDominations()));
+        steamWebOther.add(String.valueOf(getTotalRevenges()));
+        steamWebOther.add(String.valueOf(getTotalWeaponsDonated()));
+        steamWebOther.add(String.valueOf(getTotalBrokenWindows()));
     }
 
     //_______________________________________________________________
