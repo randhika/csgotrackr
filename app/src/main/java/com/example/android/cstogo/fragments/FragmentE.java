@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import com.example.android.cstogo.R;
 import com.example.android.cstogo.adapters.MySteamWebStatsAdapter;
 import com.example.android.cstogo.helpers.WebGun;
 import com.example.android.cstogo.helpers.WebMap;
+import com.squareup.okhttp.Cache;
+import com.squareup.okhttp.CacheControl;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -26,11 +29,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -133,12 +138,18 @@ public class FragmentE extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d("TAG", "onCreate called");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_e, container, false);
+        Log.d("TAG", "onCreateView called");
 
 
         String apiKey = getResources().getString(R.string.api_key);
@@ -193,14 +204,23 @@ public class FragmentE extends Fragment {
         @Override
         protected String doInBackground(String... url) {
             Response response;
+
+            int cacheSize = 5 * 1024 * 1024; // 10 MiB
+            Cache cache = new Cache(new File(MyApplication.getAppContext().getCacheDir(),"steam_user_data_cache"), cacheSize);
+
             OkHttpClient client = new OkHttpClient();
+            client.setCache(cache);
             Request request = new Request.Builder()
+                    .cacheControl(new CacheControl.Builder()
+                            .maxStale(1, TimeUnit.DAYS)
+                            .build())
                     .url(url[0])
                     .build();
 
             try {
                 response = client.newCall(request).execute();
                 String jsonData = response.body().string();
+                response.body().close();
                 JSONObject dataJsonObj = new JSONObject(jsonData).getJSONObject("response").getJSONArray("players").getJSONObject(0);
                 String personaname = dataJsonObj.getString("personaname");
                 steamWebHeader.clear();
@@ -209,8 +229,14 @@ public class FragmentE extends Fragment {
                 steamWebHeader.add(avatarfull);
                 String personastate = dataJsonObj.getString("personastate");
                 steamWebHeader.add(personastate);
+                Log.d("TAG", "doInBackground - " + client.getCache().getHitCount());
+                Log.d("TAG", "doInBackground - " + client.getCache().getRequestCount());
+                Log.d("TAG", "doInBackground - " + client.getCache().getNetworkCount());
                 return "okay";
             } catch (IOException | JSONException e) {
+                return null;
+            } catch (Exception e) {
+                e.printStackTrace();
                 return null;
             }
 
@@ -219,11 +245,11 @@ public class FragmentE extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             if (result != null) {
-                if (mAdapter.getItemCount() == 0){
+                //if (mAdapter.getItemCount() == 0){
                     mAdapter.notifyDataSetChanged();
-                } else {
-                    mAdapter.notifyItemRangeInserted(0, CARDS);
-                }
+                //} else {
+                //    mAdapter.notifyItemRangeInserted(0, CARDS);
+                //}
             } else {
                 Toast.makeText(MyApplication.getAppContext(), "Error connecting to steam API. Please try again later.", Toast.LENGTH_LONG).show();
             }
@@ -260,17 +286,16 @@ public class FragmentE extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             if (result != null) {
-                if (mAdapter.getItemCount() == 0){
+                //if (mAdapter.getItemCount() == 0){
                     mAdapter.notifyDataSetChanged();
-                } else {
-                    mAdapter.notifyItemRangeInserted(0, CARDS);
-                }
+                //} else {
+                //    mAdapter.notifyItemRangeInserted(0, CARDS);
+                //}
             } else {
                 Toast.makeText(MyApplication.getAppContext(), "Error connecting to steam API. Please try again later.", Toast.LENGTH_LONG).show();
             }
         }
     }
-
     //_______________________________________________________________
 
     private void parseJsonStats(JSONArray dataJsonArr) {
@@ -972,7 +997,6 @@ public class FragmentE extends Fragment {
     private void createTextViewsOtherStats() {
 
         steamWebOther.clear();
-        steamWebOther.add(String.valueOf(getTotalKills()));
         steamWebOther.add(String.valueOf(getTotalKills()));
         steamWebOther.add(String.valueOf(getTotalKillsHeadshot()));
         steamWebOther.add(String.valueOf(getTotalDeaths()));
