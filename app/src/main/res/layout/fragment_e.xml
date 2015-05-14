@@ -5,6 +5,7 @@
     tools:context="com.example.android.cstogo.fragments.FragmentE">
 
     <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/steam_web_stats_swipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
