@@ -52,4 +52,9 @@
         <item name="android:textColorPrimary">#FF606060</item>
     </style>
 
+    <style name="ColorsLinearProgressDrawableStyle" parent="Material.Drawable.LinearProgress">
+        <item name="lpd_strokeColors">@array/progress_colors</item>
+        <item name="lpd_strokeSecondaryColor">#00000000</item>
+    </style>
+
 </resources>

@@ -1,9 +1,11 @@
 package com.example.android.cstogo.fragments;
 
 
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -15,6 +17,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.cstogo.MyApplication;
@@ -22,6 +26,7 @@ import com.example.android.cstogo.R;
 import com.example.android.cstogo.adapters.MySteamWebStatsAdapter;
 import com.example.android.cstogo.helpers.WebGun;
 import com.example.android.cstogo.helpers.WebMap;
+import com.rey.material.widget.ProgressView;
 import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.CacheControl;
 import com.squareup.okhttp.OkHttpClient;
@@ -139,7 +144,13 @@ public class FragmentE extends Fragment {
     private String myUrlStats;
 
     private SwipeRefreshLayout swipeRefreshLayout;
+    private ProgressView mProgressView;
     private int disableRefresher = 0;
+
+    private SharedPreferences spref;
+    private String sprefSteamId;
+    private String sprefSteam64Id;
+    private int sprefSteam64Success;
 
     public FragmentE() {
         // Required empty public constructor
@@ -148,28 +159,15 @@ public class FragmentE extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String apiKey = getResources().getString(R.string.api_key);
 
-        Uri.Builder builderAvatar = new Uri.Builder();
-        builderAvatar.scheme("http")
-                .authority("api.steampowered.com")
-                .appendPath("ISteamUser")
-                .appendPath("GetPlayerSummaries")
-                .appendPath("v0002")
-                .appendQueryParameter("key", apiKey)
-                .appendQueryParameter("steamids", "76561198011602043");
-        myUrlAvatar = builderAvatar.build().toString();
+        spref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sprefSteamId = spref.getString("prefs_steam_name", "");
+        sprefSteam64Id = spref.getString("steam_id_64", "");
+        sprefSteam64Success = spref.getInt("steam_id_64_success", 0);
 
-        Uri.Builder builderStats = new Uri.Builder();
-        builderStats.scheme("http")
-                .authority("api.steampowered.com")
-                .appendPath("ISteamUserStats")
-                .appendPath("GetUserStatsForGame")
-                .appendPath("v0002")
-                .appendQueryParameter("appid", "730")
-                .appendQueryParameter("key", apiKey)
-                .appendQueryParameter("steamid", "76561198011602043");
-        myUrlStats = builderStats.build().toString();
+        if (sprefSteam64Success == 1) {
+            buildUrls(sprefSteam64Id);
+        }
     }
 
     @Override
@@ -177,49 +175,87 @@ public class FragmentE extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_e, container, false);
+        mProgressView = (ProgressView) view.findViewById(R.id.steam_web_stats_progress_line);
+        mProgressView.setVisibility(View.GONE);
         setHasOptionsMenu(true);
 
-        Request requestAvatar = new Request.Builder()
-                .cacheControl(new CacheControl.Builder()
-                        .maxStale(1, TimeUnit.DAYS)
-                        .build())
-                .url(myUrlAvatar)
-                .build();
+        View importPanel;
+        TextView importText;
+        assert sprefSteamId != null;
+        if (sprefSteamId.equals("")) {
+            importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
+            importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_import);
+            importText.setText("Steam ID not filled");
+        } else {
+            switch (sprefSteam64Success){
+                case 0:
+                    importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
+                    importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_import);
+                    importText.setText("Android internal problem with getting saved preferences. Please try killing and restarting the application and contact the developer.");
+                    break;
+                case 1:
+                    Request requestAvatar = new Request.Builder()
+                            .cacheControl(new CacheControl.Builder()
+                                    .maxStale(1, TimeUnit.DAYS)
+                                    .build())
+                            .url(myUrlAvatar)
+                            .build();
 
-        new GetSteamUserData().execute(requestAvatar);
+                    new GetSteamUserData().execute(requestAvatar);
 
-        Request requestStats = new Request.Builder()
-                .cacheControl(new CacheControl.Builder()
-                        .maxStale(1, TimeUnit.DAYS)
-                        .build())
-                .url(myUrlStats)
-                .build();
+                    Request requestStats = new Request.Builder()
+                            .cacheControl(new CacheControl.Builder()
+                                    .maxStale(1, TimeUnit.DAYS)
+                                    .build())
+                            .url(myUrlStats)
+                            .build();
 
-        new GetSteamGameStats().execute(requestStats);
+                    new GetSteamGameStats().execute(requestStats);
+                    break;
+                case 42:
+                    importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
+                    importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_import);
+                    importText.setText("Couldn't find ID specified in settings on Steam network. Typo?");
+                    break;
+                case 99:
+                    importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
+                    importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_import);
+                    importText.setText("ID is stored in settings, but there was an error confirming it (network/steam API error). Please try updating from menu above.");
+                    break;
+                default:
+                    importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
+                    importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_import);
+                    importText.setText("Unexpected error. Please contact developer.");
+                    break;
+            }
+        }
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.steam_web_stats_swipe);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //Toast.makeText(getActivity(), "Refresh", Toast.LENGTH_SHORT).show();
-                setDisableRefresher(0);
-                Request requestAvatar = new Request.Builder()
-                        .cacheControl(CacheControl.FORCE_NETWORK)
-                        .url(myUrlAvatar)
-                        .build();
+                if (sprefSteam64Success == 1) {
+                    setDisableRefresher(0);
+                    Request requestAvatar = new Request.Builder()
+                            .cacheControl(CacheControl.FORCE_NETWORK)
+                            .url(myUrlAvatar)
+                            .build();
 
-                new GetSteamUserData().execute(requestAvatar);
+                    new GetSteamUserData().execute(requestAvatar);
 
-                Request requestStats = new Request.Builder()
-                        .cacheControl(CacheControl.FORCE_NETWORK)
-                        .url(myUrlStats)
-                        .build();
+                    Request requestStats = new Request.Builder()
+                            .cacheControl(CacheControl.FORCE_NETWORK)
+                            .url(myUrlStats)
+                            .build();
 
-                new GetSteamGameStats().execute(requestStats);
+                    new GetSteamGameStats().execute(requestStats);
+                } else {
+                    Toast.makeText(getActivity(), "Steam ID is not correctly set up. There isn't really anything to refresh", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_green_light,
+                android.R.color.holo_blue_bright,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
@@ -243,14 +279,43 @@ public class FragmentE extends Fragment {
         return view;
     }
 
+    private void buildUrls(String sprefSteam64Id){
+        String apiKey = getResources().getString(R.string.api_key);
+        Uri.Builder builderAvatar = new Uri.Builder();
+        builderAvatar.scheme("http")
+                .authority("api.steampowered.com")
+                .appendPath("ISteamUser")
+                .appendPath("GetPlayerSummaries")
+                .appendPath("v0002")
+                .appendQueryParameter("key", apiKey)
+                .appendQueryParameter("steamids", sprefSteam64Id);
+        myUrlAvatar = builderAvatar.build().toString();
+
+        Uri.Builder builderStats = new Uri.Builder();
+        builderStats.scheme("http")
+                .authority("api.steampowered.com")
+                .appendPath("ISteamUserStats")
+                .appendPath("GetUserStatsForGame")
+                .appendPath("v0002")
+                .appendQueryParameter("appid", "730")
+                .appendQueryParameter("key", apiKey)
+                .appendQueryParameter("steamid", sprefSteam64Id);
+        myUrlStats = builderStats.build().toString();
+    }
 
     private class GetSteamUserData extends AsyncTask<Request, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressView.setVisibility(View.VISIBLE);
+        }
 
         @Override
         protected String doInBackground(Request... req) {
             Response response;
 
-            int cacheSize = 5 * 1024 * 1024; // 10 MiB
+            int cacheSize = 5 * 1024 * 1024; // 5 MiB
             Cache cache = new Cache(new File(MyApplication.getAppContext().getCacheDir(), "steam_user_data_cache"), cacheSize);
 
             OkHttpClient client = new OkHttpClient();
@@ -284,9 +349,10 @@ public class FragmentE extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             setDisableRefresher(getDisableRefresher() + 1);
-            if (getDisableRefresher() == 2){
+            if (getDisableRefresher() == 2) {
                 swipeRefreshLayout.setRefreshing(false);
             }
+            mProgressView.setVisibility(View.GONE);
             if (result != null) {
                 mAdapter.notifyDataSetChanged();
             } else {
@@ -295,14 +361,19 @@ public class FragmentE extends Fragment {
         }
     }
 
-
     private class GetSteamGameStats extends AsyncTask<Request, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressView.setVisibility(View.VISIBLE);
+        }
 
         @Override
         protected String doInBackground(Request... req) {
             Response response;
 
-            int cacheSize = 5 * 1024 * 1024; // 10 MiB
+            int cacheSize = 5 * 1024 * 1024; // 5 MiB
             Cache cache = new Cache(new File(MyApplication.getAppContext().getCacheDir(), "steam_user_stats_cache"), cacheSize);
 
             OkHttpClient client = new OkHttpClient();
@@ -329,9 +400,10 @@ public class FragmentE extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             setDisableRefresher(getDisableRefresher() + 1);
-            if (getDisableRefresher() == 2){
+            if (getDisableRefresher() == 2) {
                 swipeRefreshLayout.setRefreshing(false);
             }
+            mProgressView.setVisibility(View.GONE);
             if (result != null) {
                 mAdapter.notifyDataSetChanged();
             } else {
@@ -1082,22 +1154,38 @@ public class FragmentE extends Fragment {
         int id = item.getItemId();
 
         if (id == R.id.fragment_e_update) {
-            Request request = new Request.Builder()
-                    .cacheControl(new CacheControl.Builder()
-                            .maxStale(1, TimeUnit.DAYS)
-                            .build())
-                    .url(myUrlAvatar)
-                    .build();
+            if (sprefSteam64Success == 1) {
+                Request request = new Request.Builder()
+                        .cacheControl(new CacheControl.Builder()
+                                .maxStale(1, TimeUnit.DAYS)
+                                .build())
+                        .url(myUrlAvatar)
+                        .build();
 
-            new GetSteamUserData().execute(request);
+                new GetSteamUserData().execute(request);
+            } else {
+                Toast.makeText(getActivity(), "ID must be filled in settings to refresh stats", Toast.LENGTH_SHORT).show();
+            }
         }
         if (id == R.id.fragment_e_web) {
-            Request request = new Request.Builder()
-                    .cacheControl(CacheControl.FORCE_NETWORK)
-                    .url(myUrlAvatar)
-                    .build();
+            if (sprefSteam64Success == 1) {
+                Request request = new Request.Builder()
+                        .cacheControl(CacheControl.FORCE_NETWORK)
+                        .url(myUrlAvatar)
+                        .build();
 
-            new GetSteamUserData().execute(request);
+                new GetSteamUserData().execute(request);
+            } else {
+                Toast.makeText(getActivity(), "ID must be filled in settings to refresh stats", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        if (id == R.id.fragment_e_id) {
+            //CALL API
+            //SAVE TO SHARED PREF
+            //BUILD URIS AGAIN
+            //REQUEST STATS
+            //STUB VIEW.GONE
         }
 
         return super.onOptionsItemSelected(item);
