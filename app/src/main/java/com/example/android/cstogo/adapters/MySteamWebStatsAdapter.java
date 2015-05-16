@@ -29,6 +29,7 @@ public class MySteamWebStatsAdapter extends RecyclerView.Adapter<MySteamWebStats
     private static final int TYPE_WEBMAP = 2;
     private static final int TYPE_WEBGUN = 3;
     private static final int TYPE_OTHER = 4;
+    private static final int TYPE_FOOTER = 5;
 
     public MySteamWebStatsAdapter(Context context,
                                   List<String> steamWebHeader,
@@ -53,7 +54,7 @@ public class MySteamWebStatsAdapter extends RecyclerView.Adapter<MySteamWebStats
                 steamWebOther.size() == 0){
             return 0;
         } else {
-            return 5;
+            return 6;
         }
     }
 
@@ -65,7 +66,12 @@ public class MySteamWebStatsAdapter extends RecyclerView.Adapter<MySteamWebStats
                 SteamWebStatsHeaderViewHolder headerHolder = (SteamWebStatsHeaderViewHolder) viewHolder;
                 headerHolder.vHeaderNickname.setText(steamWebHeader.get(0));
                 Picasso.with(mContext).load(steamWebHeader.get(1)).transform(new CircleTransform()).fit().centerCrop().into(headerHolder.vHeaderAvatar);
-                headerHolder.vHeaderStatus.setText(steamWebHeader.get(2));
+                int onlineStatus = Integer.valueOf(steamWebHeader.get(2));
+                if (onlineStatus == 0){
+                    headerHolder.vHeaderStatus.setText("Offline");
+                } else {
+                    headerHolder.vHeaderStatus.setText("Online");
+                }
                 break;
             case TYPE_OVERALL_STATS:
                 SteamWebStatsOverallViewHolder overallHolder = (SteamWebStatsOverallViewHolder) viewHolder;
@@ -124,7 +130,10 @@ public class MySteamWebStatsAdapter extends RecyclerView.Adapter<MySteamWebStats
                 otherHolder.vOtherRevenges.setText(steamWebOther.get(22));
                 otherHolder.vOtherDonations.setText(steamWebOther.get(23));
                 otherHolder.vOtherBrokenWindows.setText(steamWebOther.get(24));
-
+                break;
+            case TYPE_FOOTER:
+                SteamWebStatsFooterViewHolder footerHolder = (SteamWebStatsFooterViewHolder) viewHolder;
+                footerHolder.vFooterLastUpdate.setText("Last update : " + steamWebHeader.get(3));
                 break;
         }
 
@@ -143,6 +152,8 @@ public class MySteamWebStatsAdapter extends RecyclerView.Adapter<MySteamWebStats
                 return TYPE_WEBGUN;
             case 4:
                 return TYPE_OTHER;
+            case 5:
+                return TYPE_FOOTER;
             default:
                 return 5;
         }
@@ -181,6 +192,11 @@ public class MySteamWebStatsAdapter extends RecyclerView.Adapter<MySteamWebStats
                 v = LayoutInflater.from(context)
                         .inflate(R.layout.steam_web_stats_other, viewGroup, false);
                 holder = new SteamWebStatsOtherViewHolder(v);
+                break;
+            case TYPE_FOOTER:
+                v = LayoutInflater.from(context)
+                        .inflate(R.layout.steam_web_stats_footer, viewGroup, false);
+                holder = new SteamWebStatsFooterViewHolder(v);
                 break;
             default:
                 v = LayoutInflater.from(context)
@@ -335,5 +351,15 @@ public class MySteamWebStatsAdapter extends RecyclerView.Adapter<MySteamWebStats
             vOtherBrokenWindows = (TextView) itemView.findViewById(R.id.steam_web_stats_other_broken_windows);
         }
 
+    }
+
+    public class SteamWebStatsFooterViewHolder extends WebStatsViewHolder {
+
+        protected TextView vFooterLastUpdate;
+
+        public SteamWebStatsFooterViewHolder(View itemView) {
+            super(itemView);
+            vFooterLastUpdate = (TextView) itemView.findViewById(R.id.steam_web_stats_footer_last_update);
+        }
     }
 }

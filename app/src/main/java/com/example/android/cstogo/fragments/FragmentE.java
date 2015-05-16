@@ -41,8 +41,12 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -147,10 +151,12 @@ public class FragmentE extends Fragment {
     private ProgressView mProgressView;
     private int disableRefresher = 0;
 
+    private String apiKey;
     private SharedPreferences spref;
     private String sprefSteamId;
-    private String sprefSteam64Id;
     private int sprefSteam64Success;
+
+    private View importPanel;
 
     public FragmentE() {
         // Required empty public constructor
@@ -159,10 +165,11 @@ public class FragmentE extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        apiKey = getResources().getString(R.string.api_key);
 
         spref = PreferenceManager.getDefaultSharedPreferences(getActivity());
         sprefSteamId = spref.getString("prefs_steam_name", "");
-        sprefSteam64Id = spref.getString("steam_id_64", "");
+        String sprefSteam64Id = spref.getString("steam_id_64", "");
         sprefSteam64Success = spref.getInt("steam_id_64_success", 0);
 
         if (sprefSteam64Success == 1) {
@@ -179,7 +186,6 @@ public class FragmentE extends Fragment {
         mProgressView.setVisibility(View.GONE);
         setHasOptionsMenu(true);
 
-        View importPanel;
         TextView importText;
         assert sprefSteamId != null;
         if (sprefSteamId.equals("")) {
@@ -250,6 +256,7 @@ public class FragmentE extends Fragment {
 
                     new GetSteamGameStats().execute(requestStats);
                 } else {
+                    swipeRefreshLayout.setRefreshing(false);
                     Toast.makeText(getActivity(), "Steam ID is not correctly set up. There isn't really anything to refresh", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -280,7 +287,6 @@ public class FragmentE extends Fragment {
     }
 
     private void buildUrls(String sprefSteam64Id){
-        String apiKey = getResources().getString(R.string.api_key);
         Uri.Builder builderAvatar = new Uri.Builder();
         builderAvatar.scheme("http")
                 .authority("api.steampowered.com")
@@ -333,9 +339,13 @@ public class FragmentE extends Fragment {
                 steamWebHeader.add(avatarfull);
                 String personastate = dataJsonObj.getString("personastate");
                 steamWebHeader.add(personastate);
-                /*Log.d("TAG", "doInBackground - " + client.getCache().getHitCount());
-                Log.d("TAG", "doInBackground - " + client.getCache().getRequestCount());
-                Log.d("TAG", "doInBackground - " + client.getCache().getNetworkCount());*/
+                String dateStr = response.header("Date");
+                SimpleDateFormat df = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH);
+                Date date = df.parse(dateStr);
+                df.setTimeZone(TimeZone.getDefault());
+                df.applyPattern("dd.MM.yy - HH:mm");
+                String formattedDate = df.format(date);
+                steamWebHeader.add(formattedDate);
                 return "okay";
             } catch (IOException | JSONException e) {
                 return null;
@@ -1181,14 +1191,94 @@ public class FragmentE extends Fragment {
         }
 
         if (id == R.id.fragment_e_id) {
-            //CALL API
-            //SAVE TO SHARED PREF
-            //BUILD URIS AGAIN
-            //REQUEST STATS
-            //STUB VIEW.GONE
+            String reCheckShared = spref.getString("prefs_steam_name", "");
+            assert reCheckShared != null;
+            if (reCheckShared.equals("")) {
+                Toast.makeText(getActivity(), "ID must be filled in settings in order to refresh it", Toast.LENGTH_SHORT).show();
+            } else {
+                Uri.Builder builder = new Uri.Builder();
+                builder.scheme("http")
+                        .authority("api.steampowered.com")
+                        .appendPath("ISteamUser")
+                        .appendPath("ResolveVanityURL")
+                        .appendPath("v0001")
+                        .appendQueryParameter("key", apiKey)
+                        .appendQueryParameter("vanityurl", sprefSteamId);
+                String myUrl = builder.build().toString();
+
+                new BackgroundWebRunner().execute(myUrl);
+            }
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class BackgroundWebRunner extends AsyncTask<String, Void, JSONObject> {
+
+        @Override
+        protected JSONObject doInBackground(String... url) {
+            Response response;
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder()
+                    .cacheControl(CacheControl.FORCE_NETWORK)
+                    .url(url[0])
+                    .build();
+
+            try {
+                response = client.newCall(request).execute();
+                String jsonData = response.body().string();
+                return new JSONObject(jsonData).getJSONObject("response");
+            } catch (IOException | JSONException e) {
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject result) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
+            SharedPreferences.Editor editor = preferences.edit();
+            if(result != null){
+                try {
+                    int jsonSuccess = result.getInt("success");
+                    if (jsonSuccess == 42) {
+                        editor.putInt("steam_id_64_success", jsonSuccess);
+                        editor.putString("steam_id_64", "0");
+                        Toast.makeText(MyApplication.getAppContext(), "Couldn't find specified ID. Typo?", Toast.LENGTH_LONG).show();
+                    } else {
+                        String jsonSteamId = result.getString("steamid");
+
+                        editor.putInt("steam_id_64_success", jsonSuccess);
+                        editor.putString("steam_id_64", jsonSteamId);
+
+                        buildUrls(jsonSteamId);
+
+                        Request requestAvatar = new Request.Builder()
+                                .cacheControl(CacheControl.FORCE_NETWORK)
+                                .url(myUrlAvatar)
+                                .build();
+
+                        new GetSteamUserData().execute(requestAvatar);
+
+                        Request requestStats = new Request.Builder()
+                                .cacheControl(CacheControl.FORCE_NETWORK)
+                                .url(myUrlStats)
+                                .build();
+
+                        new GetSteamGameStats().execute(requestStats);
+                        if (importPanel != null) {
+                            importPanel.setVisibility(View.GONE);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                editor.putInt("steam_id_64_success", 99);
+                editor.putString("steam_id_64", "0");
+                Toast.makeText(MyApplication.getAppContext(), "Error connecting to steam API. Please try again later.", Toast.LENGTH_LONG).show();
+            }
+            editor.apply();
+        }
     }
 
     //_______________________________________________________________

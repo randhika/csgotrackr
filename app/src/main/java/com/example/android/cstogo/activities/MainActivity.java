@@ -81,23 +81,32 @@ public class MainActivity extends ActionBarActivity {
             String savedSteamId = MyApplication.getSteamId();
             assert sprefSteamId != null;
             boolean compareIds = sprefSteamId.equals(savedSteamId);
-            if(key.equals("prefs_steam_name") && !compareIds && !sprefSteamId.equals("")){
-                MyApplication.loadId();
-                MyApplication.setScheduledRestart(true);
+            if(key.equals("prefs_steam_name") && !compareIds){
+                if (sprefSteamId.equals(""))
+                {
+                    MyApplication.setScheduledRestart(true);
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putInt("steam_id_64_success", 1);
+                    editor.putString("steam_id_64", "");
+                    editor.apply();
+                } else {
+                    MyApplication.loadId();
+                    MyApplication.setScheduledRestart(true);
 
-                String apiKey = getResources().getString(R.string.api_key);
-                Uri.Builder builder = new Uri.Builder();
-                builder.scheme("http")
-                        .authority("api.steampowered.com")
-                        .appendPath("ISteamUser")
-                        .appendPath("ResolveVanityURL")
-                        .appendPath("v0001")
-                        .appendQueryParameter("key", apiKey)
-                        .appendQueryParameter("vanityurl", sprefSteamId);
-                String myUrl = builder.build().toString();
+                    String apiKey = getResources().getString(R.string.api_key);
+                    Uri.Builder builder = new Uri.Builder();
+                    builder.scheme("http")
+                            .authority("api.steampowered.com")
+                            .appendPath("ISteamUser")
+                            .appendPath("ResolveVanityURL")
+                            .appendPath("v0001")
+                            .appendQueryParameter("key", apiKey)
+                            .appendQueryParameter("vanityurl", sprefSteamId);
+                    String myUrl = builder.build().toString();
 
-                new BackgroundWebRunner().execute(myUrl);
-
+                    new BackgroundWebRunner().execute(myUrl);
+                }
             }
         }
     }
