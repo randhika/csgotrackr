@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ import com.squareup.okhttp.CacheControl;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -187,11 +189,15 @@ public class FragmentE extends Fragment {
         setHasOptionsMenu(true);
 
         TextView importText;
+        ImageView importImage;
         assert sprefSteamId != null;
         if (sprefSteamId.equals("")) {
             importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
-            importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_import);
+            importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_description);
+            importImage = (ImageView) importPanel.findViewById(R.id.steam_web_stats_no_id_image);
             importText.setText("Steam ID not filled");
+            Picasso.with(getActivity()).load(R.drawable.steam_web_settings).fit().centerInside().into(importImage);
+            importImage.setVisibility(View.VISIBLE);
         } else {
             switch (sprefSteam64Success){
                 case 0:
