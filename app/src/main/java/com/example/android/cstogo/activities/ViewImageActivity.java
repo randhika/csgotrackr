@@ -29,7 +29,7 @@ public class ViewImageActivity extends ActionBarActivity {
         int full = intent.getIntExtra("PICTURE", 0);
 
         getSupportActionBar().setTitle(title);
-        toolbar.setNavigationIcon(R.drawable.ic_launcher);//TODO: placeholder
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

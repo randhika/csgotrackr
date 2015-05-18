@@ -21,7 +21,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <com.andexert.library.RippleView xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="wrap_content"
@@ -34,9 +34,9 @@
                         android:id="@+id/new_match_toolbar_discard"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@android:drawable/ic_menu_revert"
+                        android:drawableLeft="@drawable/ic_remove_circle_outline_white_24dp"
                         android:drawablePadding="5dp"
-                        android:drawableStart="@android:drawable/ic_menu_revert"
+                        android:drawableStart="@drawable/ic_remove_circle_outline_white_24dp"
                         android:fontFamily="sans-serif-medium"
                         android:gravity="center"
                         android:singleLine="true"
@@ -65,9 +65,9 @@
                         android:id="@+id/new_match_toolbar_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@android:drawable/ic_menu_add"
+                        android:drawableLeft="@drawable/ic_add_circle_outline_white_24dp"
                         android:drawablePadding="5dp"
-                        android:drawableStart="@android:drawable/ic_menu_add"
+                        android:drawableStart="@drawable/ic_add_circle_outline_white_24dp"
                         android:fontFamily="sans-serif-medium"
                         android:gravity="center"
                         android:singleLine="true"

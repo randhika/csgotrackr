@@ -21,15 +21,16 @@
 
         <TextView
             android:id="@+id/steam_web_stats_no_id_description"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:text="LOREM" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="This screen shows current stats from your steam profile. Unfortunately, at this point, it seems your steam ID is not properly set up in settings. Please visit settings page and input your ID (connection for verification and downloading stats is required.)Instructions on how to find/set up steam ID can be found on picture below."
+            />
 
         <ImageView
             android:id="@+id/steam_web_stats_no_id_image"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
             android:layout_marginTop="15dp"
             android:contentDescription="@string/steam_web_stats_no_id_image_description" />
 

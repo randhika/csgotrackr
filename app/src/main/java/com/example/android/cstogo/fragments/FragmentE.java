@@ -195,15 +195,15 @@ public class FragmentE extends Fragment {
             importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
             importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_description);
             importImage = (ImageView) importPanel.findViewById(R.id.steam_web_stats_no_id_image);
-            importText.setText("Steam ID not filled");
-            Picasso.with(getActivity()).load(R.drawable.steam_web_settings).fit().centerInside().into(importImage);
+            importText.setText(getText(R.string.steam_web_stats_strings_no_id));
+            Picasso.with(getActivity()).load(R.drawable.steam_web_settings).into(importImage);
             importImage.setVisibility(View.VISIBLE);
         } else {
             switch (sprefSteam64Success){
                 case 0:
                     importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
                     importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_import);
-                    importText.setText("Android internal problem with getting saved preferences. Please try killing and restarting the application and contact the developer.");
+                    importText.setText(getText(R.string.steam_web_stats_strings_internal_problem));
                     break;
                 case 1:
                     Request requestAvatar = new Request.Builder()
@@ -227,17 +227,17 @@ public class FragmentE extends Fragment {
                 case 42:
                     importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
                     importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_import);
-                    importText.setText("Couldn't find ID specified in settings on Steam network. Typo?");
+                    importText.setText(getText(R.string.steam_web_stats_strings_id_typo));
                     break;
                 case 99:
                     importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
                     importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_import);
-                    importText.setText("ID is stored in settings, but there was an error confirming it (network/steam API error). Please try updating from menu above.");
+                    importText.setText(getText(R.string.steam_web_stats_strings_no_network));
                     break;
                 default:
                     importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
                     importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_import);
-                    importText.setText("Unexpected error. Please contact developer.");
+                    importText.setText(getText(R.string.steam_web_stats_strings_wtf));
                     break;
             }
         }

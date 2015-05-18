@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="steam_web_stats_strings_no_id">
+        This screen shows current stats from your steam profile. Unfortunately, at this point, it seems your steam ID is not properly set up in settings. Please visit settings page and input your ID (connection for verification and downloading stats is required.)\n\nInstructions on how to find/set up steam ID can be found on picture below.
+    </string>
+
+    <string name="steam_web_stats_strings_internal_problem">
+    Android internal problem with getting saved preferences. Please try killing and restarting the application and contact the developer.
+    </string>
+
+    <string name="steam_web_stats_strings_id_typo">
+    ID specified in setting does not exist on steam network. Typo?
+    </string>
+
+    <string name="steam_web_stats_strings_no_network">
+    ID is stored in settings, but there was an error confirming it (network/steam API error). Please try updating from menu above.
+    </string>
+
+    <string name="steam_web_stats_strings_wtf">
+    Unexpected error. Please contact developer.
+    </string>
+
+</resources>
