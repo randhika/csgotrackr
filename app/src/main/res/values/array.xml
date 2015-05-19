@@ -13,5 +13,17 @@
         <item>list</item>
     </string-array>
 
+    <string-array name="pref_style_tinting_entries">
+        <item>Blue &amp; Pink</item>
+        <item>Teal &amp; Orange</item>
+        <item>Indigo &amp; Red</item>
+    </string-array>
+
+    <string-array name="pref_style_tinting_values">
+        <item>blue_pink</item>
+        <item>teal_orange</item>
+        <item>indigo_red</item>
+    </string-array>
+
 
 </resources>

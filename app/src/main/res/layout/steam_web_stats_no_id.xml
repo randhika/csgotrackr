@@ -19,20 +19,37 @@
         android:orientation="vertical"
         tools:ignore="UseCompoundDrawables">
 
-        <TextView
-            android:id="@+id/steam_web_stats_no_id_description"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="This screen shows current stats from your steam profile. Unfortunately, at this point, it seems your steam ID is not properly set up in settings. Please visit settings page and input your ID (connection for verification and downloading stats is required.)Instructions on how to find/set up steam ID can be found on picture below."
-            />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/steam_web_stats_no_id_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:ignore="RelativeOverlap"
+                tools:text="This screen shows current stats from your steam profile. Unfortunately, at this point, it seems your steam ID is not properly set up in settings. Please visit settings page and input your ID (connection for verification and downloading stats is required.)Instructions on how to find/set up steam ID can be found on picture below." />
+
+            <ImageView
+                android:id="@+id/steam_web_stats_no_id_arrow"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:ignore="ContentDescription" />
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/steam_web_stats_no_id_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
+            android:layout_height="0dp"
             android:layout_marginTop="15dp"
-            android:contentDescription="@string/steam_web_stats_no_id_image_description" />
+            android:layout_weight="1"
+            android:contentDescription="@string/steam_web_stats_no_id_image_description"
+            android:visibility="gone" />
+
 
     </LinearLayout>
 

@@ -190,14 +190,18 @@ public class FragmentE extends Fragment {
 
         TextView importText;
         ImageView importImage;
+        ImageView importArrow;
         assert sprefSteamId != null;
         if (sprefSteamId.equals("")) {
             importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
             importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_description);
             importImage = (ImageView) importPanel.findViewById(R.id.steam_web_stats_no_id_image);
+            importArrow = (ImageView) importPanel.findViewById(R.id.steam_web_stats_no_id_arrow);
             importText.setText(getText(R.string.steam_web_stats_strings_no_id));
             Picasso.with(getActivity()).load(R.drawable.steam_web_settings).into(importImage);
+            Picasso.with(getActivity()).load(R.drawable.ic_reply_grey600_48dp).rotate(110).into(importArrow);
             importImage.setVisibility(View.VISIBLE);
+            importArrow.setVisibility(View.VISIBLE);
         } else {
             switch (sprefSteam64Success){
                 case 0:
@@ -232,7 +236,10 @@ public class FragmentE extends Fragment {
                 case 99:
                     importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
                     importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_import);
+                    importArrow = (ImageView) importPanel.findViewById(R.id.steam_web_stats_no_id_arrow);
                     importText.setText(getText(R.string.steam_web_stats_strings_no_network));
+                    Picasso.with(getActivity()).load(R.drawable.ic_reply_grey600_48dp).rotate(110).into(importArrow);
+                    importArrow.setVisibility(View.VISIBLE);
                     break;
                 default:
                     importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();

@@ -9,6 +9,14 @@
         android:defaultValue="@string/pref_style_matchpage_default"
         android:summary="Using %s for matchpage"/>
 
+    <com.example.android.cstogo.helpers.FriendlyListPreference
+        android:title="Color Scheme"
+        android:key="prefs_style_tinting"
+        android:entries="@array/pref_style_tinting_entries"
+        android:entryValues="@array/pref_style_tinting_values"
+        android:defaultValue="@string/pref_style_tinting_default"
+        android:summary="Color scheme this app uses. Current : %s"/>
+
     <CheckBoxPreference
         android:title="Night Theme"
         android:key="prefs_style_nightmode"

@@ -40,7 +40,7 @@ public class MyApplication extends Application {
     public static void reloadTheme() {
         themeSetting = sharedPreferences.getBoolean("prefs_style_nightmode", false);
         if(!themeSetting)
-            themeId = R.style.AppTheme;
+            themeId = R.style.blue_pink;
         else
             themeId = R.style.DarkAppTheme;
     }

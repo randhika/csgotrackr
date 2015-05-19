@@ -154,7 +154,7 @@ public class NewMatchActivity extends ActionBarActivity {
         int np2Val = np2.getValue();
 
         if (np1Val == 0 && np2Val == 0){
-            Toast.makeText(this, "Match result not filled", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Match result not filled (Score is 0:0)", Toast.LENGTH_SHORT).show();
             return true;
         }
 
