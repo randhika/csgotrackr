@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="All Matches"
-            android:textColor="@color/accent"
+            android:textColor="?accentColor"
             android:id="@+id/stats_title_matches"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
@@ -38,7 +38,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/accent"
+            android:textColor="?accentColor"
             android:text="All Kills"
             android:id="@+id/stats_title_kills"
             android:layout_below="@id/stats_title_matches"
@@ -60,7 +60,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/accent"
+            android:textColor="?accentColor"
             android:text="All Assists"
             android:id="@+id/stats_title_assists"
             android:layout_below="@id/stats_title_kills"
@@ -82,7 +82,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/accent"
+            android:textColor="?accentColor"
             android:text="All Deaths"
             android:id="@+id/stats_title_deaths"
             android:layout_below="@id/stats_title_assists"
@@ -104,7 +104,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/accent"
+            android:textColor="?accentColor"
             android:text="All Points"
             android:id="@+id/stats_title_points"
             android:layout_below="@id/stats_title_deaths"
@@ -135,7 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Average Kills"
-            android:textColor="@color/accent"
+            android:textColor="?accentColor"
             android:layout_below="@id/stats_map_pie"
             android:layout_alignLeft="@id/stats_title_deaths"
             android:layout_alignStart="@id/stats_title_deaths"/>
@@ -157,7 +157,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Average Assists"
-            android:textColor="@color/accent"
+            android:textColor="?accentColor"
             android:layout_below="@id/stats_title_avgKills"
             android:layout_alignLeft="@id/stats_title_avgKills"
             android:layout_alignStart="@id/stats_title_avgKills"/>
@@ -179,7 +179,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Average Deaths"
-            android:textColor="@color/accent"
+            android:textColor="?accentColor"
             android:layout_below="@id/stats_title_avgAssists"
             android:layout_alignLeft="@id/stats_title_avgAssists"
             android:layout_alignStart="@id/stats_title_avgAssists"/>
@@ -201,7 +201,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Average PPM"
-            android:textColor="@color/accent"
+            android:textColor="?accentColor"
             android:layout_below="@id/stats_title_avgDeaths"
             android:layout_alignLeft="@id/stats_title_avgDeaths"
             android:layout_alignStart="@id/stats_title_avgDeaths"/>
@@ -223,7 +223,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Average KaD"
-            android:textColor="@color/accent"
+            android:textColor="?accentColor"
             android:layout_below="@id/stats_title_avgPPM"
             android:layout_alignLeft="@id/stats_title_avgPPM"
             android:layout_alignStart="@id/stats_title_avgPPM"/>
@@ -252,7 +252,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dust KaD"
-            android:textColor="@color/accent"
+            android:textColor="?accentColor"
             android:layout_below="@id/stats_kad_bar"
             android:layout_alignLeft="@id/stats_title_avgKAD"
             android:layout_alignStart="@id/stats_title_avgKAD"/>
@@ -274,7 +274,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nuke KaD"
-            android:textColor="@color/accent"
+            android:textColor="?accentColor"
             android:layout_below="@id/stats_title_dust_KAD"
             android:layout_alignLeft="@id/stats_title_dust_KAD"
             android:layout_alignStart="@id/stats_title_dust_KAD"/>

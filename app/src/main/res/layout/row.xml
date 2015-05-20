@@ -1,39 +1,39 @@
-<com.andexert.library.RippleView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.andexert.library.RippleView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:rv_color="@color/material_blue_500">
+    app:rv_color="?colorPrimary">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:clickable="true"
-    android:focusable="true"
-    android:id="@+id/rowRelLayout">
-
-    <ImageView
-        android:id="@+id/rowImage"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:id="@+id/rowMapName"
-        android:layout_width="wrap_content"
+    <RelativeLayout android:id="@+id/rowRelLayout"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textSize="18sp"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/rowImage"
-        android:layout_toEndOf="@+id/rowImage"
-        android:layout_marginLeft="25dp"
-        android:layout_marginStart="25dp"
-        android:fontFamily="sans-serif-light" />
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/rowImage"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/fragment_smokes_row_image_of_map_desc" />
+
+        <TextView
+            android:id="@+id/rowMapName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp"
+            android:layout_toEndOf="@+id/rowImage"
+            android:layout_toRightOf="@+id/rowImage"
+            android:fontFamily="sans-serif-light"
+            android:padding="10dp"
+            android:textSize="18sp" />
 
 
-</RelativeLayout>
+    </RelativeLayout>
 </com.andexert.library.RippleView>

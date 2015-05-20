@@ -13,6 +13,6 @@
         </attr>
     </declare-styleable>
 
-    <attr name="edt_colorAccent" format="color" />
+    <attr name="accentColor" format="color" />
 
 </resources>

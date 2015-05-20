@@ -17,7 +17,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:src="@drawable/ic_add_white_24dp"
-        fab:fab_colorNormal="?fab_colorNormal"
+        fab:fab_colorNormal="?accentColor"
         fab:fab_colorPressed="?fab_colorPressed"
         fab:fab_colorRipple="?fab_colorRipple" />
 

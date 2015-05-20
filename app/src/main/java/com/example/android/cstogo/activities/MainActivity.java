@@ -9,7 +9,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -69,19 +68,33 @@ public class MainActivity extends ActionBarActivity {
                 MyApplication.reloadTheme();
                 MyApplication.setScheduledRestart(true);
             }
+
+            String sprefTint = spref.getString("prefs_style_tinting", "blue_pink");
+            String savedTint = MyApplication.getTintSetting();
+            assert sprefTint != null;
+            boolean compareTint = sprefTint.equals(savedTint);
+            if(key.equals("prefs_style_tinting") && !compareTint)
+            {
+                MyApplication.reloadTheme();
+                MyApplication.setScheduledRestart(true);
+            }
+
             String sprefMatchpage = spref.getString("prefs_style_matchpage", "small_card");
             String savedMatchpage = MyApplication.getMatchpageStyle();
             assert sprefMatchpage != null;
             boolean compareSprefSaved = sprefMatchpage.equals(savedMatchpage);
-            if(key.equals("prefs_style_matchpage") && !compareSprefSaved) {
+            if(key.equals("prefs_style_matchpage") && !compareSprefSaved)
+            {
                 MyApplication.loadMatchlistSetting();
                 MyApplication.setScheduledRestart(true);
             }
+
             String sprefSteamId = spref.getString("prefs_steam_name", "");
             String savedSteamId = MyApplication.getSteamId();
             assert sprefSteamId != null;
             boolean compareIds = sprefSteamId.equals(savedSteamId);
-            if(key.equals("prefs_steam_name") && !compareIds){
+            if(key.equals("prefs_steam_name") && !compareIds)
+            {
                 if (sprefSteamId.equals(""))
                 {
                     MyApplication.setScheduledRestart(true);
@@ -186,7 +199,6 @@ public class MainActivity extends ActionBarActivity {
         super.onResume();
         if(MyApplication.isScheduledRestart())
         {
-            Log.i("TAG", "doing restart");
             MyApplication.setScheduledRestart(false);
             Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage( getBaseContext().getPackageName() );
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

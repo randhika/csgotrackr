@@ -104,7 +104,7 @@
                     android:gravity="center"
                     android:hint="kills"
                     android:inputType="number"
-                    app:et_labelTextColor="?edt_colorAccent"
+                    app:et_labelTextColor="?accentColor"
                     app:et_supportMode="none" />
 
                 <com.rey.material.widget.EditText
@@ -118,7 +118,7 @@
                     android:gravity="center"
                     android:hint="assists"
                     android:inputType="number"
-                    app:et_labelTextColor="?edt_colorAccent"
+                    app:et_labelTextColor="?accentColor"
                     app:et_supportMode="none" />
 
                 <com.rey.material.widget.EditText
@@ -132,7 +132,7 @@
                     android:gravity="center"
                     android:hint="deaths"
                     android:inputType="number"
-                    app:et_labelTextColor="?edt_colorAccent"
+                    app:et_labelTextColor="?accentColor"
                     app:et_supportMode="none" />
 
                 <com.rey.material.widget.EditText
@@ -146,7 +146,7 @@
                     android:gravity="center"
                     android:hint="mvp"
                     android:inputType="number"
-                    app:et_labelTextColor="?edt_colorAccent"
+                    app:et_labelTextColor="?accentColor"
                     app:et_supportMode="none" />
 
                 <com.rey.material.widget.EditText
@@ -160,7 +160,7 @@
                     android:gravity="center"
                     android:hint="score"
                     android:inputType="number"
-                    app:et_labelTextColor="?edt_colorAccent"
+                    app:et_labelTextColor="?accentColor"
                     app:et_supportMode="none" />
 
                 <NumberPicker
@@ -212,7 +212,7 @@
                     android:layout_below="@id/new_match_score"
                     android:layout_margin="16dp"
                     android:src="@drawable/ic_add_white_24dp"
-                    fab:fab_colorNormal="?fab_colorNormal"
+                    fab:fab_colorNormal="?accentColor"
                     fab:fab_colorPressed="?fab_colorPressed"
                     fab:fab_colorRipple="?fab_colorRipple" />
 

@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Other Stats"
-                android:textColor="@color/accent"
+                android:textColor="?accentColor"
                 android:textSize="20sp"
                 android:fontFamily="sans-serif-light"
                 android:layout_alignParentTop="true"
@@ -174,7 +174,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/steam_web_stats_other_kills"
                 android:textSize="12sp"
-                android:textColor="@color/accent"
+                android:textColor="?accentColor"
                 android:layout_below="@+id/stat1"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
@@ -186,7 +186,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/steam_web_stats_other_headshots"
                 android:textSize="12sp"
-                android:textColor="@color/accent"
+                android:textColor="?accentColor"
                 android:layout_below="@+id/textView13"
                 android:layout_alignLeft="@+id/steam_web_stats_other_kills"
                 android:layout_alignStart="@+id/steam_web_stats_other_kills" />
@@ -196,7 +196,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/steam_web_stats_other_deaths"
                 android:textSize="12sp"
-                android:textColor="@color/accent"
+                android:textColor="?accentColor"
                 android:layout_below="@+id/textView15"
                 android:layout_alignLeft="@+id/steam_web_stats_other_headshots"
                 android:layout_alignStart="@+id/steam_web_stats_other_headshots" />
@@ -206,7 +206,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/steam_web_stats_other_wins"
                 android:textSize="12sp"
-                android:textColor="@color/accent"
+                android:textColor="?accentColor"
                 android:layout_below="@+id/textView16"
                 android:layout_alignLeft="@+id/steam_web_stats_other_deaths"
                 android:layout_alignStart="@+id/steam_web_stats_other_deaths" />
@@ -216,7 +216,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/steam_web_stats_other_rounds"
                 android:textSize="12sp"
-                android:textColor="@color/accent"
+                android:textColor="?accentColor"
                 android:layout_below="@+id/textView31"
                 android:layout_alignLeft="@+id/steam_web_stats_other_wins"
                 android:layout_alignStart="@+id/steam_web_stats_other_wins" />
@@ -226,7 +226,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/steam_web_stats_other_planted"
                 android:textSize="12sp"
-                android:textColor="@color/accent"
+                android:textColor="?accentColor"
                 android:layout_below="@+id/textView17"
                 android:layout_alignLeft="@+id/steam_web_stats_other_rounds"
                 android:layout_alignStart="@+id/steam_web_stats_other_rounds" />
@@ -236,7 +236,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/steam_web_stats_other_defused"
                 android:textSize="12sp"
-                android:textColor="@color/accent"
+                android:textColor="?accentColor"
                 android:layout_below="@+id/textView18"
                 android:layout_alignLeft="@+id/steam_web_stats_other_planted"
                 android:layout_alignStart="@+id/steam_web_stats_other_planted" />
@@ -246,7 +246,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/steam_web_stats_other_damage_done"
                 android:textSize="12sp"
-                android:textColor="@color/accent"
+                android:textColor="?accentColor"
                 android:layout_below="@+id/textView19"
                 android:layout_alignLeft="@+id/steam_web_stats_other_defused"
                 android:layout_alignStart="@+id/steam_web_stats_other_defused" />
@@ -256,7 +256,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/steam_web_stats_other_money_earned"
                 android:textSize="12sp"
-                android:textColor="@color/accent"
+                android:textColor="?accentColor"
                 android:layout_below="@+id/textView20"
                 android:layout_alignLeft="@+id/steam_web_stats_other_kills"
                 android:layout_alignStart="@+id/steam_web_stats_other_kills" />
@@ -266,7 +266,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/steam_web_stats_other_hostages_rescued"
                 android:textSize="12sp"
-                android:textColor="@color/accent"
+                android:textColor="?accentColor"
                 android:layout_below="@+id/textView21"
                 android:layout_alignLeft="@+id/steam_web_stats_other_money_earned"
                 android:layout_alignStart="@+id/steam_web_stats_other_money_earned" />
@@ -276,7 +276,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/steam_web_stats_other_mvps"
                 android:textSize="12sp"
-                android:textColor="@color/accent"
+                android:textColor="?accentColor"
                 android:layout_below="@+id/textView30"
                 android:layout_alignLeft="@+id/steam_web_stats_other_hostages_rescued"
                 android:layout_alignStart="@+id/steam_web_stats_other_hostages_rescued" />
@@ -286,7 +286,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/steam_web_stats_other_enemy_weapon"
                 android:textSize="12sp"
-                android:textColor="@color/accent"
+                android:textColor="?accentColor"
                 android:layout_below="@+id/textView32"
                 android:layout_alignLeft="@+id/steam_web_stats_other_mvps"
                 android:layout_alignStart="@+id/steam_web_stats_other_mvps" />
@@ -454,7 +454,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"
                 android:textSize="12sp"
-                android:textColor="@color/accent" />
+                android:textColor="?accentColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -464,7 +464,7 @@
                 android:layout_alignLeft="@+id/steam_web_stats_other_shots_fired"
                 android:layout_alignStart="@+id/steam_web_stats_other_shots_fired"
                 android:textSize="12sp"
-                android:textColor="@color/accent" />
+                android:textColor="?accentColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -474,7 +474,7 @@
                 android:layout_alignLeft="@+id/steam_web_stats_other_shots_hit"
                 android:layout_alignStart="@+id/steam_web_stats_other_shots_hit"
                 android:textSize="12sp"
-                android:textColor="@color/accent" />
+                android:textColor="?accentColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -484,7 +484,7 @@
                 android:layout_alignLeft="@+id/steam_web_stats_other_zeus_shots"
                 android:layout_alignStart="@+id/steam_web_stats_other_zeus_shots"
                 android:textSize="12sp"
-                android:textColor="@color/accent" />
+                android:textColor="?accentColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -494,7 +494,7 @@
                 android:layout_alignLeft="@+id/steam_web_stats_other_zeus_kills"
                 android:layout_alignStart="@+id/steam_web_stats_other_zeus_kills"
                 android:textSize="12sp"
-                android:textColor="@color/accent" />
+                android:textColor="?accentColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -504,7 +504,7 @@
                 android:layout_alignLeft="@+id/steam_web_stats_other_molotov"
                 android:layout_alignStart="@+id/steam_web_stats_other_molotov"
                 android:textSize="12sp"
-                android:textColor="@color/accent" />
+                android:textColor="?accentColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -514,7 +514,7 @@
                 android:layout_alignLeft="@+id/steam_web_stats_other_nade"
                 android:layout_alignStart="@+id/steam_web_stats_other_nade"
                 android:textSize="12sp"
-                android:textColor="@color/accent" />
+                android:textColor="?accentColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -524,7 +524,7 @@
                 android:layout_alignLeft="@+id/steam_web_stats_other_knife"
                 android:layout_alignStart="@+id/steam_web_stats_other_knife"
                 android:textSize="12sp"
-                android:textColor="@color/accent" />
+                android:textColor="?accentColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -534,7 +534,7 @@
                 android:layout_alignLeft="@+id/steam_web_stats_other_flash"
                 android:layout_alignStart="@+id/steam_web_stats_other_flash"
                 android:textSize="12sp"
-                android:textColor="@color/accent" />
+                android:textColor="?accentColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -544,7 +544,7 @@
                 android:layout_alignLeft="@+id/steam_web_stats_other_zoomed"
                 android:layout_alignStart="@+id/steam_web_stats_other_zoomed"
                 android:textSize="12sp"
-                android:textColor="@color/accent" />
+                android:textColor="?accentColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -554,7 +554,7 @@
                 android:layout_alignLeft="@+id/steam_web_stats_other_dominations"
                 android:layout_alignStart="@+id/steam_web_stats_other_dominations"
                 android:textSize="12sp"
-                android:textColor="@color/accent" />
+                android:textColor="?accentColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -564,7 +564,7 @@
                 android:layout_alignLeft="@+id/steam_web_stats_other_revenges"
                 android:layout_alignStart="@+id/steam_web_stats_other_revenges"
                 android:textSize="12sp"
-                android:textColor="@color/accent" />
+                android:textColor="?accentColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -574,7 +574,7 @@
                 android:layout_alignLeft="@+id/steam_web_stats_other_donated"
                 android:layout_alignStart="@+id/steam_web_stats_other_donated"
                 android:textSize="12sp"
-                android:textColor="@color/accent" />
+                android:textColor="?accentColor" />
 
         </RelativeLayout>
 

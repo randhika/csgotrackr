@@ -13,6 +13,7 @@ public class MyApplication extends Application {
     private static Context context;
     private static int themeId;
     private static boolean themeSetting;
+    private static String tintSetting;
     private static String matchpageStyle;
     private static String steamId;
     private static SharedPreferences sharedPreferences;
@@ -39,10 +40,27 @@ public class MyApplication extends Application {
 
     public static void reloadTheme() {
         themeSetting = sharedPreferences.getBoolean("prefs_style_nightmode", false);
-        if(!themeSetting)
-            themeId = R.style.blue_pink;
-        else
+        tintSetting = sharedPreferences.getString("prefs_style_tinting", "blue_pink");
+        if(!themeSetting) {
+            assert tintSetting != null;
+            switch (tintSetting){
+                case "blue_pink":
+                    tintSetting = "blue_pink";
+                    themeId = R.style.blue_pink;
+                    break;
+                case "teal_orange":
+                    tintSetting = "teal_orange";
+                    themeId = R.style.teal_orange;
+                    break;
+                case "indigo_red":
+                    tintSetting = "indigo_red";
+                    themeId = R.style.indigo_red;
+                    break;
+            }
+        }
+        else {
             themeId = R.style.DarkAppTheme;
+        }
     }
 
     public static Context getAppContext()
@@ -58,6 +76,10 @@ public class MyApplication extends Application {
     public static boolean getThemeSetting()
     {
         return themeSetting;
+    }
+
+    public static String getTintSetting() {
+        return tintSetting;
     }
 
     public static String getMatchpageStyle() {

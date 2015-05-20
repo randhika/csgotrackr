@@ -12,9 +12,8 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.example.android.cstogo.R;
 import com.example.android.cstogo.fragments.FragmentA;
 import com.example.android.cstogo.fragments.FragmentB;
-import com.example.android.cstogo.fragments.FragmentC;
 import com.example.android.cstogo.fragments.FragmentD;
-import com.example.android.cstogo.fragments.FragmentE;
+import com.example.android.cstogo.fragments.FragmentC;
 
 /**
  * - Yuro - 18.3.2015.
@@ -38,15 +37,13 @@ public class MyPagerAdapter extends FragmentPagerAdapter implements PagerSliding
                 return "All Games";
             case 3:
                 return "Smokes";
-            case 4:
-                return "Test";
             default:
                 return null;
         }
     }
     @Override
     public int getCount() {
-        return 5;
+        return 4;
     }
     @Override
     public Fragment getItem(int position) {
@@ -59,8 +56,6 @@ public class MyPagerAdapter extends FragmentPagerAdapter implements PagerSliding
                 return new FragmentC();
             case 3:
                 return new FragmentD();
-            case 4:
-                return new FragmentE();
             default:
                 return null;
         }

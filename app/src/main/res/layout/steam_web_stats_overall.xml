@@ -33,7 +33,7 @@
                 android:layout_centerHorizontal="true"
                 android:fontFamily="sans-serif-light"
                 android:text="@string/kd_ratio_number"
-                android:textColor="@color/accent"
+                android:textColor="?accentColor"
                 android:textSize="50sp" />
 
             <TextView
@@ -77,7 +77,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/steam_web_stats_overall_total_kills_title"
-                android:textColor="@color/accent" />
+                android:textColor="?accentColor" />
 
             <TextView
                 android:id="@+id/steam_web_stats_overall_win_percent_title"
@@ -97,7 +97,7 @@
                 android:layout_alignEnd="@+id/steam_web_stats_overall_total_kills_number"
                 android:layout_alignRight="@+id/steam_web_stats_overall_total_kills_number"
                 android:layout_below="@+id/steam_web_stats_overall_win_percent_title"
-                android:textColor="@color/accent" />
+                android:textColor="?accentColor" />
         </RelativeLayout>
 
 
@@ -128,7 +128,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/steam_web_stats_overall_headshot_title"
-                android:textColor="@color/accent" />
+                android:textColor="?accentColor" />
 
             <TextView
                 android:id="@+id/steam_web_stats_overall_accuracy_title"
@@ -148,7 +148,7 @@
                 android:layout_alignEnd="@+id/steam_web_stats_overall_accuracy_title"
                 android:layout_alignRight="@+id/steam_web_stats_overall_headshot_number"
                 android:layout_below="@+id/steam_web_stats_overall_accuracy_title"
-                android:textColor="@color/accent" />
+                android:textColor="?accentColor" />
         </RelativeLayout>
 
     </LinearLayout>

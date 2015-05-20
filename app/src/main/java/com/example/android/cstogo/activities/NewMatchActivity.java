@@ -1,6 +1,7 @@
 package com.example.android.cstogo.activities;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
@@ -65,8 +66,16 @@ public class NewMatchActivity extends ActionBarActivity {
         np2.setMinValue(0);
         np2.setMaxValue(16);
 
-        setNumberPickerTextColor(np1, getResources().getColor(R.color.accent));
-        setNumberPickerTextColor(np2, getResources().getColor(R.color.accent));
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = this.getTheme();
+        theme.resolveAttribute(R.attr.accentColor, typedValue, true);
+        int accentColor = typedValue.data;
+
+        setNumberPickerTextColor(np1, accentColor);
+        setNumberPickerTextColor(np2, accentColor);
+
+        setDividerColor(np1, accentColor);
+        setDividerColor(np2, accentColor);
 
         Spinner spn_label = (Spinner) findViewById(R.id.spinner_label);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -257,6 +266,23 @@ public class NewMatchActivity extends ActionBarActivity {
         return false;
     }
 
+    private void setDividerColor(NumberPicker picker, int color) {
+
+        java.lang.reflect.Field[] pickerFields = NumberPicker.class.getDeclaredFields();
+        for (java.lang.reflect.Field pf : pickerFields) {
+            if (pf.getName().equals("mSelectionDivider")) {
+                pf.setAccessible(true);
+                try {
+                    ColorDrawable colorDrawable = new ColorDrawable(color);
+                    colorDrawable.setAlpha(45);
+                    pf.set(picker, colorDrawable);
+                } catch (IllegalArgumentException | Resources.NotFoundException | IllegalAccessException e) {
+                    Toast.makeText(NewMatchActivity.this, "Error setting numberpicker divider. Please contact dev", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            }
+        }
+    }
 
 
     @Override

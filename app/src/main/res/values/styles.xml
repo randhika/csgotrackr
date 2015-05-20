@@ -8,7 +8,6 @@
         <!-- You can also set colorControlNormal, colorControlActivated
             colorControlHighlight and colorSwitchThumbNormal. -->
         <item name="android:textColorPrimary">#000</item>
-
     </style>
 
     <style name="blue_pink" parent="AppTheme">
@@ -20,11 +19,48 @@
         <!-- colorAccent is used as the default value for colorControlActivated
              which is used to tint widgets -->
         <item name="colorAccent">#FF4081</item>
-        <item name="edt_colorAccent">#FF4081</item>
+        <!-- Accent color - has to be duplicated because i cant use the one above as reference. ¯\_(ツ)_/¯ -->
+        <item name="accentColor">#FF4081</item>
         <!-- FAB COLORS -->
         <item name="fab_colorPressed">#f50057</item>
-        <item name="fab_colorNormal">#FF4081</item>
+        <!-- fab color normal is just accentColor from above -->
         <item name="fab_colorRipple">#ff80ab</item>
+        <item name="fab_colorDisabled">#676D68</item>
+    </style>
+
+    <style name="teal_orange" parent="AppTheme">
+        <!-- Set theme colors from http://www.google.com/design/spec/style/color.html#color-color-palette-->
+        <!-- colorPrimary is used for the default action bar background -->
+        <item name="colorPrimary">#009688</item>
+        <!-- colorPrimaryDark is used for the status bar -->
+        <item name="colorPrimaryDark">#00796B</item>
+        <!-- colorAccent is used as the default value for colorControlActivated
+             which is used to tint widgets -->
+        <item name="colorAccent">#FF9800</item>
+        <!-- Accent color - has to be duplicated because i cant use the one above as reference. ¯\_(ツ)_/¯ -->
+        <item name="accentColor">#FF9800</item>
+        <!-- FAB COLORS -->
+        <item name="fab_colorPressed">#CE7A00</item>
+        <!-- fab color normal is just accentColor from above -->
+        <item name="fab_colorRipple">#FFDA33</item>
+        <item name="fab_colorDisabled">#676D68</item>
+    </style>
+
+    <style name="indigo_red" parent="AppTheme">
+        <!-- Set theme colors from http://www.google.com/design/spec/style/color.html#color-color-palette-->
+        <!-- colorPrimary is used for the default action bar background -->
+        <item name="colorPrimary">#3F51B5</item>
+        <!-- colorPrimaryDark is used for the status bar -->
+        <item name="colorPrimaryDark">#303F9F</item>
+        <!-- colorAccent is used as the default value for colorControlActivated
+             which is used to tint widgets -->
+        <item name="colorAccent">#FF5252</item>
+        <!-- Accent color - has to be duplicated because i cant use the one above as reference. ¯\_(ツ)_/¯ -->
+        <item name="accentColor">#FF5252</item>
+        <!-- FAB COLORS -->
+        <item name="fab_colorPressed">#D64747</item>
+        <!-- fab color normal is just accentColor from above -->
+        <item name="fab_colorRipple">#FF944C</item>
         <item name="fab_colorDisabled">#676D68</item>
     </style>
 
@@ -54,17 +90,15 @@
         <!-- colorAccent is used as the default value for colorControlActivated
              which is used to tint widgets -->
         <item name="colorAccent">#3E3E3E</item>
-        <item name="edt_colorAccent">#FF4081</item>
+        <item name="accentColor">#3E3E3E</item>
         <!-- You can also set colorControlNormal, colorControlActivated
             colorControlHighlight and colorSwitchThumbNormal. -->
         <item name="android:textColorPrimary">#FF606060</item>
         <!-- FAB COLORS -->
         <item name="fab_colorPressed">#000</item>
-        <item name="fab_colorNormal">#606060</item>
         <item name="fab_colorRipple">#55606060</item>
         <item name="fab_colorDisabled">#000</item>
     </style>
-
     <!-- Progress colors for line spinner-->
     <style name="ColorsLinearProgressDrawableStyle" parent="Material.Drawable.LinearProgress">
         <item name="lpd_strokeColors">@array/progress_colors</item>

@@ -7,40 +7,61 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.cstogo.MyApplication;
 import com.example.android.cstogo.R;
-import com.example.android.cstogo.UpdateTextViewEvent;
+import com.example.android.cstogo.adapters.MySteamWebStatsAdapter;
 import com.example.android.cstogo.helpers.WebGun;
 import com.example.android.cstogo.helpers.WebMap;
+import com.rey.material.widget.ProgressView;
+import com.squareup.okhttp.Cache;
+import com.squareup.okhttp.CacheControl;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
-import de.greenrobot.event.EventBus;
-
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class FragmentC extends Fragment {
+
+    private RecyclerView.Adapter mAdapter;
+    private List<String> steamWebHeader = new ArrayList<>();
+    private List<String> steamWebOverall = new ArrayList<>();
+    private List<String> steamWebWebMap = new ArrayList<>();
+    private List<String> steamWebWebGun = new ArrayList<>();
+    private List<String> steamWebOther = new ArrayList<>();
 
     private int mTotalKills;
     private int mTotalDeaths;
@@ -125,91 +146,272 @@ public class FragmentC extends Fragment {
     private ArrayList<WebMap> webMapList = new ArrayList<>();
     private ArrayList<WebGun> webGunList = new ArrayList<>();
 
+    private String myUrlAvatar;
+    private String myUrlStats;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private ProgressView mProgressView;
+    private int disableRefresher = 0;
+
+    private String apiKey;
+    private SharedPreferences spref;
+    private String sprefSteamId;
+    private int sprefSteam64Success;
+
+    private View importPanel;
+
     public FragmentC() {
         // Required empty public constructor
-        // TODO: Update on actionbar press
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        apiKey = getResources().getString(R.string.api_key);
+
+        spref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sprefSteamId = spref.getString("prefs_steam_name", "");
+        String sprefSteam64Id = spref.getString("steam_id_64", "");
+        sprefSteam64Success = spref.getInt("steam_id_64_success", 0);
+
+        if (sprefSteam64Success == 1) {
+            buildUrls(sprefSteam64Id);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String sprefSteamId = spref.getString("prefs_steam_name", "");
-        String sprefSteam64Id = spref.getString("steam_id_64", "");
-        int sprefSteam64Success = spref.getInt("steam_id_64_success", 0);
-        View view;
-        TextView title;
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_c, container, false);
+        mProgressView = (ProgressView) view.findViewById(R.id.steam_web_stats_progress_line);
+        mProgressView.setVisibility(View.GONE);
         setHasOptionsMenu(true);
+
+        TextView importText;
+        ImageView importImage;
+        ImageView importArrow;
         assert sprefSteamId != null;
         if (sprefSteamId.equals("")) {
-            //TODO: inflate picture
-            return inflater.inflate(R.layout.fragment_c_no_id, container, false);
+            importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
+            importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_description);
+            importImage = (ImageView) importPanel.findViewById(R.id.steam_web_stats_no_id_image);
+            importArrow = (ImageView) importPanel.findViewById(R.id.steam_web_stats_no_id_arrow);
+            importText.setText(getText(R.string.steam_web_stats_strings_no_id));
+            Picasso.with(getActivity()).load(R.drawable.steam_web_settings).into(importImage);
+            Picasso.with(getActivity()).load(R.drawable.ic_reply_grey600_48dp).rotate(110).into(importArrow);
+            importImage.setVisibility(View.VISIBLE);
+            importArrow.setVisibility(View.VISIBLE);
         } else {
-            switch (sprefSteam64Success) {
+            switch (sprefSteam64Success){
                 case 0:
-                    view = inflater.inflate(R.layout.fragment_c_no_id, container, false);
-                    title = (TextView) view.findViewById(R.id.fragment_c_no_id_title);
-                    title.setText("Android internal problem with getting saved preferences. Please try killing and restarting the application and contact the developer.");
-                    return view;
+                    importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
+                    importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_import);
+                    importText.setText(getText(R.string.steam_web_stats_strings_internal_problem));
+                    break;
                 case 1:
-                    // Inflate the layout for this fragment
-                    view = inflater.inflate(R.layout.fragment_c, container, false);
+                    Request requestAvatar = new Request.Builder()
+                            .cacheControl(new CacheControl.Builder()
+                                    .maxStale(1, TimeUnit.DAYS)
+                                    .build())
+                            .url(myUrlAvatar)
+                            .build();
 
-                    if (!EventBus.getDefault().isRegistered(this)) {
-                        EventBus.getDefault().register(this);
-                    }
+                    new GetSteamUserData().execute(requestAvatar);
 
-                    String apiKey = getResources().getString(R.string.api_key);
-                    Uri.Builder builder = new Uri.Builder();
-                    builder.scheme("http")
-                            .authority("api.steampowered.com")
-                            .appendPath("ISteamUserStats")
-                            .appendPath("GetUserStatsForGame")
-                            .appendPath("v0002")
-                            .appendQueryParameter("appid", "730")
-                            .appendQueryParameter("key", apiKey)
-                            .appendQueryParameter("steamid", sprefSteam64Id);
-                    String myUrl = builder.build().toString();
+                    Request requestStats = new Request.Builder()
+                            .cacheControl(new CacheControl.Builder()
+                                    .maxStale(1, TimeUnit.DAYS)
+                                    .build())
+                            .url(myUrlStats)
+                            .build();
 
-                    new BackgroundSteamStatsRunner().execute(myUrl);
-
-                    return view;
+                    new GetSteamGameStats().execute(requestStats);
+                    break;
                 case 42:
-                    view = inflater.inflate(R.layout.fragment_c_no_id, container, false);
-                    title = (TextView) view.findViewById(R.id.fragment_c_no_id_title);
-                    title.setText("Couldn't find ID specified in settings on Steam network. Typo?");
-                    return view;
+                    importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
+                    importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_import);
+                    importText.setText(getText(R.string.steam_web_stats_strings_id_typo));
+                    break;
                 case 99:
-                    view = inflater.inflate(R.layout.fragment_c_no_id, container, false);
-                    title = (TextView) view.findViewById(R.id.fragment_c_no_id_title);
-                    title.setText("Couldn't connect to steam API. Please check your network and try refresh.");
-                    return view;
+                    importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
+                    importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_import);
+                    importArrow = (ImageView) importPanel.findViewById(R.id.steam_web_stats_no_id_arrow);
+                    importText.setText(getText(R.string.steam_web_stats_strings_no_network));
+                    Picasso.with(getActivity()).load(R.drawable.ic_reply_grey600_48dp).rotate(110).into(importArrow);
+                    importArrow.setVisibility(View.VISIBLE);
+                    break;
                 default:
-                    view = inflater.inflate(R.layout.fragment_c_no_id, container, false);
-                    title = (TextView) view.findViewById(R.id.fragment_c_no_id_title);
-                    title.setText("Unexpected error. Please contact developer.");
-                    return view;
+                    importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
+                    importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_import);
+                    importText.setText(getText(R.string.steam_web_stats_strings_wtf));
+                    break;
+            }
+        }
+
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.steam_web_stats_swipe);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (sprefSteam64Success == 1) {
+                    setDisableRefresher(0);
+                    Request requestAvatar = new Request.Builder()
+                            .cacheControl(CacheControl.FORCE_NETWORK)
+                            .url(myUrlAvatar)
+                            .build();
+
+                    new GetSteamUserData().execute(requestAvatar);
+
+                    Request requestStats = new Request.Builder()
+                            .cacheControl(CacheControl.FORCE_NETWORK)
+                            .url(myUrlStats)
+                            .build();
+
+                    new GetSteamGameStats().execute(requestStats);
+                } else {
+                    swipeRefreshLayout.setRefreshing(false);
+                    Toast.makeText(getActivity(), "Steam ID is not correctly set up. There isn't really anything to refresh", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_green_light,
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.steam_web_stats_recycler);
+        mRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        mAdapter = new MySteamWebStatsAdapter(getActivity(),
+                steamWebHeader,
+                steamWebOverall,
+                steamWebWebMap,
+                steamWebWebGun,
+                steamWebOther);
+
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        return view;
+    }
+
+    private void buildUrls(String sprefSteam64Id){
+        Uri.Builder builderAvatar = new Uri.Builder();
+        builderAvatar.scheme("http")
+                .authority("api.steampowered.com")
+                .appendPath("ISteamUser")
+                .appendPath("GetPlayerSummaries")
+                .appendPath("v0002")
+                .appendQueryParameter("key", apiKey)
+                .appendQueryParameter("steamids", sprefSteam64Id);
+        myUrlAvatar = builderAvatar.build().toString();
+
+        Uri.Builder builderStats = new Uri.Builder();
+        builderStats.scheme("http")
+                .authority("api.steampowered.com")
+                .appendPath("ISteamUserStats")
+                .appendPath("GetUserStatsForGame")
+                .appendPath("v0002")
+                .appendQueryParameter("appid", "730")
+                .appendQueryParameter("key", apiKey)
+                .appendQueryParameter("steamid", sprefSteam64Id);
+        myUrlStats = builderStats.build().toString();
+    }
+
+    private class GetSteamUserData extends AsyncTask<Request, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressView.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected String doInBackground(Request... req) {
+            Response response;
+
+            int cacheSize = 5 * 1024 * 1024; // 5 MiB
+            Cache cache = new Cache(new File(MyApplication.getAppContext().getCacheDir(), "steam_user_data_cache"), cacheSize);
+
+            OkHttpClient client = new OkHttpClient();
+            client.setCache(cache);
+
+            try {
+                response = client.newCall(req[0]).execute();
+                String jsonData = response.body().string();
+                response.body().close();
+                JSONObject dataJsonObj = new JSONObject(jsonData).getJSONObject("response").getJSONArray("players").getJSONObject(0);
+                String personaname = dataJsonObj.getString("personaname");
+                steamWebHeader.clear();
+                steamWebHeader.add(personaname);
+                String avatarfull = dataJsonObj.getString("avatarfull");
+                steamWebHeader.add(avatarfull);
+                String personastate = dataJsonObj.getString("personastate");
+                steamWebHeader.add(personastate);
+                String dateStr = response.header("Date");
+                SimpleDateFormat df = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH);
+                Date date = df.parse(dateStr);
+                df.setTimeZone(TimeZone.getDefault());
+                df.applyPattern("dd.MM.yy - HH:mm");
+                String formattedDate = df.format(date);
+                steamWebHeader.add(formattedDate);
+                return "okay";
+            } catch (IOException | JSONException e) {
+                return null;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            setDisableRefresher(getDisableRefresher() + 1);
+            if (getDisableRefresher() == 2) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+            mProgressView.setVisibility(View.GONE);
+            if (result != null) {
+                mAdapter.notifyDataSetChanged();
+            } else {
+                Toast.makeText(MyApplication.getAppContext(), "Error connecting to steam API. Please try again later.", Toast.LENGTH_LONG).show();
             }
         }
     }
 
-    private class BackgroundSteamStatsRunner extends AsyncTask<String, Void, String> {
+    private class GetSteamGameStats extends AsyncTask<Request, Void, String> {
 
         @Override
-        protected String doInBackground(String... url) {
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressView.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected String doInBackground(Request... req) {
             Response response;
+
+            int cacheSize = 5 * 1024 * 1024; // 5 MiB
+            Cache cache = new Cache(new File(MyApplication.getAppContext().getCacheDir(), "steam_user_stats_cache"), cacheSize);
+
             OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder()
-                    .url(url[0])
-                    .build();
+            client.setCache(cache);
 
             try {
-                response = client.newCall(request).execute();
+                response = client.newCall(req[0]).execute();
                 String jsonData = response.body().string();
+                response.body().close();
                 JSONArray dataJsonArr = new JSONObject(jsonData).getJSONObject("playerstats").getJSONArray("stats");
                 parseJsonStats(dataJsonArr);
+                createTextViewsHeader();
+                createTextViewsBestMaps();
+                createTextViewsBestWeapons();
+                createTextViewsOtherStats();
                 return "okay";
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
@@ -220,15 +422,19 @@ public class FragmentC extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
+            setDisableRefresher(getDisableRefresher() + 1);
+            if (getDisableRefresher() == 2) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+            mProgressView.setVisibility(View.GONE);
             if (result != null) {
-                if (!EventBus.getDefault().isRegistered(this)) {
-                EventBus.getDefault().post(new UpdateTextViewEvent());
-                }
+                mAdapter.notifyDataSetChanged();
             } else {
                 Toast.makeText(MyApplication.getAppContext(), "Error connecting to steam API. Please try again later.", Toast.LENGTH_LONG).show();
             }
         }
     }
+    //_______________________________________________________________
 
     private void parseJsonStats(JSONArray dataJsonArr) {
 
@@ -747,29 +953,15 @@ public class FragmentC extends Fragment {
                     }
                 }
             } catch (JSONException e) {
-                e.printStackTrace();
+                //this catch block should be caught earlier and never happen
+                //just in case, throw Toast out there
+                Toast.makeText(MyApplication.getAppContext(), "Response Error", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private void createTextViews(View view) {
-        createTextViewsHeader(view);
-
-        createTextViewsBestMaps(view);
-
-        createTextViewsBestWeapons(view);
-
-        createTextViewsOtherStats(view);
-    }
-
-    private void createTextViewsHeader(View view) {
+    private void createTextViewsHeader() {
         //HEADER START
-        TextView web_total_kd = (TextView) view.findViewById(R.id.web_kd);
-        TextView web_kills = (TextView) view.findViewById(R.id.web_total_kills_number);
-        TextView web_win_perc = (TextView) view.findViewById(R.id.web_win_percent_number);
-        TextView web_hs_perc = (TextView) view.findViewById(R.id.web_headshot_number);
-        TextView web_accuracy_perc = (TextView) view.findViewById(R.id.web_accuracy_number);
-
         BigDecimal kills = new BigDecimal(getTotalKills());
         BigDecimal deaths = new BigDecimal(getTotalDeaths());
         BigDecimal kd = kills.divide(deaths, 2, BigDecimal.ROUND_HALF_UP);
@@ -786,15 +978,15 @@ public class FragmentC extends Fragment {
         BigDecimal win_rounds = new BigDecimal(getTotalWins());
         BigDecimal win_perc = win_rounds.divide(rounds.divide(new BigDecimal(100), 2, RoundingMode.HALF_UP), 1, RoundingMode.HALF_UP);
 
-        web_total_kd.setText(String.valueOf(getTotalKd()));
-        web_kills.setText(String.valueOf(getTotalKills()));
-        web_win_perc.setText(win_perc + "%");
-        web_hs_perc.setText(hs_perc + "%");
-        web_accuracy_perc.setText(accuracy + "%");
-        //HEADER END
+        steamWebOverall.clear();
+        steamWebOverall.add(String.valueOf(getTotalKd()));
+        steamWebOverall.add(String.valueOf(getTotalKills()));
+        steamWebOverall.add(win_perc + "%");
+        steamWebOverall.add(hs_perc + "%");
+        steamWebOverall.add(accuracy + "%");
     }
 
-    private void createTextViewsBestMaps (View view) {
+    private void createTextViewsBestMaps() {
 
         getWebMapList().clear();
         getWebMapList().add(assault);
@@ -846,25 +1038,19 @@ public class FragmentC extends Fragment {
                 highestWinsName = ci.getWebMapName();
             }
         }
-        TextView web_map_win_perc_name = (TextView) view.findViewById(R.id.web_highest_win_perc_number);
-        TextView web_map_wins_name = (TextView) view.findViewById(R.id.web_highest_wins_number);
-        TextView web_map_rounds_name = (TextView) view.findViewById(R.id.web_highest_rounds_number);
 
-        TextView web_map_win_perc_number = (TextView) view.findViewById(R.id.web_highest_win_perc_map);
-        TextView web_map_wins_number = (TextView) view.findViewById(R.id.web_highest_wins_map);
-        TextView web_map_rounds_number = (TextView) view.findViewById(R.id.web_highest_rounds_map);
+        steamWebWebMap.clear();
+        steamWebWebMap.add(highestWinPercName);
+        steamWebWebMap.add(highestWinPerc + " %");
+        steamWebWebMap.add(highestWinsName);
+        steamWebWebMap.add(String.valueOf(highestWins));
+        steamWebWebMap.add(highestRoundsName);
+        steamWebWebMap.add(String.valueOf(highestRounds));
 
-        web_map_win_perc_name.setText(highestWinPercName);
-        web_map_wins_name.setText(highestWinsName);
-        web_map_rounds_name.setText(highestRoundsName);
-
-        web_map_win_perc_number.setText(highestWinPerc + " %");
-        web_map_wins_number.setText(String.valueOf(highestWins));
-        web_map_rounds_number.setText(String.valueOf(highestRounds));
     }
 
     @SuppressWarnings("ConstantConditions")
-    private void createTextViewsBestWeapons (View view) {
+    private void createTextViewsBestWeapons() {
 
         getWebGunList().clear();
         getWebGunList().add(ak47);
@@ -930,87 +1116,58 @@ public class FragmentC extends Fragment {
                 highestAcc = tempAcc;
                 highestAccName = ci.getGunName();
             }
-
         }
 
-        TextView fav_wep_shots_name = (TextView) view.findViewById(R.id.web_fav_wep_shots);
-        TextView fav_wep_hits_name = (TextView) view.findViewById(R.id.web_fav_wep_hits);
-        TextView fav_wep_kills_name = (TextView) view.findViewById(R.id.web_fav_wep_kills);
-        TextView fav_wep_accuracy_name = (TextView) view.findViewById(R.id.web_fav_wep_accuracy);
+        steamWebWebGun.clear();
+        steamWebWebGun.add(highestShotsName);
+        steamWebWebGun.add(String.valueOf(highestShots));
 
-        TextView fav_wep_shots_number = (TextView) view.findViewById(R.id.web_highest_shots_gun);
-        TextView fav_wep_hits_number = (TextView) view.findViewById(R.id.web_highest_hits_gun);
-        TextView fav_wep_kills_number = (TextView) view.findViewById(R.id.web_highest_kills_gun);
-        TextView fav_wep_accuracy_number = (TextView) view.findViewById(R.id.web_highest_accuracy_gun);
+        steamWebWebGun.add(highestHitsName);
+        steamWebWebGun.add(String.valueOf(highestHits));
 
-        fav_wep_shots_name.setText(highestShotsName);
-        fav_wep_hits_name.setText(highestHitsName);
-        fav_wep_kills_name.setText(highestKillsName);
-        fav_wep_accuracy_name.setText(highestAccName);
+        steamWebWebGun.add(highestKillsName);
+        steamWebWebGun.add(String.valueOf(highestKills));
 
-        fav_wep_shots_number.setText(String.valueOf(highestShots));
-        fav_wep_hits_number.setText(String.valueOf(highestHits));
-        fav_wep_kills_number.setText(String.valueOf(highestKills));
-        fav_wep_accuracy_number.setText(highestAcc + " %");
+        steamWebWebGun.add(highestAccName);
+        steamWebWebGun.add(highestAcc + " %");
     }
 
-    private void createTextViewsOtherStats (View view) {
-        TextView web_other_kills = (TextView) view.findViewById(R.id.web_other_kills);
-        web_other_kills.setText(String.valueOf(getTotalKills()));
-        TextView web_other_heashots = (TextView) view.findViewById(R.id.web_other_headshots);
-        web_other_heashots.setText(String.valueOf(getTotalKillsHeadshot()));
-        TextView web_other_deaths = (TextView) view.findViewById(R.id.web_other_deaths);
-        web_other_deaths.setText(String.valueOf(getTotalDeaths()));
-        TextView web_other_wins = (TextView) view.findViewById(R.id.web_other_wins);
-        web_other_wins.setText(String.valueOf(getTotalWins()));
-        TextView web_other_rounds = (TextView) view.findViewById(R.id.web_other_rounds);
-        web_other_rounds.setText(String.valueOf(getTotalRounds()));
-        TextView web_other_planted = (TextView) view.findViewById(R.id.web_other_planted);
-        web_other_planted.setText(String.valueOf(getTotalPlanted()));
-        TextView web_other_defused = (TextView) view.findViewById(R.id.web_other_defused);
-        web_other_defused.setText(String.valueOf(getTotalDefused()));
-        TextView web_other_damage_done = (TextView) view.findViewById(R.id.web_other_damage_done);
-        web_other_damage_done.setText(String.valueOf(getTotalDamageDone()));
-        TextView web_other_money_earned = (TextView) view.findViewById(R.id.web_other_money_earned);
-        web_other_money_earned.setText("$" + String.valueOf(getTotalMoneyEarned()));
-        TextView web_other_hostages_rescued = (TextView) view.findViewById(R.id.web_other_hostages_rescued);
-        web_other_hostages_rescued.setText(String.valueOf(getTotalRescuedHostages()));
-        TextView web_other_mvps = (TextView) view.findViewById(R.id.web_other_mvps);
-        web_other_mvps.setText(String.valueOf(getTotalMvps()));
-        TextView web_other_enemy_weapon = (TextView) view.findViewById(R.id.web_other_enemy_weapon);
-        web_other_enemy_weapon.setText(String.valueOf(getTotalKillsEnemyWeapon()));
+    private void createTextViewsOtherStats() {
 
-        TextView web_other_shots_fired = (TextView) view.findViewById(R.id.web_other_shots_fired);
-        web_other_shots_fired.setText(String.valueOf(getTotalShotsFired()));
-        TextView web_other_shots_hit = (TextView) view.findViewById(R.id.web_other_shots_hit);
-        web_other_shots_hit.setText(String.valueOf(getTotalShotsHit()));
-        TextView web_other_zeus_shots = (TextView) view.findViewById(R.id.web_other_zeus_shots);
-        web_other_zeus_shots.setText(String.valueOf(getTotalShotsTaser()));
-        TextView web_other_zeus_kills = (TextView) view.findViewById(R.id.web_other_zeus_kills);
-        web_other_zeus_kills.setText(String.valueOf(getTotalKillsTaser()));
-        TextView web_other_molotov = (TextView) view.findViewById(R.id.web_other_molotov);
-        web_other_molotov.setText(String.valueOf(getTotalKillsMolotov()));
-        TextView web_other_nade = (TextView) view.findViewById(R.id.web_other_nade);
-        web_other_nade.setText(String.valueOf(getTotalKillsHeGrenade()));
-        TextView web_other_knife = (TextView) view.findViewById(R.id.web_other_knife);
-        web_other_knife.setText(String.valueOf(getTotalKillsKnife()));
-        TextView web_other_flash = (TextView) view.findViewById(R.id.web_other_flash);
-        web_other_flash.setText(String.valueOf(getTotalKillsEnemyBlinded()));
-        TextView web_other_zoomed = (TextView) view.findViewById(R.id.web_other_zoomed);
-        web_other_zoomed.setText(String.valueOf(getTotalKillsAgainstZoomedSniper()));
-        TextView web_other_dominations = (TextView) view.findViewById(R.id.web_other_dominations);
-        web_other_dominations.setText(String.valueOf(getTotalDominations()));
-        TextView web_other_revenges = (TextView) view.findViewById(R.id.web_other_revenges);
-        web_other_revenges.setText(String.valueOf(getTotalRevenges()));
-        TextView web_other_donated = (TextView) view.findViewById(R.id.web_other_donated);
-        web_other_donated.setText(String.valueOf(getTotalWeaponsDonated()));
-        TextView web_other_broken_windows = (TextView) view.findViewById(R.id.web_other_broken_windows);
-        web_other_broken_windows.setText(String.valueOf(getTotalBrokenWindows()));
+        steamWebOther.clear();
+        steamWebOther.add(String.valueOf(getTotalKills()));
+        steamWebOther.add(String.valueOf(getTotalKillsHeadshot()));
+        steamWebOther.add(String.valueOf(getTotalDeaths()));
+        steamWebOther.add(String.valueOf(getTotalWins()));
+        steamWebOther.add(String.valueOf(getTotalRounds()));
+        steamWebOther.add(String.valueOf(getTotalPlanted()));
+        steamWebOther.add(String.valueOf(getTotalDefused()));
+        steamWebOther.add(String.valueOf(getTotalDamageDone()));
+        steamWebOther.add("$" + String.valueOf(getTotalMoneyEarned()));
+        steamWebOther.add(String.valueOf(getTotalRescuedHostages()));
+        steamWebOther.add(String.valueOf(getTotalMvps()));
+        steamWebOther.add(String.valueOf(getTotalKillsEnemyWeapon()));
+
+        steamWebOther.add(String.valueOf(getTotalShotsFired()));
+        steamWebOther.add(String.valueOf(getTotalShotsHit()));
+        steamWebOther.add(String.valueOf(getTotalShotsTaser()));
+        steamWebOther.add(String.valueOf(getTotalKillsTaser()));
+        steamWebOther.add(String.valueOf(getTotalKillsMolotov()));
+        steamWebOther.add(String.valueOf(getTotalKillsHeGrenade()));
+        steamWebOther.add(String.valueOf(getTotalKillsKnife()));
+        steamWebOther.add(String.valueOf(getTotalKillsEnemyBlinded()));
+        steamWebOther.add(String.valueOf(getTotalKillsAgainstZoomedSniper()));
+        steamWebOther.add(String.valueOf(getTotalDominations()));
+        steamWebOther.add(String.valueOf(getTotalRevenges()));
+        steamWebOther.add(String.valueOf(getTotalWeaponsDonated()));
+        steamWebOther.add(String.valueOf(getTotalBrokenWindows()));
     }
+
+    //_______________________________________________________________
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_fragment_c, menu);
+        inflater.inflate(R.menu.menu_fragment_e, menu);
 
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -1019,12 +1176,125 @@ public class FragmentC extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.update_from_web) {
-            Toast.makeText(getActivity(), "Reload", Toast.LENGTH_SHORT).show();
+        if (id == R.id.fragment_e_update) {
+            if (sprefSteam64Success == 1) {
+                Request request = new Request.Builder()
+                        .cacheControl(new CacheControl.Builder()
+                                .maxStale(1, TimeUnit.DAYS)
+                                .build())
+                        .url(myUrlAvatar)
+                        .build();
+
+                new GetSteamUserData().execute(request);
+            } else {
+                Toast.makeText(getActivity(), "ID must be filled in settings to refresh stats", Toast.LENGTH_SHORT).show();
+            }
+        }
+        if (id == R.id.fragment_e_web) {
+            if (sprefSteam64Success == 1) {
+                Request request = new Request.Builder()
+                        .cacheControl(CacheControl.FORCE_NETWORK)
+                        .url(myUrlAvatar)
+                        .build();
+
+                new GetSteamUserData().execute(request);
+            } else {
+                Toast.makeText(getActivity(), "ID must be filled in settings to refresh stats", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        if (id == R.id.fragment_e_id) {
+            String reCheckShared = spref.getString("prefs_steam_name", "");
+            assert reCheckShared != null;
+            if (reCheckShared.equals("")) {
+                Toast.makeText(getActivity(), "ID must be filled in settings in order to refresh it", Toast.LENGTH_SHORT).show();
+            } else {
+                Uri.Builder builder = new Uri.Builder();
+                builder.scheme("http")
+                        .authority("api.steampowered.com")
+                        .appendPath("ISteamUser")
+                        .appendPath("ResolveVanityURL")
+                        .appendPath("v0001")
+                        .appendQueryParameter("key", apiKey)
+                        .appendQueryParameter("vanityurl", sprefSteamId);
+                String myUrl = builder.build().toString();
+
+                new BackgroundWebRunner().execute(myUrl);
+            }
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    private class BackgroundWebRunner extends AsyncTask<String, Void, JSONObject> {
+
+        @Override
+        protected JSONObject doInBackground(String... url) {
+            Response response;
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder()
+                    .cacheControl(CacheControl.FORCE_NETWORK)
+                    .url(url[0])
+                    .build();
+
+            try {
+                response = client.newCall(request).execute();
+                String jsonData = response.body().string();
+                return new JSONObject(jsonData).getJSONObject("response");
+            } catch (IOException | JSONException e) {
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject result) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
+            SharedPreferences.Editor editor = preferences.edit();
+            if(result != null){
+                try {
+                    int jsonSuccess = result.getInt("success");
+                    if (jsonSuccess == 42) {
+                        editor.putInt("steam_id_64_success", jsonSuccess);
+                        editor.putString("steam_id_64", "0");
+                        Toast.makeText(MyApplication.getAppContext(), "Couldn't find specified ID. Typo?", Toast.LENGTH_LONG).show();
+                    } else {
+                        String jsonSteamId = result.getString("steamid");
+
+                        editor.putInt("steam_id_64_success", jsonSuccess);
+                        editor.putString("steam_id_64", jsonSteamId);
+
+                        buildUrls(jsonSteamId);
+
+                        Request requestAvatar = new Request.Builder()
+                                .cacheControl(CacheControl.FORCE_NETWORK)
+                                .url(myUrlAvatar)
+                                .build();
+
+                        new GetSteamUserData().execute(requestAvatar);
+
+                        Request requestStats = new Request.Builder()
+                                .cacheControl(CacheControl.FORCE_NETWORK)
+                                .url(myUrlStats)
+                                .build();
+
+                        new GetSteamGameStats().execute(requestStats);
+                        if (importPanel != null) {
+                            importPanel.setVisibility(View.GONE);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                editor.putInt("steam_id_64_success", 99);
+                editor.putString("steam_id_64", "0");
+                Toast.makeText(MyApplication.getAppContext(), "Error connecting to steam API. Please try again later.", Toast.LENGTH_LONG).show();
+            }
+            editor.apply();
+        }
+    }
+
+    //_______________________________________________________________
 
     public int getTotalKills() {
         return mTotalKills;
@@ -1242,17 +1512,11 @@ public class FragmentC extends Fragment {
         return webMapList;
     }
 
-    @SuppressWarnings("unused")
-    public void onEvent(UpdateTextViewEvent event){
-        createTextViews(getView());
+    public int getDisableRefresher() {
+        return disableRefresher;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (!EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().unregister(this);
-        }
+    public void setDisableRefresher(int disableRefresher) {
+        this.disableRefresher = disableRefresher;
     }
-
 }
