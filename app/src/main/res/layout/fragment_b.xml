@@ -1,303 +1,366 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            tools:context="com.example.android.cstogo.fragments.FragmentB"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.android.cstogo.fragments.FragmentB">
 
-    <RelativeLayout
-
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+        android:orientation="vertical">
+
+        <ViewStub
+            android:id="@+id/match_stats_stub_import"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:inflatedId="@+id/match_stats_no_matches_import"
+            android:layout="@layout/match_stats_no_matches_id" />
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="0dp"
+            card_view:cardBackgroundColor="?cardBack"
+            card_view:cardCornerRadius="2dp"
+            card_view:cardElevation="2dp"
+            card_view:cardUseCompatPadding="true"
+            card_view:contentPadding="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:baselineAligned="false">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/stats_number_avgKAD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="5.50"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_gravity="center"
+                        android:textColor="?accentColor"
+                        android:textSize="40sp"/>
+
+                    <TextView
+                        android:id="@+id/stats_number_avgKD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="3.50"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_gravity="center"
+                        android:textColor="?fab_colorRipple"
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kad_kd"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_gravity="center"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/match_stats_per_match"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
+
+                    <TextView
+                        android:id="@+id/stats_title_avgKills"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/match_stats_avg_kills"
+                        android:textColor="?accentColor"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"/>
+
+                    <TextView
+                        android:id="@+id/stats_number_avgKills"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="3.50"
+                        android:layout_below="@+id/stats_title_avgKills"
+                        android:layout_alignLeft="@+id/stats_title_avgKills"
+                        android:layout_alignStart="@+id/stats_title_avgKills"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"/>
+
+                    <TextView
+                        android:id="@+id/stats_title_avgAssists"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/match_stats_avg_assists"
+                        android:textColor="?accentColor"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_below="@+id/stats_number_avgKills"
+                        android:layout_alignLeft="@+id/stats_title_avgKills"
+                        android:layout_alignStart="@+id/stats_title_avgKills" />
+
+                    <TextView
+                        android:id="@+id/stats_number_avgAssists"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="3.50"
+                        android:layout_below="@+id/stats_title_avgAssists"
+                        android:layout_alignLeft="@+id/stats_number_avgKills"
+                        android:layout_alignStart="@+id/stats_number_avgKills" />
+
+                    <TextView
+                        android:id="@+id/stats_title_avgDeaths"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/match_stats_avg_deaths"
+                        android:textColor="?accentColor"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_alignTop="@+id/stats_title_avgKills"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
+                        tools:ignore="RelativeOverlap" />
+
+                    <TextView
+                        android:id="@+id/stats_number_avgDeaths"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="3.50"
+                        android:layout_below="@+id/stats_title_avgDeaths"
+                        android:layout_alignRight="@+id/stats_title_avgDeaths"
+                        android:layout_alignEnd="@+id/stats_title_avgDeaths"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"/>
+
+                    <TextView
+                        android:id="@+id/stats_title_avgPPM"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/match_stats_avg_ppm"
+                        android:textColor="?accentColor"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_alignTop="@+id/stats_title_avgAssists"
+                        android:layout_alignRight="@+id/stats_title_avgDeaths"
+                        android:layout_alignEnd="@+id/stats_title_avgDeaths" />
+
+                    <TextView
+                        android:id="@+id/stats_number_avgPPM"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="3.50"
+                        android:layout_below="@+id/stats_title_avgPPM"
+                        android:layout_alignRight="@+id/stats_number_avgDeaths"
+                        android:layout_alignEnd="@+id/stats_number_avgDeaths" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
 
         <TextView
+            android:id="@+id/stats_title_matches"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="All Matches"
-            android:textColor="?accentColor"
-            android:id="@+id/stats_title_matches"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="30dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"/>
+            android:textColor="?accentColor" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/stats_number_matches"
-            android:textColor="#263238"
-            android:textStyle="bold"
-            android:layout_alignBottom="@id/stats_title_matches"
-            android:layout_toRightOf="@id/stats_title_matches"
-            android:layout_toEndOf="@id/stats_title_matches"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"/>
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="?accentColor"
-            android:text="All Kills"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:textStyle="bold"
+            tools:text="3.50"/>
+
+        <TextView
             android:id="@+id/stats_title_kills"
-            android:layout_below="@id/stats_title_matches"
-            android:layout_alignLeft="@id/stats_title_matches"
-            android:layout_alignStart="@id/stats_title_matches"/>
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="All Kills"
+            android:textColor="?accentColor" />
+
+        <TextView
             android:id="@+id/stats_number_kills"
-            android:textColor="#263238"
-            android:textStyle="bold"
-            android:layout_alignBottom="@id/stats_title_kills"
-            android:layout_toRightOf="@id/stats_title_kills"
-            android:layout_toEndOf="@id/stats_title_kills"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"/>
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="?accentColor"
-            android:text="All Assists"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:textStyle="bold"
+            tools:text="3.50" />
+
+        <TextView
             android:id="@+id/stats_title_assists"
-            android:layout_below="@id/stats_title_kills"
-            android:layout_alignLeft="@id/stats_title_kills"
-            android:layout_alignStart="@id/stats_title_kills"/>
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="All Assists"
+            android:textColor="?accentColor" />
+
+        <TextView
             android:id="@+id/stats_number_assists"
-            android:textColor="#263238"
-            android:textStyle="bold"
-            android:layout_alignBottom="@id/stats_title_assists"
-            android:layout_toRightOf="@id/stats_title_assists"
-            android:layout_toEndOf="@id/stats_title_assists"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"/>
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="?accentColor"
-            android:text="All Deaths"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:textStyle="bold"
+            tools:text="3.50" />
+
+        <TextView
             android:id="@+id/stats_title_deaths"
-            android:layout_below="@id/stats_title_assists"
-            android:layout_alignLeft="@id/stats_title_assists"
-            android:layout_alignStart="@id/stats_title_assists"/>
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="All Deaths"
+            android:textColor="?accentColor" />
+
+        <TextView
             android:id="@+id/stats_number_deaths"
-            android:textColor="#263238"
-            android:textStyle="bold"
-            android:layout_alignBottom="@id/stats_title_deaths"
-            android:layout_toRightOf="@id/stats_title_deaths"
-            android:layout_toEndOf="@id/stats_title_deaths"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"/>
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="?accentColor"
-            android:text="All Points"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:textStyle="bold"
+            tools:text="3.50" />
+
+        <TextView
             android:id="@+id/stats_title_points"
-            android:layout_below="@id/stats_title_deaths"
-            android:layout_alignLeft="@id/stats_title_deaths"
-            android:layout_alignStart="@id/stats_title_deaths"/>
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="All Points"
+            android:textColor="?accentColor" />
+
+        <TextView
             android:id="@+id/stats_number_points"
-            android:textColor="#263238"
-            android:textStyle="bold"
-            android:layout_alignBottom="@id/stats_title_points"
-            android:layout_toRightOf="@id/stats_title_points"
-            android:layout_toEndOf="@id/stats_title_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"/>
+            android:layout_marginStart="5dp"
+            android:textStyle="bold"
+            tools:text="3.50" />
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/stats_map_pie"
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="270dp"
-            android:layout_below="@id/stats_title_points"
-            />
-
-        <TextView
-            android:id="@+id/stats_title_avgKills"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Average Kills"
-            android:textColor="?accentColor"
-            android:layout_below="@id/stats_map_pie"
-            android:layout_alignLeft="@id/stats_title_deaths"
-            android:layout_alignStart="@id/stats_title_deaths"/>
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="0dp"
+            card_view:cardBackgroundColor="?cardBack"
+            card_view:cardCornerRadius="2dp"
+            card_view:cardElevation="2dp"
+            card_view:cardUseCompatPadding="true"
+            card_view:contentPadding="15dp"
+            android:clickable="false">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/stats_number_avgKills"
-            android:textColor="#263238"
-            android:textStyle="bold"
-            android:layout_alignBottom="@id/stats_title_avgKills"
-            android:layout_toRightOf="@id/stats_title_avgKills"
-            android:layout_toEndOf="@id/stats_title_avgKills"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"/>
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/stats_map_pie"
+                android:layout_width="match_parent"
+                android:layout_height="270dp" />
 
-        <TextView
-            android:id="@+id/stats_title_avgAssists"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Average Assists"
-            android:textColor="?accentColor"
-            android:layout_below="@id/stats_title_avgKills"
-            android:layout_alignLeft="@id/stats_title_avgKills"
-            android:layout_alignStart="@id/stats_title_avgKills"/>
+        </android.support.v7.widget.CardView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/stats_number_avgAssists"
-            android:textColor="#263238"
-            android:textStyle="bold"
-            android:layout_alignBottom="@id/stats_title_avgAssists"
-            android:layout_toRightOf="@id/stats_title_avgAssists"
-            android:layout_toEndOf="@id/stats_title_avgAssists"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"/>
-
-        <TextView
-            android:id="@+id/stats_title_avgDeaths"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Average Deaths"
-            android:textColor="?accentColor"
-            android:layout_below="@id/stats_title_avgAssists"
-            android:layout_alignLeft="@id/stats_title_avgAssists"
-            android:layout_alignStart="@id/stats_title_avgAssists"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/stats_number_avgDeaths"
-            android:textColor="#263238"
-            android:textStyle="bold"
-            android:layout_alignBottom="@id/stats_title_avgDeaths"
-            android:layout_toRightOf="@id/stats_title_avgDeaths"
-            android:layout_toEndOf="@id/stats_title_avgDeaths"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"/>
-
-        <TextView
-            android:id="@+id/stats_title_avgPPM"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Average PPM"
-            android:textColor="?accentColor"
-            android:layout_below="@id/stats_title_avgDeaths"
-            android:layout_alignLeft="@id/stats_title_avgDeaths"
-            android:layout_alignStart="@id/stats_title_avgDeaths"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/stats_number_avgPPM"
-            android:textColor="#263238"
-            android:textStyle="bold"
-            android:layout_alignBottom="@id/stats_title_avgPPM"
-            android:layout_toRightOf="@id/stats_title_avgPPM"
-            android:layout_toEndOf="@id/stats_title_avgPPM"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"/>
-
-        <TextView
-            android:id="@+id/stats_title_avgKAD"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Average KaD"
-            android:textColor="?accentColor"
-            android:layout_below="@id/stats_title_avgPPM"
-            android:layout_alignLeft="@id/stats_title_avgPPM"
-            android:layout_alignStart="@id/stats_title_avgPPM"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/stats_number_avgKAD"
-            android:textColor="#263238"
-            android:textStyle="bold"
-            android:layout_alignBottom="@id/stats_title_avgKAD"
-            android:layout_toRightOf="@id/stats_title_avgKAD"
-            android:layout_toEndOf="@id/stats_title_avgKAD"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"/>
-
-        <com.github.mikephil.charting.charts.HorizontalBarChart
-            android:id="@+id/stats_kad_bar"
-            android:layout_height="150dp"
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_below="@id/stats_title_avgKAD"
-            />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="0dp"
+            card_view:cardBackgroundColor="?cardBack"
+            card_view:cardCornerRadius="2dp"
+            card_view:cardElevation="2dp"
+            card_view:cardUseCompatPadding="true"
+            card_view:contentPadding="15dp"
+            android:clickable="false">
+
+            <com.github.mikephil.charting.charts.HorizontalBarChart
+                android:id="@+id/stats_kad_bar"
+                android:layout_width="match_parent"
+                android:layout_height="150dp" />
+
+        </android.support.v7.widget.CardView>
 
         <TextView
             android:id="@+id/stats_title_dust_KAD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dust KaD"
-            android:textColor="?accentColor"
-            android:layout_below="@id/stats_kad_bar"
-            android:layout_alignLeft="@id/stats_title_avgKAD"
-            android:layout_alignStart="@id/stats_title_avgKAD"/>
+            android:textColor="?accentColor" />
 
         <TextView
+            android:id="@+id/stats_number_dust_KAD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/stats_number_dust_KAD"
-            android:textColor="#263238"
-            android:textStyle="bold"
-            android:layout_alignBottom="@id/stats_title_dust_KAD"
-            android:layout_toRightOf="@id/stats_title_dust_KAD"
-            android:layout_toEndOf="@id/stats_title_dust_KAD"
             android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"/>
+            android:layout_marginStart="5dp"
+            android:textStyle="bold"
+            tools:text="3.50" />
 
         <TextView
             android:id="@+id/stats_title_nuke_KAD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nuke KaD"
-            android:textColor="?accentColor"
-            android:layout_below="@id/stats_title_dust_KAD"
-            android:layout_alignLeft="@id/stats_title_dust_KAD"
-            android:layout_alignStart="@id/stats_title_dust_KAD"/>
+            android:textColor="?accentColor" />
 
         <TextView
+            android:id="@+id/stats_number_nuke_KAD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/stats_number_nuke_KAD"
-            android:textColor="#263238"
-            android:textStyle="bold"
-            android:layout_alignBottom="@id/stats_title_nuke_KAD"
-            android:layout_toRightOf="@id/stats_title_nuke_KAD"
-            android:layout_toEndOf="@id/stats_title_nuke_KAD"
             android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"/>
+            android:layout_marginStart="5dp"
+            android:textStyle="bold"
+            tools:text="3.50" />
 
-        <com.github.mikephil.charting.charts.HorizontalBarChart
-            android:visibility="gone"
-            android:id="@+id/stats_last3_bar"
-            android:layout_height="45dp"
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_below="@id/stats_title_nuke_KAD"
-            />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="0dp"
+            card_view:cardBackgroundColor="?cardBack"
+            card_view:cardCornerRadius="2dp"
+            card_view:cardElevation="2dp"
+            card_view:cardUseCompatPadding="true"
+            card_view:contentPadding="15dp">
 
-    </RelativeLayout>
+            <com.github.mikephil.charting.charts.HorizontalBarChart
+                android:id="@+id/stats_last3_bar"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:visibility="gone" />
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
 </ScrollView>

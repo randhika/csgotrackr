@@ -7,7 +7,8 @@
         <item name="windowActionBar">false</item>
         <!-- You can also set colorControlNormal, colorControlActivated
             colorControlHighlight and colorSwitchThumbNormal. -->
-        <item name="android:textColorPrimary">#000</item>
+        <item name="android:textColorPrimary">#212121</item>
+        <item name="cardBack">#FAFAFA</item>
     </style>
 
     <style name="blue_pink" parent="AppTheme">
@@ -84,19 +85,20 @@
         <item name="windowActionBar">false</item>
         <!-- Set theme colors from http://www.google.com/design/spec/style/color.html#color-color-palette-->
         <!-- colorPrimary is used for the default action bar background -->
-        <item name="colorPrimary">#606060</item>
+        <item name="colorPrimary">#212121</item>
         <!-- colorPrimaryDark is used for the status bar -->
-        <item name="colorPrimaryDark">#3E3E3E</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="cardBack">#424242</item>
         <!-- colorAccent is used as the default value for colorControlActivated
              which is used to tint widgets -->
-        <item name="colorAccent">#3E3E3E</item>
-        <item name="accentColor">#3E3E3E</item>
+        <item name="colorAccent">#6B6B6B</item>
+        <item name="accentColor">#6B6B6B</item>
         <!-- You can also set colorControlNormal, colorControlActivated
             colorControlHighlight and colorSwitchThumbNormal. -->
-        <item name="android:textColorPrimary">#FF606060</item>
+        <item name="android:textColorPrimary">#878787</item>
         <!-- FAB COLORS -->
         <item name="fab_colorPressed">#000</item>
-        <item name="fab_colorRipple">#55606060</item>
+        <item name="fab_colorRipple">#556B6B6B</item>
         <item name="fab_colorDisabled">#000</item>
     </style>
     <!-- Progress colors for line spinner-->

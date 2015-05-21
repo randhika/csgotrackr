@@ -14,5 +14,6 @@
     </declare-styleable>
 
     <attr name="accentColor" format="color" />
+    <attr name="cardBack" format="color" />
 
 </resources>

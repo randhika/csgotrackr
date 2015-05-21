@@ -162,6 +162,7 @@ public class FragmentC extends Fragment {
 
     public FragmentC() {
         // Required empty public constructor
+        //TODO: Images of guns, maps, cards background
     }
 
     @Override
@@ -206,7 +207,7 @@ public class FragmentC extends Fragment {
             switch (sprefSteam64Success){
                 case 0:
                     importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
-                    importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_import);
+                    importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_description);
                     importText.setText(getText(R.string.steam_web_stats_strings_internal_problem));
                     break;
                 case 1:
@@ -230,12 +231,12 @@ public class FragmentC extends Fragment {
                     break;
                 case 42:
                     importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
-                    importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_import);
+                    importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_description);
                     importText.setText(getText(R.string.steam_web_stats_strings_id_typo));
                     break;
                 case 99:
                     importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
-                    importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_import);
+                    importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_description);
                     importArrow = (ImageView) importPanel.findViewById(R.id.steam_web_stats_no_id_arrow);
                     importText.setText(getText(R.string.steam_web_stats_strings_no_network));
                     Picasso.with(getActivity()).load(R.drawable.ic_reply_grey600_48dp).rotate(110).into(importArrow);
@@ -243,7 +244,7 @@ public class FragmentC extends Fragment {
                     break;
                 default:
                     importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
-                    importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_import);
+                    importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_description);
                     importText.setText(getText(R.string.steam_web_stats_strings_wtf));
                     break;
             }

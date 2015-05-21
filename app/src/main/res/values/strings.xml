@@ -59,4 +59,13 @@
     <string name="fragment_smokes_row_image_of_map_desc">Image of map</string>
 
 
+    <string name="match_stats_no_matches_stub_info">This screen shows basic statistics from matches you added. Feel free to add some from previous screen.</string>
+    <string name="kad_kd">KA/D - K/D</string>
+    <string name="match_stats_per_match">per match</string>
+    <string name="match_stats_avg_kills">avg kills</string>
+    <string name="match_stats_avg_assists">avg assists</string>
+    <string name="match_stats_avg_deaths">avg deaths</string>
+    <string name="match_stats_avg_ppm">avg ppm</string>
+
+
 </resources>

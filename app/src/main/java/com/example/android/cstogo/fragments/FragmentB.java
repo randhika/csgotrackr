@@ -8,6 +8,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.widget.TextView;
 
 import com.example.android.cstogo.R;
@@ -92,8 +93,8 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
             updateTextViews(view);
         }
         else {
-            TextView statsAllMatches = (TextView) view.findViewById(R.id.stats_number_matches);
-            statsAllMatches.setText("Please add some matches to see stats");
+            ViewStub stub = (ViewStub) view.findViewById(R.id.match_stats_stub_import);
+            @SuppressWarnings("unused") View inflated = stub.inflate();
         }
 
         return view;
@@ -117,6 +118,7 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         TextView statsAvgDeaths = (TextView) view.findViewById(R.id.stats_number_avgDeaths);
         TextView statsAvgPPM = (TextView) view.findViewById(R.id.stats_number_avgPPM);
         TextView statsAvgKAD = (TextView) view.findViewById(R.id.stats_number_avgKAD);
+        TextView statsAvgKD = (TextView) view.findViewById(R.id.stats_number_avgKD);
         TextView statsDustKaD = (TextView) view.findViewById(R.id.stats_number_dust_KAD);
         TextView statsNukeKaD = (TextView) view.findViewById(R.id.stats_number_nuke_KAD);
 
@@ -233,6 +235,7 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         statsAvgDeaths.setText(getAvgDeaths().toString());
         statsAvgPPM.setText(getAvgPoints().toString());
         statsAvgKAD.setText(getOverallKad().toString());
+        statsAvgKD.setText(getOverallKd().toString());
         statsDustKaD.setText(getDustAvgKad().toString());
         //statsNukeKaD.setText(getLast3Kad().toString());
         statsNukeKaD.setText(getNukeAvgKad().toString());
@@ -604,7 +607,6 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
     public void setLast3Bar(HorizontalBarChart last3Bar) {
         mLast3Bar = last3Bar;
     }
-
 
     @SuppressWarnings("unused")
     public void onEvent(UpdateStatsEvent event){

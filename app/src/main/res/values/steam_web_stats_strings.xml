@@ -6,7 +6,7 @@
     </string>
 
     <string name="steam_web_stats_strings_internal_problem">
-    Android internal problem with getting saved preferences. Please try killing and restarting the application and contact the developer.
+    Android internal problem with getting saved preferences. If your ID is set-up in settings please try "Update ID" from options menu above. Killing / restarting app is also an option that could solve this issue. Please contact developer if you can find steps to reproduce this issue.
     </string>
 
     <string name="steam_web_stats_strings_id_typo">

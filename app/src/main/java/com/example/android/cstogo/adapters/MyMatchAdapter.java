@@ -1,8 +1,10 @@
 package com.example.android.cstogo.adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +24,16 @@ public class MyMatchAdapter extends RecyclerView.Adapter<MyMatchAdapter.MatchVie
 
     private Context mContext;
     private List<Match> matchList;
+    private int accentColor;
 
     public MyMatchAdapter(Context context, List<Match> matchList){
         this.matchList = matchList;
         this.mContext= context;
+
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = context.getTheme();
+        theme.resolveAttribute(R.attr.accentColor, typedValue, true);
+        this.accentColor = typedValue.data;
     }
 
     @Override
@@ -44,7 +52,7 @@ public class MyMatchAdapter extends RecyclerView.Adapter<MyMatchAdapter.MatchVie
         matchViewHolder.vMatchResult.setText(ci.getMatchResult());
 
         if (ci.getTeamRounds() > ci.getEnemyRounds()) {
-            matchViewHolder.vResultStrip.setBackgroundColor(Color.rgb(9, 178, 24));
+            matchViewHolder.vResultStrip.setBackgroundColor(accentColor);
         } else if (ci.getTeamRounds() < ci.getEnemyRounds()) {
             matchViewHolder.vResultStrip.setBackgroundColor(Color.rgb(255, 64, 129));
         } else {
