@@ -65,7 +65,13 @@
     <string name="match_stats_avg_kills">avg kills</string>
     <string name="match_stats_avg_assists">avg assists</string>
     <string name="match_stats_avg_deaths">avg deaths</string>
-    <string name="match_stats_avg_ppm">avg ppm</string>
+    <string name="match_stats_avg_ppm">avg points</string>
+    <string name="match_stats_no_matches">matches</string>
+    <string name="match_stats_wins_draws_loses">w:d:l</string>
+    <string name="match_stats_kills">kills</string>
+    <string name="match_stats_assists">assists</string>
+    <string name="match_stats_deaths">deaths</string>
+    <string name="match_stats_points">points</string>
 
 
 </resources>

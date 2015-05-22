@@ -54,7 +54,7 @@ public class MyMatchAdapter extends RecyclerView.Adapter<MyMatchAdapter.MatchVie
         if (ci.getTeamRounds() > ci.getEnemyRounds()) {
             matchViewHolder.vResultStrip.setBackgroundColor(accentColor);
         } else if (ci.getTeamRounds() < ci.getEnemyRounds()) {
-            matchViewHolder.vResultStrip.setBackgroundColor(Color.rgb(255, 64, 129));
+            matchViewHolder.vResultStrip.setBackgroundColor(Color.rgb(91, 91, 91));
         } else {
             matchViewHolder.vResultStrip.setBackgroundColor(Color.rgb(114, 137, 186));
         }

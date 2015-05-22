@@ -1,9 +1,13 @@
 package com.example.android.cstogo.fragments;
 
 
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +51,10 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
     private int mAllDeaths;
     private int mAllPoints;
 
+    private int mWins;
+    private int mDraws;
+    private int mLoses;
+
     private BigDecimal mAvgKills;
     private BigDecimal mAvgAssists;
     private BigDecimal mAvgDeaths;
@@ -73,9 +81,11 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
     private HorizontalBarChart mKadBar;
     private HorizontalBarChart mLast3Bar;
 
+    private View linear;
+    private View inflated;
+
     public FragmentB() {
         // Required empty public constructor
-        // TODO: change layout a bit, add some more stats
     }
 
 
@@ -84,6 +94,7 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_b, container, false);
+        linear = view.findViewById(R.id.match_stats_linear_layout);
 
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
@@ -93,8 +104,9 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
             updateTextViews(view);
         }
         else {
+            linear.setVisibility(View.GONE);
             ViewStub stub = (ViewStub) view.findViewById(R.id.match_stats_stub_import);
-            @SuppressWarnings("unused") View inflated = stub.inflate();
+            inflated = stub.inflate();
         }
 
         return view;
@@ -103,11 +115,18 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
 
     private void updateTextViews(View view) {
 
+        linear.setVisibility(View.VISIBLE);
+        if(inflated != null){
+            inflated.setVisibility(View.GONE);
+        }
+
         TextView statsAllMatches = (TextView) view.findViewById(R.id.stats_number_matches);
         TextView statsAllKills = (TextView) view.findViewById(R.id.stats_number_kills);
         TextView statsAllAssists = (TextView) view.findViewById(R.id.stats_number_assists);
         TextView statsAllDeaths = (TextView) view.findViewById(R.id.stats_number_deaths);
         TextView statsAllPoints = (TextView) view.findViewById(R.id.stats_number_points);
+
+        TextView statsWinsDrawsLoses = (TextView) view.findViewById(R.id.match_stats_wins_draws_loses);
 
         PieChart statsMapPie = (PieChart) view.findViewById(R.id.stats_map_pie);
         HorizontalBarChart statsKadBar = (HorizontalBarChart) view.findViewById(R.id.stats_kad_bar);
@@ -230,6 +249,25 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         statsAllAssists.setText(Integer.toString(getAllAssists()));
         statsAllDeaths.setText(Integer.toString(getAllDeaths()));
         statsAllPoints.setText(Integer.toString(getAllPoints()));
+
+        String wins = Integer.toString(getWins());
+        int winsLength = wins.length();
+        String draws = Integer.toString(getDraws());
+        String loses = Integer.toString(getLoses());
+
+        final SpannableStringBuilder sb = new SpannableStringBuilder(wins + ":" + draws + ":" + loses);
+        // Span to set text color to some RGB value
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = getActivity().getTheme();
+        theme.resolveAttribute(R.attr.accentColor, typedValue, true);
+        int accentColor = typedValue.data;
+        final ForegroundColorSpan spanAccent = new ForegroundColorSpan(accentColor);
+
+        // Set the text color for first characters based on how many numbers Wins have
+        sb.setSpan(spanAccent, 0, winsLength, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+        statsWinsDrawsLoses.setText(sb);
+
         statsAvgKills.setText(getAvgKills().toString());
         statsAvgAssists.setText(getAvgAssists().toString());
         statsAvgDeaths.setText(getAvgDeaths().toString());
@@ -237,7 +275,6 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         statsAvgKAD.setText(getOverallKad().toString());
         statsAvgKD.setText(getOverallKd().toString());
         statsDustKaD.setText(getDustAvgKad().toString());
-        //statsNukeKaD.setText(getLast3Kad().toString());
         statsNukeKaD.setText(getNukeAvgKad().toString());
 
     }
@@ -280,6 +317,14 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
             setAllAssists(getAllAssists() + ice.getAssists());
             setAllDeaths(getAllDeaths() + ice.getDeaths());
             setAllPoints(getAllPoints() + ice.getScore());
+
+            if (ice.getTeamRounds() > ice.getEnemyRounds()){
+                setWins(getWins() + 1);
+            } else if (ice.getTeamRounds() < ice.getEnemyRounds()){
+                setLoses(getLoses() + 1);
+            } else {
+                setDraws(getDraws() + 1);
+            }
 
             switch (ice.getMap()) {
                 case "de_dust2":
@@ -413,6 +458,9 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         setAllPoints(0);
         setAllDeaths(0);
         setAllAssists(0);
+        setWins(0);
+        setDraws(0);
+        setLoses(0);
         getPieYVals().clear();
         getPieXVals().clear();
         getBarXVals().clear();
@@ -470,6 +518,30 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
 
     public void setNoMatches(int noMatches) {
         mNoMatches = noMatches;
+    }
+
+    public int getWins() {
+        return mWins;
+    }
+
+    public void setWins(int wins) {
+        mWins = wins;
+    }
+
+    public int getDraws() {
+        return mDraws;
+    }
+
+    public void setDraws(int draws) {
+        mDraws = draws;
+    }
+
+    public int getLoses() {
+        return mLoses;
+    }
+
+    public void setLoses(int loses) {
+        mLoses = loses;
     }
 
     public BigDecimal getAvgKills() {
