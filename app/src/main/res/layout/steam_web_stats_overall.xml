@@ -45,8 +45,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif-light"
-                android:text="@string/kill_slash_death"
-                android:textColor="@color/material_blue_grey_900" />
+                android:text="@string/kill_slash_death" />
 
         </RelativeLayout>
 
@@ -71,8 +70,7 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="sans-serif-light"
                 android:text="@string/total_kills"
-                android:textSize="12sp"
-                android:textColor="@color/material_blue_grey_900" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/steam_web_stats_overall_total_kills_number"
@@ -93,8 +91,7 @@
                 android:layout_below="@+id/steam_web_stats_overall_total_kills_number"
                 android:fontFamily="sans-serif-light"
                 android:text="@string/win_percentage"
-                android:textSize="12sp"
-                android:textColor="@color/material_blue_grey_900" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/steam_web_stats_overall_win_percent_number"
@@ -127,8 +124,7 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="sans-serif-light"
                 android:text="@string/headshot_percentage"
-                android:textSize="12sp"
-                android:textColor="@color/material_blue_grey_900" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/steam_web_stats_overall_headshot_number"
@@ -149,8 +145,7 @@
                 android:layout_below="@+id/steam_web_stats_overall_headshot_number"
                 android:fontFamily="sans-serif-light"
                 android:text="@string/accuracy"
-                android:textSize="12sp"
-                android:textColor="@color/material_blue_grey_900" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/steam_web_stats_overall_accuracy_number"

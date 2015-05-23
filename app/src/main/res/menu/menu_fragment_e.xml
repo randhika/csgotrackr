@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/fragment_e_update"
-        android:icon="@drawable/abc_ic_menu_selectall_mtrl_alpha"
-        app:showAsAction="never"
-        android:title="Update"/>
-
-    <item
-        android:id="@+id/fragment_e_web"
-        android:icon="@drawable/abc_ic_menu_selectall_mtrl_alpha"
-        app:showAsAction="never"
-        android:title="Web"/>
 
     <item
         android:id="@+id/fragment_e_id"
-        android:icon="@drawable/abc_ic_menu_selectall_mtrl_alpha"
         app:showAsAction="never"
         android:title="Update ID"/>
 

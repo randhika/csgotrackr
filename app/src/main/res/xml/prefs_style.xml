@@ -20,6 +20,7 @@
     <CheckBoxPreference
         android:title="Night Theme"
         android:key="prefs_style_nightmode"
-        android:defaultValue="false"/>
+        android:defaultValue="false"
+        android:summary="Note : Night Mode overrides every color scheme above"/>
 
 </PreferenceScreen>

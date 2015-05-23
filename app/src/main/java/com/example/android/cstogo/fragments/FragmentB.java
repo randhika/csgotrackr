@@ -86,6 +86,7 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
 
     public FragmentB() {
         // Required empty public constructor
+        //TODO: fix the chart colors
     }
 
 

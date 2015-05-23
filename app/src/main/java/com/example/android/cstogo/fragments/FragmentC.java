@@ -91,27 +91,27 @@ public class FragmentC extends Fragment {
 
     private float mTotalKd;
 
-    private WebMap assault = new WebMap("cs_assault");
-    private WebMap italy = new WebMap("cs_italy");
-    private WebMap office = new WebMap("cs_office");
-    private WebMap aztec = new WebMap("de_aztec");
-    private WebMap cbble = new WebMap("de_cbble");
-    private WebMap dust = new WebMap("de_dust");
-    private WebMap dust2 = new WebMap("de_dust2");
-    private WebMap inferno = new WebMap("de_inferno");
-    private WebMap nuke = new WebMap("de_nuke");
-    private WebMap train = new WebMap("de_train");
-    private WebMap lake = new WebMap("de_lake");
-    private WebMap safehouse = new WebMap("de_safehouse");
-    private WebMap sugarcane = new WebMap("de_sugarcane");
-    private WebMap stmarc = new WebMap("de_stmarc");
-    private WebMap bank = new WebMap("de_bank");
-    private WebMap shorttrain = new WebMap("de_shorttrain");
-    private WebMap vertigo = new WebMap("de_vertigo");
-    private WebMap monastery = new WebMap("ar_monastery");
-    private WebMap shoots = new WebMap("ar_shoots");
-    private WebMap baggage = new WebMap("ar_baggage");
-    private WebMap militia = new WebMap("cs_militia");
+    private WebMap assault = new WebMap("cs_assault", R.drawable.de_dust2);
+    private WebMap italy = new WebMap("cs_italy", R.drawable.de_dust2);
+    private WebMap office = new WebMap("cs_office", R.drawable.de_dust2);
+    private WebMap aztec = new WebMap("de_aztec", R.drawable.de_dust2);
+    private WebMap cbble = new WebMap("de_cbble", R.drawable.de_cbble);
+    private WebMap dust = new WebMap("de_dust", R.drawable.de_dust2);
+    private WebMap dust2 = new WebMap("de_dust2", R.drawable.de_dust2);
+    private WebMap inferno = new WebMap("de_inferno", R.drawable.de_inferno);
+    private WebMap nuke = new WebMap("de_nuke", R.drawable.de_nuke);
+    private WebMap train = new WebMap("de_train", R.drawable.de_train);
+    private WebMap lake = new WebMap("de_lake", R.drawable.de_dust2);
+    private WebMap safehouse = new WebMap("de_safehouse", R.drawable.de_dust2);
+    private WebMap sugarcane = new WebMap("de_sugarcane", R.drawable.de_dust2);
+    private WebMap stmarc = new WebMap("de_stmarc", R.drawable.de_dust2);
+    private WebMap bank = new WebMap("de_bank", R.drawable.de_dust2);
+    private WebMap shorttrain = new WebMap("de_shorttrain", R.drawable.de_dust2);
+    private WebMap vertigo = new WebMap("de_vertigo", R.drawable.de_dust2);
+    private WebMap monastery = new WebMap("ar_monastery", R.drawable.de_dust2);
+    private WebMap shoots = new WebMap("ar_shoots", R.drawable.de_dust2);
+    private WebMap baggage = new WebMap("ar_baggage", R.drawable.de_dust2);
+    private WebMap militia = new WebMap("cs_militia", R.drawable.de_dust2);
 
     private WebGun ak47 = new WebGun("AK47");
     private WebGun aug = new WebGun("AUG");
@@ -151,7 +151,6 @@ public class FragmentC extends Fragment {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private ProgressView mProgressView;
-    private int disableRefresher = 0;
 
     private String apiKey;
     private SharedPreferences spref;
@@ -162,7 +161,7 @@ public class FragmentC extends Fragment {
 
     public FragmentC() {
         // Required empty public constructor
-        //TODO: Images of guns, maps, cards background
+        //TODO: Images of guns, maps
     }
 
     @Override
@@ -218,8 +217,6 @@ public class FragmentC extends Fragment {
                             .url(myUrlAvatar)
                             .build();
 
-                    new GetSteamUserData().execute(requestAvatar);
-
                     Request requestStats = new Request.Builder()
                             .cacheControl(new CacheControl.Builder()
                                     .maxStale(1, TimeUnit.DAYS)
@@ -227,12 +224,17 @@ public class FragmentC extends Fragment {
                             .url(myUrlStats)
                             .build();
 
-                    new GetSteamGameStats().execute(requestStats);
+                    new GetSteamUserData().execute(requestAvatar, requestStats);
                     break;
                 case 42:
                     importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
                     importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_description);
                     importText.setText(getText(R.string.steam_web_stats_strings_id_typo));
+                    break;
+                case 69: //because private, get it
+                    importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
+                    importText = (TextView) importPanel.findViewById(R.id.steam_web_stats_no_id_description);
+                    importText.setText(getText(R.string.steam_web_stats_strings_id_private_profile));
                     break;
                 case 99:
                     importPanel = ((ViewStub) view.findViewById(R.id.steam_web_stats_stub_import)).inflate();
@@ -255,20 +257,18 @@ public class FragmentC extends Fragment {
             @Override
             public void onRefresh() {
                 if (sprefSteam64Success == 1) {
-                    setDisableRefresher(0);
                     Request requestAvatar = new Request.Builder()
                             .cacheControl(CacheControl.FORCE_NETWORK)
                             .url(myUrlAvatar)
                             .build();
-
-                    new GetSteamUserData().execute(requestAvatar);
 
                     Request requestStats = new Request.Builder()
                             .cacheControl(CacheControl.FORCE_NETWORK)
                             .url(myUrlStats)
                             .build();
 
-                    new GetSteamGameStats().execute(requestStats);
+                    new GetSteamUserData().execute(requestAvatar, requestStats);
+
                 } else {
                     swipeRefreshLayout.setRefreshing(false);
                     Toast.makeText(getActivity(), "Steam ID is not correctly set up. There isn't really anything to refresh", Toast.LENGTH_SHORT).show();
@@ -323,7 +323,7 @@ public class FragmentC extends Fragment {
         myUrlStats = builderStats.build().toString();
     }
 
-    private class GetSteamUserData extends AsyncTask<Request, Void, String> {
+    private class GetSteamUserData extends AsyncTask<Request, Void, Integer> {
 
         @Override
         protected void onPreExecute() {
@@ -332,7 +332,7 @@ public class FragmentC extends Fragment {
         }
 
         @Override
-        protected String doInBackground(Request... req) {
+        protected Integer doInBackground(Request... req) {
             Response response;
 
             int cacheSize = 5 * 1024 * 1024; // 5 MiB
@@ -346,6 +346,10 @@ public class FragmentC extends Fragment {
                 String jsonData = response.body().string();
                 response.body().close();
                 JSONObject dataJsonObj = new JSONObject(jsonData).getJSONObject("response").getJSONArray("players").getJSONObject(0);
+                int communityvisibilitystate = dataJsonObj.getInt("communityvisibilitystate");
+                if (communityvisibilitystate == 1){
+                    return 1;
+                }
                 String personaname = dataJsonObj.getString("personaname");
                 steamWebHeader.clear();
                 steamWebHeader.add(personaname);
@@ -360,81 +364,56 @@ public class FragmentC extends Fragment {
                 df.applyPattern("dd.MM.yy - HH:mm");
                 String formattedDate = df.format(date);
                 steamWebHeader.add(formattedDate);
-                return "okay";
             } catch (IOException | JSONException e) {
-                return null;
+                return 0;
             } catch (Exception e) {
                 e.printStackTrace();
-                return null;
+                return 0;
             }
-
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            setDisableRefresher(getDisableRefresher() + 1);
-            if (getDisableRefresher() == 2) {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-            mProgressView.setVisibility(View.GONE);
-            if (result != null) {
-                mAdapter.notifyDataSetChanged();
-            } else {
-                Toast.makeText(MyApplication.getAppContext(), "Error connecting to steam API. Please try again later.", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-    private class GetSteamGameStats extends AsyncTask<Request, Void, String> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            mProgressView.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected String doInBackground(Request... req) {
-            Response response;
-
-            int cacheSize = 5 * 1024 * 1024; // 5 MiB
-            Cache cache = new Cache(new File(MyApplication.getAppContext().getCacheDir(), "steam_user_stats_cache"), cacheSize);
-
-            OkHttpClient client = new OkHttpClient();
-            client.setCache(cache);
 
             try {
-                response = client.newCall(req[0]).execute();
+                response = client.newCall(req[1]).execute();
                 String jsonData = response.body().string();
                 response.body().close();
+                JSONObject responseTest = new JSONObject(jsonData);
+                if (responseTest.length() == 0){
+                    return 2;
+                }
                 JSONArray dataJsonArr = new JSONObject(jsonData).getJSONObject("playerstats").getJSONArray("stats");
                 parseJsonStats(dataJsonArr);
                 createTextViewsHeader();
                 createTextViewsBestMaps();
                 createTextViewsBestWeapons();
                 createTextViewsOtherStats();
-                return "okay";
+                return 3;
             } catch (IOException | JSONException e) {
-                e.printStackTrace();
-                return null;
+                return 0;
             }
 
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            setDisableRefresher(getDisableRefresher() + 1);
-            if (getDisableRefresher() == 2) {
-                swipeRefreshLayout.setRefreshing(false);
-            }
+        protected void onPostExecute(Integer result) {
+            swipeRefreshLayout.setRefreshing(false);
             mProgressView.setVisibility(View.GONE);
-            if (result != null) {
+
+            if (result == 3) {
                 mAdapter.notifyDataSetChanged();
+            } else if (result == 2){
+                Toast.makeText(MyApplication.getAppContext(), "This person doesn't seem to have CS:GO", Toast.LENGTH_LONG).show();
+            } else if (result == 1){
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("steam_id_64_success", 69);
+                editor.apply();
+                Toast.makeText(MyApplication.getAppContext(), "This profile is private / friends only. I'm just an app, I don't have friends. Nothing I can do here, sorry", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(MyApplication.getAppContext(), "Error connecting to steam API. Please try again later.", Toast.LENGTH_LONG).show();
             }
         }
     }
+
+
     //_______________________________________________________________
 
     private void parseJsonStats(JSONArray dataJsonArr) {
@@ -1018,6 +997,9 @@ public class FragmentC extends Fragment {
         String highestWinPercName = "";
         String highestRoundsName = "";
         String highestWinsName = "";
+        int highestWinPercDrawable = 0;
+        int highestRoundsDrawable = 0;
+        int highestWinsDrawable = 0;
 
         for (int i = 0; i < getWebMapList().size(); i++) {
             WebMap ci = getWebMapList().get(i);
@@ -1029,24 +1011,30 @@ public class FragmentC extends Fragment {
             if (tempWinPerc > highestWinPerc) {
                 highestWinPerc = tempWinPerc;
                 highestWinPercName = ci.getWebMapName();
+                highestWinPercDrawable = ci.getDrawable();
             }
             if (tempRounds > highestRounds) {
                 highestRounds = tempRounds;
                 highestRoundsName = ci.getWebMapName();
+                highestRoundsDrawable = ci.getDrawable();
             }
             if (tempWins > highestWins) {
                 highestWins = tempWins;
                 highestWinsName = ci.getWebMapName();
+                highestWinsDrawable = ci.getDrawable();
             }
         }
 
         steamWebWebMap.clear();
         steamWebWebMap.add(highestWinPercName);
         steamWebWebMap.add(highestWinPerc + " %");
+        steamWebWebMap.add(String.valueOf(highestWinPercDrawable));
         steamWebWebMap.add(highestWinsName);
         steamWebWebMap.add(String.valueOf(highestWins));
+        steamWebWebMap.add(String.valueOf(highestWinsDrawable));
         steamWebWebMap.add(highestRoundsName);
         steamWebWebMap.add(String.valueOf(highestRounds));
+        steamWebWebMap.add(String.valueOf(highestRoundsDrawable));
 
     }
 
@@ -1177,33 +1165,6 @@ public class FragmentC extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.fragment_e_update) {
-            if (sprefSteam64Success == 1) {
-                Request request = new Request.Builder()
-                        .cacheControl(new CacheControl.Builder()
-                                .maxStale(1, TimeUnit.DAYS)
-                                .build())
-                        .url(myUrlAvatar)
-                        .build();
-
-                new GetSteamUserData().execute(request);
-            } else {
-                Toast.makeText(getActivity(), "ID must be filled in settings to refresh stats", Toast.LENGTH_SHORT).show();
-            }
-        }
-        if (id == R.id.fragment_e_web) {
-            if (sprefSteam64Success == 1) {
-                Request request = new Request.Builder()
-                        .cacheControl(CacheControl.FORCE_NETWORK)
-                        .url(myUrlAvatar)
-                        .build();
-
-                new GetSteamUserData().execute(request);
-            } else {
-                Toast.makeText(getActivity(), "ID must be filled in settings to refresh stats", Toast.LENGTH_SHORT).show();
-            }
-        }
-
         if (id == R.id.fragment_e_id) {
             String reCheckShared = spref.getString("prefs_steam_name", "");
             assert reCheckShared != null;
@@ -1271,14 +1232,13 @@ public class FragmentC extends Fragment {
                                 .url(myUrlAvatar)
                                 .build();
 
-                        new GetSteamUserData().execute(requestAvatar);
-
                         Request requestStats = new Request.Builder()
                                 .cacheControl(CacheControl.FORCE_NETWORK)
                                 .url(myUrlStats)
                                 .build();
 
-                        new GetSteamGameStats().execute(requestStats);
+                        new GetSteamUserData().execute(requestAvatar, requestStats);
+
                         if (importPanel != null) {
                             importPanel.setVisibility(View.GONE);
                         }
@@ -1513,11 +1473,4 @@ public class FragmentC extends Fragment {
         return webMapList;
     }
 
-    public int getDisableRefresher() {
-        return disableRefresher;
-    }
-
-    public void setDisableRefresher(int disableRefresher) {
-        this.disableRefresher = disableRefresher;
-    }
 }

@@ -91,8 +91,8 @@
         <item name="cardBack">#424242</item>
         <!-- colorAccent is used as the default value for colorControlActivated
              which is used to tint widgets -->
-        <item name="colorAccent">#6B6B6B</item>
-        <item name="accentColor">#6B6B6B</item>
+        <item name="colorAccent">#9E5562</item>
+        <item name="accentColor">#9E5562</item>
         <!-- You can also set colorControlNormal, colorControlActivated
             colorControlHighlight and colorSwitchThumbNormal. -->
         <item name="android:textColorPrimary">#878787</item>

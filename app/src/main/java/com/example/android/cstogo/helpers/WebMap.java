@@ -11,9 +11,11 @@ public class WebMap {
     private String webMapName;
     private int rounds;
     private int wins;
+    private int drawable;
 
-    public WebMap(String webMapName) {
+    public WebMap(String webMapName, int drawable) {
         this.webMapName = webMapName;
+        this.drawable = drawable;
     }
 
     public String getWebMapName() {
@@ -46,5 +48,9 @@ public class WebMap {
             return 0;
         }
 
+    }
+
+    public int getDrawable(){
+        return drawable;
     }
 }

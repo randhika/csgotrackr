@@ -13,6 +13,11 @@
     ID specified in setting does not exist on steam network. Typo?
     </string>
 
+
+    <string name="steam_web_stats_strings_id_private_profile">
+    Specified profile is private or friends only. I cannot get stats, sorry.
+    </string>
+
     <string name="steam_web_stats_strings_no_network">
     ID is stored in settings, but there was an error confirming it (network/steam API error). Please try updating from menu above.
     </string>
