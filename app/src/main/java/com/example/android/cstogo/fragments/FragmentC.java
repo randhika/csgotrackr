@@ -113,35 +113,35 @@ public class FragmentC extends Fragment {
     private WebMap baggage = new WebMap("ar_baggage", R.drawable.de_dust2);
     private WebMap militia = new WebMap("cs_militia", R.drawable.de_dust2);
 
-    private WebGun ak47 = new WebGun("AK47");
-    private WebGun aug = new WebGun("AUG");
-    private WebGun awp = new WebGun("AWP");
-    private WebGun bizon = new WebGun("Bizon");
-    private WebGun deagle = new WebGun("Deagle");
-    private WebGun elite = new WebGun("Dual Beretta");
-    private WebGun famas = new WebGun("Famas");
-    private WebGun fiveseven = new WebGun("Five-Seven");
-    private WebGun g3sg1 = new WebGun("G3SG1");
-    private WebGun galilar = new WebGun("Galil AR");
-    private WebGun glock = new WebGun("Glock");
-    private WebGun hkp2000 = new WebGun("P2000");
-    private WebGun m249 = new WebGun("M249");
-    private WebGun m4a1 = new WebGun("M4");
-    private WebGun mac10 = new WebGun("mac10");
-    private WebGun mag7 = new WebGun("mag-7");
-    private WebGun mp7 = new WebGun("mp7");
-    private WebGun mp9 = new WebGun("mp9");
-    private WebGun negev = new WebGun("negev");
-    private WebGun nova = new WebGun("nova");
-    private WebGun p250 = new WebGun("P250");
-    private WebGun p90 = new WebGun("P90");
-    private WebGun sawedoff = new WebGun("Sawed-Off");
-    private WebGun scar20 = new WebGun("scar-20");
-    private WebGun sg556 = new WebGun("SG 553");
-    private WebGun ssg08 = new WebGun("SSG 08");
-    private WebGun tec9 = new WebGun("TEC-9");
-    private WebGun ump45 = new WebGun("ump-45");
-    private WebGun xm1014 = new WebGun("XM1014");
+    private WebGun ak47 = new WebGun("AK47", R.drawable.gun_ak47);
+    private WebGun aug = new WebGun("AUG", R.drawable.gun_aug);
+    private WebGun awp = new WebGun("AWP", R.drawable.gun_awp);
+    private WebGun bizon = new WebGun("Bizon", R.drawable.gun_bizon);
+    private WebGun deagle = new WebGun("Deagle", R.drawable.gun_deagle);
+    private WebGun elite = new WebGun("Dual Beretta", R.drawable.gun_elite);
+    private WebGun famas = new WebGun("Famas", R.drawable.gun_famas);
+    private WebGun fiveseven = new WebGun("Five-Seven", R.drawable.gun_fiveseven);
+    private WebGun g3sg1 = new WebGun("G3SG1", R.drawable.gun_g3sg1);
+    private WebGun galilar = new WebGun("Galil AR", R.drawable.gun_galilar);
+    private WebGun glock = new WebGun("Glock", R.drawable.gun_glock);
+    private WebGun hkp2000 = new WebGun("P2000", R.drawable.gun_hkp2000);
+    private WebGun m249 = new WebGun("M249", R.drawable.gun_m249);
+    private WebGun m4a1 = new WebGun("M4", R.drawable.gun_m4a1);
+    private WebGun mac10 = new WebGun("mac10", R.drawable.gun_mac10);
+    private WebGun mag7 = new WebGun("mag-7", R.drawable.gun_mag7);
+    private WebGun mp7 = new WebGun("mp7", R.drawable.gun_mp7);
+    private WebGun mp9 = new WebGun("mp9", R.drawable.gun_mp9);
+    private WebGun negev = new WebGun("negev", R.drawable.gun_negev);
+    private WebGun nova = new WebGun("nova", R.drawable.gun_nova);
+    private WebGun p250 = new WebGun("P250", R.drawable.gun_p250);
+    private WebGun p90 = new WebGun("P90", R.drawable.gun_p90);
+    private WebGun sawedoff = new WebGun("Sawed-Off", R.drawable.gun_sawedoff);
+    private WebGun scar20 = new WebGun("scar-20", R.drawable.gun_scar20);
+    private WebGun sg556 = new WebGun("SG 553", R.drawable.gun_sg556);
+    private WebGun ssg08 = new WebGun("SSG 08", R.drawable.gun_ssg08);
+    private WebGun tec9 = new WebGun("TEC-9", R.drawable.gun_tec9);
+    private WebGun ump45 = new WebGun("ump-45", R.drawable.gun_ump45);
+    private WebGun xm1014 = new WebGun("XM1014", R.drawable.gun_xm1014);
 
     private ArrayList<WebMap> webMapList = new ArrayList<>();
     private ArrayList<WebGun> webGunList = new ArrayList<>();
@@ -161,7 +161,7 @@ public class FragmentC extends Fragment {
 
     public FragmentC() {
         // Required empty public constructor
-        //TODO: Images of guns, maps
+        //TODO: Images of maps
     }
 
     @Override
@@ -1080,6 +1080,10 @@ public class FragmentC extends Fragment {
         String highestHitsName = "";
         String highestKillsName = "";
         String highestAccName = "";
+        int highestShotsDrawable = 0;
+        int highestHitsDrawable = 0;
+        int highestKillsDrawable = 0;
+        int highestAccDrawable = 0;
 
         for (int i = 0; i < getWebGunList().size(); i++) {
             WebGun ci = getWebGunList().get(i);
@@ -1092,33 +1096,41 @@ public class FragmentC extends Fragment {
             if (tempShots > highestShots) {
                 highestShots = tempShots;
                 highestShotsName = ci.getGunName();
+                highestShotsDrawable = ci.getDrawableResource();
             }
             if (tempHits > highestHits) {
                 highestHits = tempHits;
                 highestHitsName = ci.getGunName();
+                highestHitsDrawable = ci.getDrawableResource();
             }
             if (tempKills > highestKills) {
                 highestKills = tempKills;
                 highestKillsName = ci.getGunName();
+                highestKillsDrawable = ci.getDrawableResource();
             }
             if (tempAcc > highestAcc) {
                 highestAcc = tempAcc;
                 highestAccName = ci.getGunName();
+                highestAccDrawable = ci.getDrawableResource();
             }
         }
 
         steamWebWebGun.clear();
         steamWebWebGun.add(highestShotsName);
         steamWebWebGun.add(String.valueOf(highestShots));
+        steamWebWebGun.add(String.valueOf(highestShotsDrawable));
 
         steamWebWebGun.add(highestHitsName);
         steamWebWebGun.add(String.valueOf(highestHits));
+        steamWebWebGun.add(String.valueOf(highestHitsDrawable));
 
         steamWebWebGun.add(highestKillsName);
         steamWebWebGun.add(String.valueOf(highestKills));
+        steamWebWebGun.add(String.valueOf(highestKillsDrawable));
 
         steamWebWebGun.add(highestAccName);
         steamWebWebGun.add(highestAcc + " %");
+        steamWebWebGun.add(String.valueOf(highestAccDrawable));
     }
 
     private void createTextViewsOtherStats() {

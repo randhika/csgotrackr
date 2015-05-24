@@ -9,16 +9,22 @@ import java.math.RoundingMode;
 public class WebGun {
 
     private String gunName;
+    private int drawableResource;
     private int shots;
     private int hits;
     private int kills;
 
-    public WebGun(String gunName) {
+    public WebGun(String gunName, int drawableResource) {
         this.gunName = gunName;
+        this.drawableResource = drawableResource;
     }
 
     public String getGunName() {
         return gunName;
+    }
+
+    public int getDrawableResource() {
+        return drawableResource;
     }
 
     public int getShots() {

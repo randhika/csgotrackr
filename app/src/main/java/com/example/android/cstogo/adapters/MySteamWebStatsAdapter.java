@@ -101,14 +101,25 @@ public class MySteamWebStatsAdapter extends RecyclerView.Adapter<MySteamWebStats
                 break;
             case TYPE_WEBGUN:
                 SteamWebStatsWebGunViewHolder webGunHolder = (SteamWebStatsWebGunViewHolder) viewHolder;
-                webGunHolder.vWebGunShotsName.setText(steamWebWebGun.get(0));
+                webGunHolder.vWebGunShotsName.setText(steamWebWebGun.get(0));//shots
                 webGunHolder.vWebGunShotsNumber.setText(steamWebWebGun.get(1));
-                webGunHolder.vWebGunHitsName.setText(steamWebWebGun.get(2));
-                webGunHolder.vWebGunHitsNumber.setText(steamWebWebGun.get(3));
-                webGunHolder.vWebGunKillsName.setText(steamWebWebGun.get(4));
-                webGunHolder.vWebGunKillsNumber.setText(steamWebWebGun.get(5));
-                webGunHolder.vWebGunAccuracyName.setText(steamWebWebGun.get(6));
-                webGunHolder.vWebGunAccuracyNumber.setText(steamWebWebGun.get(7));
+                int webGunShotsResource = Integer.parseInt(steamWebWebGun.get(2));
+                Picasso.with(mContext).load(webGunShotsResource).transform(new CircleTransform()).fit().centerCrop().into(webGunHolder.vWebGunShotsDrawable);
+
+                webGunHolder.vWebGunHitsName.setText(steamWebWebGun.get(3));//hits
+                webGunHolder.vWebGunHitsNumber.setText(steamWebWebGun.get(4));
+                int webGunHitsResource = Integer.parseInt(steamWebWebGun.get(5));
+                Picasso.with(mContext).load(webGunHitsResource).transform(new CircleTransform()).fit().centerCrop().into(webGunHolder.vWebGunHitsDrawable);
+
+                webGunHolder.vWebGunKillsName.setText(steamWebWebGun.get(6));//kills
+                webGunHolder.vWebGunKillsNumber.setText(steamWebWebGun.get(7));
+                int webGunKillsResource = Integer.parseInt(steamWebWebGun.get(8));
+                Picasso.with(mContext).load(webGunKillsResource).transform(new CircleTransform()).fit().centerCrop().into(webGunHolder.vWebGunKillsDrawable);
+
+                webGunHolder.vWebGunAccuracyName.setText(steamWebWebGun.get(9));//acc
+                webGunHolder.vWebGunAccuracyNumber.setText(steamWebWebGun.get(10));
+                int webGunAccuracyResource = Integer.parseInt(steamWebWebGun.get(11));
+                Picasso.with(mContext).load(webGunAccuracyResource).transform(new CircleTransform()).fit().centerCrop().into(webGunHolder.vWebGunAccuracyDrawable);
                 break;
             case TYPE_OTHER:
                 SteamWebStatsOtherViewHolder otherHolder = (SteamWebStatsOtherViewHolder) viewHolder;
@@ -289,23 +300,37 @@ public class MySteamWebStatsAdapter extends RecyclerView.Adapter<MySteamWebStats
 
         protected TextView vWebGunShotsName;
         protected TextView vWebGunShotsNumber;
+        protected ImageView vWebGunShotsDrawable;
+
         protected TextView vWebGunHitsName;
         protected TextView vWebGunHitsNumber;
+        protected ImageView vWebGunHitsDrawable;
+
         protected TextView vWebGunKillsName;
         protected TextView vWebGunKillsNumber;
+        protected ImageView vWebGunKillsDrawable;
+
         protected TextView vWebGunAccuracyName;
         protected TextView vWebGunAccuracyNumber;
+        protected ImageView vWebGunAccuracyDrawable;
 
         public SteamWebStatsWebGunViewHolder(View itemView) {
             super(itemView);
             vWebGunShotsName = (TextView) itemView.findViewById(R.id.steam_web_stats_webgun_shots_name);
             vWebGunShotsNumber = (TextView) itemView.findViewById(R.id.steam_web_stats_webgun_shots_number);
+            vWebGunShotsDrawable = (ImageView) itemView.findViewById(R.id.steam_web_stats_webgun_shots_drawable);
+
             vWebGunHitsName = (TextView) itemView.findViewById(R.id.steam_web_stats_webgun_hits_name);
             vWebGunHitsNumber = (TextView) itemView.findViewById(R.id.steam_web_stats_webgun_hits_number);
+            vWebGunHitsDrawable = (ImageView) itemView.findViewById(R.id.steam_web_stats_webgun_hits_drawable);
+
             vWebGunKillsName = (TextView) itemView.findViewById(R.id.steam_web_stats_webgun_kills_name);
             vWebGunKillsNumber = (TextView) itemView.findViewById(R.id.steam_web_stats_webgun_kills_number);
+            vWebGunKillsDrawable = (ImageView) itemView.findViewById(R.id.steam_web_stats_webgun_kills_drawable);
+
             vWebGunAccuracyName = (TextView) itemView.findViewById(R.id.steam_web_stats_webgun_accuracy_name);
             vWebGunAccuracyNumber = (TextView) itemView.findViewById(R.id.steam_web_stats_webgun_accuracy_number);
+            vWebGunAccuracyDrawable = (ImageView) itemView.findViewById(R.id.steam_web_stats_webgun_accuracy_drawable);
         }
     }
 

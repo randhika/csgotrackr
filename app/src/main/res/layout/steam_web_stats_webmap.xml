@@ -60,7 +60,7 @@
                     android:id="@+id/steam_web_stats_webmap_highest_win_perc_picture"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:contentDescription="@string/web_map_best_win_percentage" />
+                    android:contentDescription="@string/steam_web_stats_webmap_best_map_pic_desc" />
 
 
                 <TextView
@@ -101,7 +101,7 @@
                     android:id="@+id/steam_web_stats_webmap_highest_wins_picture"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:contentDescription="@string/web_map_most_wins" />
+                    android:contentDescription="@string/steam_web_stats_webmap_best_map_pic_desc" />
 
                 <TextView
                     android:id="@+id/steam_web_stats_webmap_highest_wins_map"
@@ -139,7 +139,7 @@
                     android:id="@+id/steam_web_stats_webmap_highest_rounds_picture"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:contentDescription="@string/web_map_most_wins" />
+                    android:contentDescription="@string/steam_web_stats_webmap_best_map_pic_desc" />
 
 
                 <TextView

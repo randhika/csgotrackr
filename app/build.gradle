@@ -17,6 +17,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        main {
+            res {
+                srcDir 'src/main/res_additional_drawables'
+            }
+        }
+    }
 }
 
 repositories {
@@ -26,16 +34,6 @@ repositories {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    //circle images for smokes tab -remove later
-    //picasso for smart image load
-    //ripple for 4.1+
-    //eventbus
-    //charts
-    //tab strip
-    //fab
-    //imageview with zoom/pan
-    //observable scroll for hiding toolbar
-    //material design helper
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.android.support:recyclerview-v7:22.0.0'
     compile 'com.android.support:cardview-v7:22.0.0'
