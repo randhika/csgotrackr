@@ -56,6 +56,10 @@ public class MyApplication extends Application {
                     tintSetting = "indigo_red";
                     themeId = R.style.indigo_red;
                     break;
+                case "asiimov":
+                    tintSetting = "asiimov";
+                    themeId = R.style.asiimov;
+                    break;
             }
         }
         else {

@@ -11,6 +11,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -20,6 +23,7 @@ import com.example.android.cstogo.adapters.MyPagerAdapter;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,6 +49,21 @@ public class MainActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setTitle("CS to GO");
+        //noinspection StatementWithEmptyBody
+        if (MyApplication.getThemeId() == R.style.asiimov){
+            LinearLayout toolbarLinear = (LinearLayout) findViewById(R.id.toolbar_base_linear);
+            toolbarLinear.setVisibility(View.VISIBLE);
+
+            ImageView cornerDrawable = (ImageView) findViewById(R.id.toolbar_base_top_left_drawable);
+            ImageView topDrawable = (ImageView) findViewById(R.id.toolbar_base_top_drawable);
+            ImageView bottomDrawable = (ImageView) findViewById(R.id.toolbar_base_bottom_drawable);
+            ImageView rightDrawable = (ImageView) findViewById(R.id.toolbar_base_right_drawable);
+
+            Picasso.with(this).load(R.drawable.asiimov4).fit().centerCrop().into(cornerDrawable);
+            Picasso.with(this).load(R.drawable.asiimov3).fit().centerCrop().into(topDrawable);
+            Picasso.with(this).load(R.drawable.asiimov2).fit().centerCrop().into(bottomDrawable);
+            Picasso.with(this).load(R.drawable.asiimov1).fit().centerCrop().into(rightDrawable);
+        }
 
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), getApplicationContext()));
