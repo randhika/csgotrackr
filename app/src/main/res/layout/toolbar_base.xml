@@ -13,71 +13,54 @@
     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-    <LinearLayout
-        android:id="@+id/toolbar_base_linear"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:visibility="visible"
-        android:baselineAligned="false">
 
         <RelativeLayout
-            android:layout_width="0dp"
+            android:id="@+id/toolbar_base_relative"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="visible"
             android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/toolbar_base_top_left_drawable"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:id="@+id/toolbar_base_logo_drawable"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/toolbar_base_top_line_drawable"
+                android:layout_width="100dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginStart="25dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 tools:ignore="ContentDescription" />
 
             <ImageView
-                android:id="@+id/toolbar_base_bottom_drawable"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:id="@+id/toolbar_base_bottom_plus_drawable"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
                 tools:ignore="ContentDescription" />
 
+            <ImageView
+                android:id="@+id/toolbar_base_right_arrows_drawable"
+                android:layout_width="6dp"
+                android:layout_height="42dp"
+                tools:ignore="ContentDescription"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
         </RelativeLayout>
 
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2">
 
-            <ImageView
-                android:id="@+id/toolbar_base_top_drawable"
-                android:layout_width="80dp"
-                android:layout_height="40dp"
-                tools:ignore="ContentDescription"
-                android:layout_gravity="start|top" />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2">
-
-            <ImageView
-                android:id="@+id/toolbar_base_right_drawable"
-                android:layout_width="60dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="5dp"
-                tools:ignore="ContentDescription"
-                android:layout_gravity="center_horizontal|top" />
-
-        </FrameLayout>
-
-
-
-    </LinearLayout>
 
 
 
