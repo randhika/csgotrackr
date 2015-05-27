@@ -13,7 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -51,18 +51,18 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setTitle("CS to GO");
         //noinspection StatementWithEmptyBody
         if (MyApplication.getThemeId() == R.style.asiimov){
-            RelativeLayout toolbarRelative = (RelativeLayout) findViewById(R.id.toolbar_base_relative);
-            toolbarRelative.setVisibility(View.VISIBLE);
+            LinearLayout toolbarLinear = (LinearLayout) findViewById(R.id.toolbar_base_linear);
+            toolbarLinear.setVisibility(View.VISIBLE);
 
             ImageView arrowDrawable = (ImageView) findViewById(R.id.toolbar_base_right_arrows_drawable);
             ImageView logoDrawable = (ImageView) findViewById(R.id.toolbar_base_logo_drawable);
             ImageView plusDrawable = (ImageView) findViewById(R.id.toolbar_base_bottom_plus_drawable);
-            ImageView lineDrawable = (ImageView) findViewById(R.id.toolbar_base_top_line_drawable);
+            ImageView lineDrawable = (ImageView) findViewById(R.id.toolbar_base_line_drawable);
 
             Picasso.with(this).load(R.drawable.asiimov_bottom_right).fit().centerCrop().into(arrowDrawable);
-            Picasso.with(this).load(R.drawable.asiimov1).fit().centerCrop().into(logoDrawable);
+            Picasso.with(this).load(R.drawable.asiimov5).fit().into(logoDrawable);
             Picasso.with(this).load(R.drawable.asiimov2).fit().centerCrop().into(plusDrawable);
-            Picasso.with(this).load(R.drawable.asiimov3).fit().centerCrop().into(lineDrawable);
+            Picasso.with(this).load(R.drawable.asiimov3).fit().into(lineDrawable);
         }
 
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
