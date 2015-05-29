@@ -7,7 +7,6 @@ package com.example.android.cstogo.adapters;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -16,19 +15,21 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.cstogo.R;
 import com.example.android.cstogo.helpers.Match;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class MyMatchAdapterList extends RecyclerView.Adapter<MyMatchAdapterList.MatchViewHolder> {
+public class MyMatchAdapterBigCard extends RecyclerView.Adapter<MyMatchAdapterBigCard.MatchViewHolder> {
 
     private Context mContext;
     private List<Match> matchList;
 
-    public MyMatchAdapterList(Context context, List<Match> matchList){
+    public MyMatchAdapterBigCard(Context context, List<Match> matchList){
         this.matchList = matchList;
         this.mContext= context;
     }
@@ -42,15 +43,21 @@ public class MyMatchAdapterList extends RecyclerView.Adapter<MyMatchAdapterList.
     public void onBindViewHolder(MatchViewHolder matchViewHolder, int i){
         Match ci = matchList.get(i);
 
-        matchViewHolder.vMapName.setText(ci.getMap());
-        matchViewHolder.vResult.setText(ci.getMatchResult());
-        //fun part
-        String kills = Integer.toString(ci.getKills());
-        int killsLength = kills.length();
-        String assists = Integer.toString(ci.getAssists());
-        String deaths = Integer.toString(ci.getDeaths());
+        matchViewHolder.vMap.setText(ci.getMap());
+        Picasso.with(mContext).load(ci.getDrawable()).fit().centerCrop().into(matchViewHolder.vPicture);
 
-        final SpannableStringBuilder sb = new SpannableStringBuilder(kills + ":" + assists + ":" + deaths);
+        String dot = " · ";
+
+        String kills = Integer.toString(ci.getKills());
+        StringBuilder stats = new StringBuilder(kills)
+                .append(dot)
+                .append(ci.getAssists())
+                .append(dot)
+                .append(ci.getDeaths());
+
+        int killsLength = kills.length();
+
+        final SpannableStringBuilder sb = new SpannableStringBuilder(stats);
         // Span to set text color to some RGB value
         TypedValue typedValue = new TypedValue();
         Resources.Theme theme = mContext.getTheme();
@@ -63,41 +70,43 @@ public class MyMatchAdapterList extends RecyclerView.Adapter<MyMatchAdapterList.
 
         matchViewHolder.vStats.setText(sb);
 
-        matchViewHolder.vKAD.setText(ci.getKad().toString());
+        String score = ci.getMatchResult();
 
-        String title = ci.getMap().substring(3,4).toUpperCase();
-        matchViewHolder.vCircle.setText(title);
+        StringBuilder scorePlusKad = new StringBuilder(score)
+                .append(dot)
+                .append(ci.getKad());
 
-        matchViewHolder.vShapeDrawable.setColor(mContext.getResources().getColor(ci.getDominantColor()));
+        int scoreLength = score.length();
+
+        final SpannableStringBuilder sbScoreKad = new SpannableStringBuilder(scorePlusKad);
+        sbScoreKad.setSpan(spanAccent, 0, scoreLength, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+        matchViewHolder.vScoreKad.setText(sbScoreKad);
+
     }
 
     @Override
     public MatchViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View itemView = LayoutInflater.
                 from(viewGroup.getContext()).
-                inflate(R.layout.match_list, viewGroup, false);
+                inflate(R.layout.match_big_card, viewGroup, false);
 
         return new MatchViewHolder(itemView);
     }
 
     public static class MatchViewHolder extends RecyclerView.ViewHolder {
 
-        protected TextView vMapName;
-        protected TextView vResult;
+        protected TextView vScoreKad;
+        protected TextView vMap;
         protected TextView vStats;
-        protected TextView vKAD;
-        protected TextView vCircle;
-        protected GradientDrawable vShapeDrawable;
+        protected ImageView vPicture;
 
         public MatchViewHolder(View v) {
             super(v);
-            vCircle = (TextView) v.findViewById(R.id.matchListCircle);
-            vMapName = (TextView) v.findViewById(R.id.matchListMapName);
-            vResult = (TextView) v.findViewById(R.id.matchListResult);
-            vStats = (TextView) v.findViewById(R.id.matchListMapStats);
-            vKAD = (TextView) v.findViewById(R.id.matchListKAD);
-
-            vShapeDrawable = (GradientDrawable) vCircle.getBackground();
+            vScoreKad = (TextView) v.findViewById(R.id.match_big_card_score_plus_kad);
+            vMap = (TextView) v.findViewById(R.id.match_big_card_map);
+            vStats = (TextView) v.findViewById(R.id.match_big_card_stats);
+            vPicture = (ImageView) v.findViewById(R.id.match_big_card_picture);
         }
     }
 

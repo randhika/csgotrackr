@@ -1,3 +1,8 @@
+<!--
+  ~ Copyright (c) 2015. Juraj Palaščák
+  ~ All rights Reserved
+  -->
+
 <android.support.v7.widget.CardView
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,7 +23,7 @@
         <ImageView
             android:id="@+id/card_map_pic"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="75dp"
             android:background="@android:color/black"
             android:scaleType="centerCrop"
             android:contentDescription="@string/card_map_pic_desc"/>

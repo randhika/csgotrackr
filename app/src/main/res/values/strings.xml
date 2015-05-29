@@ -1,3 +1,8 @@
+<!--
+  ~ Copyright (c) 2015. Juraj Palaščák
+  ~ All rights Reserved
+  -->
+
 <resources>
     <string name="app_name">CS to GO</string>
     <string name="action_settings">Settings</string>
@@ -8,6 +13,7 @@
     <string name="card_kills_title">Kills</string>
     <string name="card_assists_title">Assists</string>
     <string name="card_deaths_title">Deaths</string>
+    <string name="kill_assists_slash_death">KA/D</string>
     <string name="kill_slash_death">K/D</string>
     <string name="total_kills">Total Kills</string>
     <string name="win_percentage">Win %</string>

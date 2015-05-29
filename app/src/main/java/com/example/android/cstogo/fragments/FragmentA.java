@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2015. Juraj Palaščák
+ * All rights Reserved
+ */
+
 package com.example.android.cstogo.fragments;
 
 import android.app.Activity;
@@ -18,6 +23,7 @@ import com.example.android.cstogo.R;
 import com.example.android.cstogo.UpdateStatsEvent;
 import com.example.android.cstogo.activities.NewMatchActivity;
 import com.example.android.cstogo.adapters.MyMatchAdapter;
+import com.example.android.cstogo.adapters.MyMatchAdapterBigCard;
 import com.example.android.cstogo.adapters.MyMatchAdapterList;
 import com.example.android.cstogo.helpers.MatchList;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
@@ -59,6 +65,9 @@ public class FragmentA extends Fragment {
         // specify an adapter
         if (matchpageStyle != null) {
             switch (matchpageStyle){
+                case "big_card":
+                    mAdapter = new MyMatchAdapterBigCard(getActivity(), MatchList.getInstance().matchList);
+                    break;
                 case "small_card":
                     mAdapter = new MyMatchAdapter(getActivity(), MatchList.getInstance().matchList);
                     break;
@@ -73,7 +82,6 @@ public class FragmentA extends Fragment {
             mAdapter = new MyMatchAdapter(getActivity(), MatchList.getInstance().matchList);
         }
         mRecyclerView.setAdapter(mAdapter);
-        //mRecyclerView.setScrollViewCallbacks(this);
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.attachToRecyclerView(mRecyclerView);

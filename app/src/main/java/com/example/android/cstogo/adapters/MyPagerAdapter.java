@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2015. Juraj Palaščák
+ * All rights Reserved
+ */
+
 package com.example.android.cstogo.adapters;
 
 import android.content.Context;
@@ -12,12 +17,10 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.example.android.cstogo.R;
 import com.example.android.cstogo.fragments.FragmentA;
 import com.example.android.cstogo.fragments.FragmentB;
-import com.example.android.cstogo.fragments.FragmentD;
 import com.example.android.cstogo.fragments.FragmentC;
+import com.example.android.cstogo.fragments.FragmentD;
+import com.example.android.cstogo.fragments.FragmentE;
 
-/**
- * - Yuro - 18.3.2015.
- */
 public class MyPagerAdapter extends FragmentPagerAdapter implements PagerSlidingTabStrip.CustomTabProvider{
 
     Context mContext;
@@ -37,13 +40,15 @@ public class MyPagerAdapter extends FragmentPagerAdapter implements PagerSliding
                 return "All Games";
             case 3:
                 return "Smokes";
+            case 4:
+                return "Twitch";
             default:
                 return null;
         }
     }
     @Override
     public int getCount() {
-        return 4;
+        return 5;
     }
     @Override
     public Fragment getItem(int position) {
@@ -56,6 +61,8 @@ public class MyPagerAdapter extends FragmentPagerAdapter implements PagerSliding
                 return new FragmentC();
             case 3:
                 return new FragmentD();
+            case 4:
+                return new FragmentE();
             default:
                 return null;
         }

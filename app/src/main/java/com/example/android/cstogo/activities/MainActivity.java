@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2015. Juraj Palaščák
+ * All rights Reserved
+ */
+
 package com.example.android.cstogo.activities;
 
 import android.content.Intent;
@@ -49,7 +54,6 @@ public class MainActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setTitle("CS to GO");
-        //noinspection StatementWithEmptyBody
         if (MyApplication.getThemeId() == R.style.asiimov){
             LinearLayout toolbarLinear = (LinearLayout) findViewById(R.id.toolbar_base_linear);
             toolbarLinear.setVisibility(View.VISIBLE);
