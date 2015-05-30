@@ -339,6 +339,8 @@ public class FragmentC extends Fragment {
             Cache cache = new Cache(new File(MyApplication.getAppContext().getCacheDir(), "steam_user_data_cache"), cacheSize);
 
             OkHttpClient client = new OkHttpClient();
+            client.setConnectTimeout(15, TimeUnit.SECONDS); // connect timeout
+            client.setReadTimeout(15, TimeUnit.SECONDS);    // socket timeout
             client.setCache(cache);
 
             try {

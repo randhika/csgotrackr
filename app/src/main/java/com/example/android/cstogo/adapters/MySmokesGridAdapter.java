@@ -32,7 +32,6 @@ public class MySmokesGridAdapter extends RecyclerView.Adapter<MySmokesGridAdapte
     public SmokeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.
                 from(parent.getContext()).
-                //inflate(R.layout.row, parent, false);
                 inflate(R.layout.square_smoke_th, parent, false);
 
         return new SmokeViewHolder(itemView);
@@ -59,9 +58,7 @@ public class MySmokesGridAdapter extends RecyclerView.Adapter<MySmokesGridAdapte
 
         public SmokeViewHolder(View v){
             super(v);
-            //thumbnail = (ImageView) v.findViewById(R.id.rowImage);
             thumbnail = (ImageView) v.findViewById(R.id.square_thumb);
-            //title = (TextView) v.findViewById(R.id.rowMapName);
             title = (TextView) v.findViewById(R.id.square_title);
             v.setClickable(true);
             v.setOnClickListener(this);
