@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -47,6 +48,8 @@ public class FragmentE extends Fragment {
 
     private RecyclerView.Adapter mAdapter;
     private Request requestTwitch;
+    private Request requestTwitchForceNetwork;
+    private SwipeRefreshLayout twitchSwipeRefresh;
 
     public FragmentE() {
         // Required empty public constructor
@@ -56,15 +59,12 @@ public class FragmentE extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // https://api.twitch.tv/kraken/search/streams?q=Counter-Strike%3A%20Global%20Offensive&limit=10
-
         Uri.Builder builderStats = new Uri.Builder();
         builderStats.scheme("https")
                 .authority("api.twitch.tv")
                 .appendPath("kraken")
-                .appendPath("search")
                 .appendPath("streams")
-                .appendQueryParameter("q", "Counter-Strike: Global Offensive")
+                .appendQueryParameter("game", "Counter-Strike: Global Offensive")
                 .appendQueryParameter("limit", "10");
         String twitchUrl = builderStats.build().toString();
 
@@ -72,6 +72,12 @@ public class FragmentE extends Fragment {
                 .cacheControl(new CacheControl.Builder()
                         .maxStale(30, TimeUnit.MINUTES)
                         .build())
+                .addHeader("Accept", "application/vnd.twitchtv.v3+json")
+                .url(twitchUrl)
+                .build();
+
+        requestTwitchForceNetwork = new Request.Builder()
+                .cacheControl(CacheControl.FORCE_NETWORK)
                 .addHeader("Accept", "application/vnd.twitchtv.v3+json")
                 .url(twitchUrl)
                 .build();
@@ -96,6 +102,18 @@ public class FragmentE extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         new GetTwitchStreams().execute(requestTwitch);
+
+        twitchSwipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.twitch_swipe_refresh);
+        twitchSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new GetTwitchStreams().execute(requestTwitchForceNetwork);
+            }
+        });
+        twitchSwipeRefresh.setColorSchemeResources(android.R.color.holo_green_light,
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
         return view;
     }
@@ -155,7 +173,7 @@ public class FragmentE extends Fragment {
                 default:
                     break;
             }
-            //swipeRefreshLayout.setRefreshing(false);
+            twitchSwipeRefresh.setRefreshing(false);
             //mProgressView.setVisibility(View.GONE);
         }
     }
