@@ -5,15 +5,17 @@
 
 package com.example.android.cstogo.helpers;
 
+import android.net.Uri;
+
 public class TwitchStream {
 
     private String twitchViewers;
     private String twitchPreviewUrl;
     private String twitchTitle;
     private String twitchName;
-    private String twitchURL;
+    private Uri twitchURL;
 
-    public TwitchStream(String twitchViewers, String twitchPreviewUrl, String twitchTitle, String twitchName, String twitchURL) {
+    public TwitchStream(String twitchViewers, String twitchPreviewUrl, String twitchTitle, String twitchName, Uri twitchURL) {
         this.twitchViewers = twitchViewers;
         this.twitchPreviewUrl = twitchPreviewUrl;
         this.twitchTitle = twitchTitle;
@@ -37,7 +39,7 @@ public class TwitchStream {
         return twitchName;
     }
 
-    public String getTwitchURL() {
+    public Uri getTwitchURL() {
         return twitchURL;
     }
 }

@@ -6,6 +6,9 @@
 package com.example.android.cstogo.fragments;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,6 +26,7 @@ import com.example.android.cstogo.MyApplication;
 import com.example.android.cstogo.R;
 import com.example.android.cstogo.adapters.MyTwitchStreamsAdapter;
 import com.example.android.cstogo.helpers.TwitchStream;
+import com.rey.material.widget.ProgressView;
 import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.CacheControl;
 import com.squareup.okhttp.OkHttpClient;
@@ -46,10 +50,15 @@ public class FragmentE extends Fragment {
 
     private static ArrayList<TwitchStream> twitchStreamArrayList = new ArrayList<>();
 
-    private RecyclerView.Adapter mAdapter;
+    private MyTwitchStreamsAdapter mAdapter;
+
     private Request requestTwitch;
     private Request requestTwitchForceNetwork;
+
     private SwipeRefreshLayout twitchSwipeRefresh;
+    private ProgressView mProgressView;
+
+    private boolean isTwitchPresent = false;
 
     public FragmentE() {
         // Required empty public constructor
@@ -81,6 +90,8 @@ public class FragmentE extends Fragment {
                 .addHeader("Accept", "application/vnd.twitchtv.v3+json")
                 .url(twitchUrl)
                 .build();
+
+        isTwitchPresent = isPackageInstalled("tv.twitch.android.app", getActivity());
     }
 
     @Override
@@ -88,6 +99,9 @@ public class FragmentE extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_e, container, false);
+
+        mProgressView = (ProgressView) view.findViewById(R.id.twitch_progress_line);
+        mProgressView.setVisibility(View.GONE);
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.twitch_recycler);
         recyclerView.setHasFixedSize(true);
@@ -102,6 +116,19 @@ public class FragmentE extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         new GetTwitchStreams().execute(requestTwitch);
+
+        mAdapter.SetOnItemClickListener(new MyTwitchStreamsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                if (isTwitchPresent){
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setDataAndNormalize(twitchStreamArrayList.get(position).getTwitchURL());
+                    startActivity(i);
+                } else {
+                    Toast.makeText(getActivity(), "Twitch app doesn't seem to be installed. Get it from play store, it's pretty good", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         twitchSwipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.twitch_swipe_refresh);
         twitchSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -123,7 +150,7 @@ public class FragmentE extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            //mProgressView.setVisibility(View.VISIBLE);
+            mProgressView.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -174,7 +201,7 @@ public class FragmentE extends Fragment {
                     break;
             }
             twitchSwipeRefresh.setRefreshing(false);
-            //mProgressView.setVisibility(View.GONE);
+            mProgressView.setVisibility(View.GONE);
         }
     }
 
@@ -192,7 +219,7 @@ public class FragmentE extends Fragment {
             String twitchPreviewUrl = arrayObjectPreview.getString("large");
             String twitchTitle = arrayObjectChannel.getString("status");
             String twitchName = arrayObjectChannel.getString("display_name");
-            String twitchURL = arrayObjectChannel.getString("url");
+            Uri twitchURL = Uri.parse("twitch://stream/" + arrayObjectChannel.getString("name"));
 
             TwitchStream twitchStream = new TwitchStream(
                     twitchViewers,
@@ -202,6 +229,16 @@ public class FragmentE extends Fragment {
                     twitchURL);
 
             twitchStreamArrayList.add(twitchStream);
+        }
+    }
+
+    private boolean isPackageInstalled(String packageName, Context context) {
+        PackageManager pm = context.getPackageManager();
+        try {
+            pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
         }
     }
 

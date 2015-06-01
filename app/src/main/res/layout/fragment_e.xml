@@ -3,12 +3,26 @@
   ~ All rights Reserved
   -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.android.cstogo.fragments.FragmentE">
 
+    <com.rey.material.widget.ProgressView
+        android:id="@+id/twitch_progress_line"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        app:pv_autostart="true"
+        app:pv_circular="false"
+        app:pv_progressStyle="@style/ColorsLinearProgressDrawableStyle"
+        app:pv_progressMode="indeterminate"
+        app:lpd_verticalAlign="top"
+        app:lpd_maxLineWidth="4dp"
+        android:layout_marginBottom="2dp"
+        />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/twitch_swipe_refresh"
@@ -22,4 +36,4 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-</FrameLayout>
+</LinearLayout>

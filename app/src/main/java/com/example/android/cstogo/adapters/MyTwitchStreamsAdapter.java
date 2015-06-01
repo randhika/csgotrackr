@@ -23,6 +23,7 @@ public class MyTwitchStreamsAdapter extends RecyclerView.Adapter<MyTwitchStreams
 
     private Context mContext;
     private ArrayList<TwitchStream> mStreams;
+    OnItemClickListener mItemClickListener;
 
     public MyTwitchStreamsAdapter(Context context, ArrayList<TwitchStream> streams){
         this.mContext = context;
@@ -54,12 +55,13 @@ public class MyTwitchStreamsAdapter extends RecyclerView.Adapter<MyTwitchStreams
         return mStreams.size();
     }
 
-    public class StreamViewHolder extends RecyclerView.ViewHolder {
+    public class StreamViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private ImageView twitchPicture;
         private TextView twitchTitle;
         private TextView twitchName;
         private TextView twitchViewers;
+        private ImageView twitchLink;
 
         public StreamViewHolder(View v){
             super(v);
@@ -67,7 +69,27 @@ public class MyTwitchStreamsAdapter extends RecyclerView.Adapter<MyTwitchStreams
             twitchTitle = (TextView) v.findViewById(R.id.twitch_stream_card_title);
             twitchName = (TextView) v.findViewById(R.id.twitch_stream_card_name);
             twitchViewers  = (TextView) v.findViewById(R.id.twitch_stream_card_viewers);
+
+            twitchLink = (ImageView) v.findViewById(R.id.twitch_stream_link);
+
+            twitchLink.setClickable(true);
+            twitchLink.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            if (mItemClickListener != null) {
+                mItemClickListener.onItemClick(v, getLayoutPosition());
+            }
+        }
     }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener) {
+        this.mItemClickListener = mItemClickListener;
+    }
+
 }
