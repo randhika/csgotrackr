@@ -5,10 +5,10 @@
 
 package com.example.android.cstogo.adapters;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +20,7 @@ import com.example.android.cstogo.fragments.FragmentB;
 import com.example.android.cstogo.fragments.FragmentC;
 import com.example.android.cstogo.fragments.FragmentD;
 import com.example.android.cstogo.fragments.FragmentE;
+import com.example.android.cstogo.fragments.FragmentF;
 
 public class MyPagerAdapter extends FragmentPagerAdapter implements PagerSlidingTabStrip.CustomTabProvider{
 
@@ -42,13 +43,15 @@ public class MyPagerAdapter extends FragmentPagerAdapter implements PagerSliding
                 return "Smokes";
             case 4:
                 return "Twitch";
+            case 5:
+                return "Results";
             default:
                 return null;
         }
     }
     @Override
     public int getCount() {
-        return 5;
+        return 6;
     }
     @Override
     public Fragment getItem(int position) {
@@ -63,6 +66,8 @@ public class MyPagerAdapter extends FragmentPagerAdapter implements PagerSliding
                 return new FragmentD();
             case 4:
                 return new FragmentE();
+            case 5:
+                return new FragmentF();
             default:
                 return null;
         }

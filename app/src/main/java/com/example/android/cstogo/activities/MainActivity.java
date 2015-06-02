@@ -5,6 +5,7 @@
 
 package com.example.android.cstogo.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -42,6 +43,7 @@ public class MainActivity extends ActionBarActivity {
     SharedPreferences.OnSharedPreferenceChangeListener listener;
 
 
+    @SuppressLint("MissingSuperCall") //It's literally right there lint. Please.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(MyApplication.getThemeId());
@@ -70,7 +72,8 @@ public class MainActivity extends ActionBarActivity {
         }
 
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), getApplicationContext()));
+        //pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), getApplicationContext()));
+        pager.setAdapter(new MyPagerAdapter(getFragmentManager(), getApplicationContext()));
 
         // Bind the tabs to the ViewPager
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
