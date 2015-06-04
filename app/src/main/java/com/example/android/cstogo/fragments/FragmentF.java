@@ -10,6 +10,10 @@ import android.app.Fragment;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +22,11 @@ import android.widget.Toast;
 
 import com.example.android.cstogo.MyApplication;
 import com.example.android.cstogo.R;
+import com.example.android.cstogo.adapters.MyGosuMatchesAdapter;
+import com.example.android.cstogo.helpers.GosuCurrent;
+import com.example.android.cstogo.helpers.GosuPlayed;
+import com.example.android.cstogo.helpers.GosuUpcoming;
+import com.rey.material.widget.ProgressView;
 import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.CacheControl;
 import com.squareup.okhttp.OkHttpClient;
@@ -32,6 +41,7 @@ import org.jsoup.select.Elements;
 import java.io.File;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -39,7 +49,17 @@ import java.util.concurrent.TimeUnit;
  */
 public class FragmentF extends Fragment {
 
+    private MyGosuMatchesAdapter mAdapter;
+
     private Request requestMatches;
+    private Request requestMatchesForceNetwork;
+
+    private SwipeRefreshLayout gosuSwipeRefresh;
+    private ProgressView gosuProgressView;
+
+    private ArrayList<GosuCurrent> gosuCurrentList = new ArrayList<>();
+    private ArrayList<GosuUpcoming> gosuUpcomingList = new ArrayList<>();
+    private ArrayList<GosuPlayed> gosuPlayedList = new ArrayList<>();
 
     public FragmentF() {
         // Required empty public constructor
@@ -63,6 +83,11 @@ public class FragmentF extends Fragment {
                 .url(gosuMatches)
                 .build();
 
+        requestMatchesForceNetwork = new Request.Builder()
+                .cacheControl(CacheControl.FORCE_NETWORK)
+                .url(gosuMatches)
+                .build();
+
     }
 
     @Override
@@ -71,7 +96,34 @@ public class FragmentF extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_f, container, false);
 
+        gosuProgressView = (ProgressView) view.findViewById(R.id.gosu_progress_line);
+        gosuProgressView.setVisibility(View.GONE);
+
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.gosu_recycler);
+        recyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+
+        mAdapter = new MyGosuMatchesAdapter(getActivity(), gosuCurrentList, gosuUpcomingList, gosuPlayedList);
+
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
         new GetGosuMatches().execute(requestMatches);
+
+        gosuSwipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.gosu_swipe_refresh);
+        gosuSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new GetGosuMatches().execute(requestMatchesForceNetwork);
+            }
+        });
+        gosuSwipeRefresh.setColorSchemeResources(android.R.color.holo_green_light,
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
         return view;
     }
@@ -82,7 +134,7 @@ public class FragmentF extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            //mProgressView.setVisibility(View.VISIBLE);
+            gosuProgressView.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -106,6 +158,10 @@ public class FragmentF extends Fragment {
                 gosuDocument.setBaseUri("http://www.gosugamers.net");
                 Element gosuTableCol1 = gosuDocument.getElementById("col1");
 
+                gosuCurrentList.clear();
+                gosuUpcomingList.clear();
+                gosuPlayedList.clear();
+
                 Elements boxes = gosuTableCol1.getElementsByClass("box");
                 Elements boxCurrent = boxes.get(0).select("tr");
                 for (int i = 0; i < boxCurrent.size(); i++) {
@@ -120,13 +176,15 @@ public class FragmentF extends Fragment {
                     Element secondALink = matchRowALinks.get(1);
                     String imgUrl = secondALink.select("img").get(0).absUrl("src");
 
+                    GosuCurrent tempGosuCurrent = new GosuCurrent(Uri.parse(url), opp_1, opp_2, Uri.parse(imgUrl));
+                    gosuCurrentList.add(tempGosuCurrent);
+
                     Log.d("TAG", "url : " + url);
                     Log.d("TAG", "opp_1 : " + opp_1 + " vs " + opp_2);
                     Log.d("TAG", "imgUrl : " + imgUrl);
                     Log.d("TAG", "******************************");
                 }
-                Log.d("TAG", "ppppppppppppppppppppppppppppp");
-                Log.d("TAG", "");
+
                 Elements boxUpcoming = boxes.get(1).select("tr");
                 for (int i = 0; i < boxUpcoming.size(); i++) {
                     Element matchRow = boxUpcoming.get(i);
@@ -141,14 +199,16 @@ public class FragmentF extends Fragment {
                     Element secondALink = matchRowALinks.get(1);
                     String imgUrl = secondALink.select("img").get(0).absUrl("src");
 
+                    GosuUpcoming tempUpcoming = new GosuUpcoming(Uri.parse(url), opp_1, opp_2, when, Uri.parse(imgUrl));
+                    gosuUpcomingList.add(tempUpcoming);
+
                     Log.d("TAG", "url : " + url);
                     Log.d("TAG", "opp_1 : " + opp_1 + " vs " + opp_2);
                     Log.d("TAG", "when : " + when);
                     Log.d("TAG", "imgUrl : " + imgUrl);
                     Log.d("TAG", "______________________________________");
                 }
-                Log.d("TAG", "ppppppppppppppppppppppppppppp");
-                Log.d("TAG", "");
+
                 Elements boxPlayed = boxes.get(2).select("tr");
                 for (int i = 0; i < boxPlayed.size(); i++) {
                     Element matchRow = boxPlayed.get(i);
@@ -165,6 +225,9 @@ public class FragmentF extends Fragment {
 
                     Element secondALink = matchRowALinks.get(1);
                     String imgUrl = secondALink.select("img").get(0).absUrl("src");
+
+                    GosuPlayed tempGosuPlayed = new GosuPlayed(Uri.parse(url), opp_1, opp_2, Integer.valueOf(homeScore), Integer.valueOf(awayScore), Uri.parse(imgUrl));
+                    gosuPlayedList.add(tempGosuPlayed);
 
                     Log.d("TAG", "url : " + url);
                     Log.d("TAG", "opp_1 : " + opp_1 + " vs " + opp_2);
@@ -195,7 +258,8 @@ public class FragmentF extends Fragment {
                 default:
                     break;
             }
-            //mProgressView.setVisibility(View.GONE);
+            gosuProgressView.setVisibility(View.GONE);
+            gosuSwipeRefresh.setRefreshing(false);
         }
     }
 
