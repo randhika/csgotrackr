@@ -82,5 +82,9 @@
     <string name="steam_web_stats_webmap_best_map_pic_desc">Picture of a best map</string>
     <string name="steam_web_stats_webgun_best_gun_pic_desc">Picture of a best gun</string>
 
+    <string name="gosu_current_header">Live Matches</string>
+    <string name="gosu_upcoming_header">Upcoming Matches</string>
+    <string name="gosu_played_header">Recent Results</string>
+
 
 </resources>

@@ -51,10 +51,8 @@ public class NewMatchActivity extends ActionBarActivity {
 
         setSupportActionBar(toolbar);
 
-        //getSupportActionBar().setTitle("New Match");
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         NumberPicker np1 = (NumberPicker) findViewById(R.id.new_match_picker1);

@@ -14,7 +14,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -178,11 +177,11 @@ public class FragmentF extends Fragment {
 
                     GosuCurrent tempGosuCurrent = new GosuCurrent(Uri.parse(url), opp_1, opp_2, Uri.parse(imgUrl));
                     gosuCurrentList.add(tempGosuCurrent);
-
+                    /*
                     Log.d("TAG", "url : " + url);
                     Log.d("TAG", "opp_1 : " + opp_1 + " vs " + opp_2);
                     Log.d("TAG", "imgUrl : " + imgUrl);
-                    Log.d("TAG", "******************************");
+                    Log.d("TAG", "******************************");*/
                 }
 
                 Elements boxUpcoming = boxes.get(1).select("tr");
@@ -201,12 +200,12 @@ public class FragmentF extends Fragment {
 
                     GosuUpcoming tempUpcoming = new GosuUpcoming(Uri.parse(url), opp_1, opp_2, when, Uri.parse(imgUrl));
                     gosuUpcomingList.add(tempUpcoming);
-
+                    /*
                     Log.d("TAG", "url : " + url);
                     Log.d("TAG", "opp_1 : " + opp_1 + " vs " + opp_2);
                     Log.d("TAG", "when : " + when);
                     Log.d("TAG", "imgUrl : " + imgUrl);
-                    Log.d("TAG", "______________________________________");
+                    Log.d("TAG", "______________________________________");*/
                 }
 
                 Elements boxPlayed = boxes.get(2).select("tr");
@@ -228,12 +227,12 @@ public class FragmentF extends Fragment {
 
                     GosuPlayed tempGosuPlayed = new GosuPlayed(Uri.parse(url), opp_1, opp_2, Integer.valueOf(homeScore), Integer.valueOf(awayScore), Uri.parse(imgUrl));
                     gosuPlayedList.add(tempGosuPlayed);
-
+                    /*
                     Log.d("TAG", "url : " + url);
                     Log.d("TAG", "opp_1 : " + opp_1 + " vs " + opp_2);
                     Log.d("TAG", "score : " + homeScore + " : " + awayScore);
                     Log.d("TAG", "imgUrl : " + imgUrl);
-                    Log.d("TAG", "/////////////////////////////////////");
+                    Log.d("TAG", "/////////////////////////////////////");*/
                 }
             } catch (SocketTimeoutException ste) {
                 return 2;
@@ -248,6 +247,7 @@ public class FragmentF extends Fragment {
         protected void onPostExecute(Integer result) {
             switch (result){
                 case 1:
+                    mAdapter.notifyDataSetChanged();
                     break;
                 case 2:
                     Toast.makeText(getActivity(), "Taking too long to connect to server. Try again later.", Toast.LENGTH_SHORT).show();

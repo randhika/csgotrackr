@@ -6,21 +6,28 @@
 package com.example.android.cstogo.adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.android.cstogo.R;
 import com.example.android.cstogo.helpers.GosuCurrent;
 import com.example.android.cstogo.helpers.GosuPlayed;
 import com.example.android.cstogo.helpers.GosuUpcoming;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class MyGosuMatchesAdapter extends RecyclerView.Adapter<MyGosuMatchesAdapter.GosuMatchViewHolder> {
 
-    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private Context mContext;
     private ArrayList<GosuCurrent> mGosuCurrentList;
     private ArrayList<GosuUpcoming> mGosuUpcomingList;
@@ -111,18 +118,77 @@ public class MyGosuMatchesAdapter extends RecyclerView.Adapter<MyGosuMatchesAdap
                 break;
             case TYPE_CURRENT_MATCHES:
                 GosuCurrentMatchesViewHolder currentMatchesHolder = (GosuCurrentMatchesViewHolder) holder;
+                GosuCurrent currentMatch = mGosuCurrentList.get(position - 1);
+
+                currentMatchesHolder.homeTeam.setText(currentMatch.getHomeTeam());
+                currentMatchesHolder.awayTeam.setText(currentMatch.getAwayTeam());
+                Picasso.with(mContext).load(currentMatch.getPictureUrl()).fit().centerCrop().into(currentMatchesHolder.competitionPicture);
                 break;
             case TYPE_UPCOMING_HEADER:
                 GosuUpcomingHeaderViewHolder upcomingHeaderHolder = (GosuUpcomingHeaderViewHolder) holder;
                 break;
             case TYPE_UPCOMING_MATCHES:
                 GosuUpcomingMatchesViewHolder upcomingMatchesHolder = (GosuUpcomingMatchesViewHolder) holder;
+                GosuUpcoming upcomingMatch = mGosuUpcomingList.get(position - mGosuCurrentList.size() - 2);
+
+                upcomingMatchesHolder.homeTeam.setText(upcomingMatch.getHomeTeam());
+                upcomingMatchesHolder.awayTeam.setText(upcomingMatch.getAwayTeam());
+                upcomingMatchesHolder.when.setText(upcomingMatch.getWhen());
+                Picasso.with(mContext).load(upcomingMatch.getPictureUrl()).fit().centerCrop().into(upcomingMatchesHolder.competitionPicture);
                 break;
             case TYPE_PLAYED_HEADER:
                 GosuPlayedHeaderViewHolder playedHeaderHolder = (GosuPlayedHeaderViewHolder) holder;
                 break;
             case TYPE_PLAYED_MATCHES:
                 GosuPlayedMatchesViewHolder playedMatchesHolder = (GosuPlayedMatchesViewHolder) holder;
+                GosuPlayed playedMatch = mGosuPlayedList.get(position - mGosuCurrentList.size() - mGosuUpcomingList.size() - 3);
+
+                playedMatchesHolder.homeTeam.setText(playedMatch.getHomeTeam());
+                playedMatchesHolder.awayTeam.setText(playedMatch.getAwayTeam());
+                //playedMatchesHolder.homeScore.setText(String.valueOf(playedMatch.getHomeScore()));
+                playedMatchesHolder.awayScore.setText(String.valueOf(playedMatch.getAwayScore()));
+                Picasso.with(mContext).load(playedMatch.getPictureUrl()).fit().centerCrop().into(playedMatchesHolder.competitionPicture);
+
+                String homeScore = Integer.toString(playedMatch.getHomeScore());
+                String awayScore = Integer.toString(playedMatch.getAwayScore());
+                if (playedMatch.getHomeScore() > playedMatch.getAwayScore()){
+                    int scoreLength = homeScore.length();
+
+                    final SpannableStringBuilder sb = new SpannableStringBuilder(homeScore);
+                    // Span to set text color to some RGB value
+                    TypedValue typedValue = new TypedValue();
+                    Resources.Theme theme = mContext.getTheme();
+                    theme.resolveAttribute(R.attr.accentColor, typedValue, true);
+                    int accentColor = typedValue.data;
+                    final ForegroundColorSpan spanAccent = new ForegroundColorSpan(accentColor);
+
+                    // Set the text color for first characters based on how many numbers Wins have
+                    sb.setSpan(spanAccent, 0, scoreLength, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+                    playedMatchesHolder.homeScore.setText(sb);
+                } else {
+                    playedMatchesHolder.homeScore.setText(homeScore);
+                }
+
+                if (playedMatch.getHomeScore() < playedMatch.getAwayScore()){
+                    int scoreLength = awayScore.length();
+
+                    final SpannableStringBuilder sb = new SpannableStringBuilder(awayScore);
+                    // Span to set text color to some RGB value
+                    TypedValue typedValue = new TypedValue();
+                    Resources.Theme theme = mContext.getTheme();
+                    theme.resolveAttribute(R.attr.accentColor, typedValue, true);
+                    int accentColor = typedValue.data;
+                    final ForegroundColorSpan spanAccent = new ForegroundColorSpan(accentColor);
+
+                    // Set the text color for first characters based on how many numbers Wins have
+                    sb.setSpan(spanAccent, 0, scoreLength, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+                    playedMatchesHolder.awayScore.setText(sb);
+                } else {
+                    playedMatchesHolder.awayScore.setText(awayScore);
+                }
+
                 break;
             case TYPE_GOSU_FOOTER:
                 GosuFooterViewHolder gosuFooterHolder = (GosuFooterViewHolder) holder;
@@ -180,8 +246,15 @@ public class MyGosuMatchesAdapter extends RecyclerView.Adapter<MyGosuMatchesAdap
 
     public class GosuCurrentMatchesViewHolder extends GosuMatchViewHolder {
 
+        private TextView homeTeam;
+        private TextView awayTeam;
+        private ImageView competitionPicture;
+
         public GosuCurrentMatchesViewHolder(View itemView) {
             super(itemView);
+            homeTeam = (TextView) itemView.findViewById(R.id.gosu_current_matches_home_team);
+            awayTeam = (TextView) itemView.findViewById(R.id.gosu_current_matches_away_team);
+            competitionPicture = (ImageView) itemView.findViewById(R.id.gosu_current_matches_image);
         }
     }
 
@@ -194,8 +267,17 @@ public class MyGosuMatchesAdapter extends RecyclerView.Adapter<MyGosuMatchesAdap
 
     public class GosuUpcomingMatchesViewHolder extends GosuMatchViewHolder {
 
+        private TextView homeTeam;
+        private TextView awayTeam;
+        private TextView when;
+        private ImageView competitionPicture;
+
         public GosuUpcomingMatchesViewHolder(View itemView) {
             super(itemView);
+            homeTeam = (TextView) itemView.findViewById(R.id.gosu_upcoming_matches_home_team);
+            awayTeam = (TextView) itemView.findViewById(R.id.gosu_upcoming_matches_away_team);
+            when = (TextView) itemView.findViewById(R.id.gosu_upcoming_matches_when);
+            competitionPicture = (ImageView) itemView.findViewById(R.id.gosu_upcoming_matches_image);
         }
     }
 
@@ -208,8 +290,19 @@ public class MyGosuMatchesAdapter extends RecyclerView.Adapter<MyGosuMatchesAdap
 
     public class GosuPlayedMatchesViewHolder extends GosuMatchViewHolder {
 
+        private TextView homeTeam;
+        private TextView awayTeam;
+        private TextView homeScore;
+        private TextView awayScore;
+        private ImageView competitionPicture;
+
         public GosuPlayedMatchesViewHolder(View itemView) {
             super(itemView);
+            homeTeam = (TextView) itemView.findViewById(R.id.gosu_played_matches_home_team);
+            awayTeam = (TextView) itemView.findViewById(R.id.gosu_played_matches_away_team);
+            homeScore = (TextView) itemView.findViewById(R.id.gosu_played_matches_home_score);
+            awayScore = (TextView) itemView.findViewById(R.id.gosu_played_matches_away_score);
+            competitionPicture = (ImageView) itemView.findViewById(R.id.gosu_played_matches_image);
         }
     }
 

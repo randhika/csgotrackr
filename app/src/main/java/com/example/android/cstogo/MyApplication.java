@@ -42,7 +42,6 @@ public class MyApplication extends Application {
         themeSetting = sharedPreferences.getBoolean("prefs_style_nightmode", false);
         tintSetting = sharedPreferences.getString("prefs_style_tinting", "blue_pink");
         if(!themeSetting) {
-            assert tintSetting != null;
             switch (tintSetting){
                 case "blue_pink":
                     tintSetting = "blue_pink";

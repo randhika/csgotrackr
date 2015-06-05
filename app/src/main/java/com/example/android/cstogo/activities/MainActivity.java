@@ -5,7 +5,6 @@
 
 package com.example.android.cstogo.activities;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -13,13 +12,15 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -37,13 +38,11 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     static SharedPreferences sp = null;
     SharedPreferences.OnSharedPreferenceChangeListener listener;
 
-
-    @SuppressLint("MissingSuperCall") //It's literally right there lint. Please.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(MyApplication.getThemeId());
@@ -55,7 +54,6 @@ public class MainActivity extends ActionBarActivity {
 
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setTitle("CS to GO");
         if (MyApplication.getThemeId() == R.style.asiimov){
             LinearLayout toolbarLinear = (LinearLayout) findViewById(R.id.toolbar_base_linear);
             toolbarLinear.setVisibility(View.VISIBLE);
@@ -64,6 +62,15 @@ public class MainActivity extends ActionBarActivity {
             ImageView logoDrawable = (ImageView) findViewById(R.id.toolbar_base_logo_drawable);
             ImageView plusDrawable = (ImageView) findViewById(R.id.toolbar_base_bottom_plus_drawable);
             ImageView lineDrawable = (ImageView) findViewById(R.id.toolbar_base_line_drawable);
+
+            int actionBarHeight = 0;
+            TypedValue tv = new TypedValue();
+            if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
+            {
+                actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
+            }
+
+            logoDrawable.setLayoutParams(new RelativeLayout.LayoutParams(actionBarHeight*2, actionBarHeight));
 
             Picasso.with(this).load(R.drawable.asiimov_bottom_right).fit().centerCrop().into(arrowDrawable);
             Picasso.with(this).load(R.drawable.asiimov5).fit().into(logoDrawable);
@@ -97,7 +104,6 @@ public class MainActivity extends ActionBarActivity {
 
             String sprefTint = spref.getString("prefs_style_tinting", "blue_pink");
             String savedTint = MyApplication.getTintSetting();
-            assert sprefTint != null;
             boolean compareTint = sprefTint.equals(savedTint);
             if(key.equals("prefs_style_tinting") && !compareTint)
             {
@@ -107,7 +113,6 @@ public class MainActivity extends ActionBarActivity {
 
             String sprefMatchpage = spref.getString("prefs_style_matchpage", "small_card");
             String savedMatchpage = MyApplication.getMatchpageStyle();
-            assert sprefMatchpage != null;
             boolean compareSprefSaved = sprefMatchpage.equals(savedMatchpage);
             if(key.equals("prefs_style_matchpage") && !compareSprefSaved)
             {
@@ -117,7 +122,6 @@ public class MainActivity extends ActionBarActivity {
 
             String sprefSteamId = spref.getString("prefs_steam_name", "");
             String savedSteamId = MyApplication.getSteamId();
-            assert sprefSteamId != null;
             boolean compareIds = sprefSteamId.equals(savedSteamId);
             if(key.equals("prefs_steam_name") && !compareIds)
             {

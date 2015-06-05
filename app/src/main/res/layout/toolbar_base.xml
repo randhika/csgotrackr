@@ -59,7 +59,7 @@
 
                 <ImageView
                     android:id="@+id/toolbar_base_logo_drawable"
-                    android:layout_width="96dp"
+                    android:layout_width="?actionBarSize"
                     android:layout_height="match_parent"
                     tools:ignore="ContentDescription"
                     android:layout_alignParentTop="true"
