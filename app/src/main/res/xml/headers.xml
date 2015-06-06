@@ -3,7 +3,7 @@
     <header
         android:title="@string/header_style"
         android:icon="@drawable/ic_palette_grey600_24dp"
-        android:fragment="com.example.android.cstogo.fragments.PrefsFragment" >
+        android:fragment="com.palascak.android.cstogo.fragments.PrefsFragment" >
         <extra
             android:name="category"
             android:value="@string/category_style" />
@@ -11,7 +11,7 @@
     <header
         android:title="@string/header_steam"
         android:icon="@drawable/ic_steam_grey600_24dp"
-        android:fragment="com.example.android.cstogo.fragments.PrefsFragment" >
+        android:fragment="com.palascak.android.cstogo.fragments.PrefsFragment" >
         <extra
             android:name="category"
             android:value="@string/category_steam" />

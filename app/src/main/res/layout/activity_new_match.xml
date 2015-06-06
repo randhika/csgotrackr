@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:context="com.example.android.cstogo.activities.NewMatchActivity">
+        tools:context="com.palascak.android.cstogo.activities.NewMatchActivity">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/new_match_toolbar"

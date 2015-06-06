@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.example.android.cstogo.helpers.FriendlyListPreference
+    <com.palascak.android.cstogo.helpers.FriendlyListPreference
         android:title="Matchpage Style"
         android:key="prefs_style_matchpage"
         android:entries="@array/pref_style_matchpage_entries"
@@ -9,7 +9,7 @@
         android:defaultValue="@string/pref_style_matchpage_default"
         android:summary="Using %s for matchpage"/>
 
-    <com.example.android.cstogo.helpers.FriendlyListPreference
+    <com.palascak.android.cstogo.helpers.FriendlyListPreference
         android:title="Color Scheme"
         android:key="prefs_style_tinting"
         android:entries="@array/pref_style_tinting_entries"

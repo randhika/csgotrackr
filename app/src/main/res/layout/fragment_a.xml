@@ -3,15 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.android.cstogo.fragments.FragmentA">
+    tools:context="com.palascak.android.cstogo.fragments.FragmentA">
 
-    <ViewStub
-        android:id="@+id/match_list_stub_import"
+    <ImageView
+        android:id="@+id/match_list_stub_imported_image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:inflatedId="@+id/match_list_no_matches_import"
-        android:layout="@layout/match_list_no_matches" />
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        tools:ignore="ContentDescription" />
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/cardList"

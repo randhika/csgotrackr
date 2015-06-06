@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.example.android.cstogo.helpers.FriendlyEditTextPreference
+    <com.palascak.android.cstogo.helpers.FriendlyEditTextPreference
         android:title="User Name"
         android:dialogTitle="http://steamcommunity.com/id/"
         android:key="prefs_steam_name"

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#99000000"
-    tools:context="com.example.android.cstogo.activities.ViewImageActivity">
+    tools:context="com.palascak.android.cstogo.activities.ViewImageActivity">
 
     <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/smoke_toolbar"

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.android.cstogo.fragments.FragmentC">
+    tools:context="com.palascak.android.cstogo.fragments.FragmentC">
 
     <com.rey.material.widget.ProgressView
         android:id="@+id/steam_web_stats_progress_line"

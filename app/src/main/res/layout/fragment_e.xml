@@ -9,7 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.android.cstogo.fragments.FragmentE">
+    tools:context="com.palascak.android.cstogo.fragments.FragmentE">
 
     <com.rey.material.widget.ProgressView
         android:id="@+id/twitch_progress_line"
