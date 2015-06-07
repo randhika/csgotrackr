@@ -39,7 +39,6 @@ public class MySmokesListAdapter extends RecyclerView.Adapter<MySmokesListAdapte
         String ci = smokeMapList.get(i);
 
         smokesViewHolder.vRowName.setText(ci);
-        //todo: remove this switch
         switch (ci) {
             case "de_nuke":
                 Picasso.with(mContext).load(R.drawable.de_nuke).transform(new CircleTransform()).fit().centerCrop().into(smokesViewHolder.vRowImage);

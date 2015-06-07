@@ -86,5 +86,6 @@
     <string name="gosu_upcoming_header">Upcoming Matches</string>
     <string name="gosu_played_header">Recent Results</string>
 
+    <string name="congratulations">congratulations!</string>
 
 </resources>

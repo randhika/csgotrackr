@@ -20,7 +20,7 @@
         <!-- colorAccent is used as the default value for colorControlActivated
              which is used to tint widgets -->
         <item name="colorAccent">#FF4081</item>
-        <!-- Accent color - has to be duplicated because i cant use the one above as reference. ¯\_(ツ)_/¯ -->
+        <!-- Accent color - has to be duplicated because i cant use the one above as reference everywhere. ¯\_(ツ)_/¯ -->
         <item name="accentColor">#FF4081</item>
         <!-- FAB COLORS -->
         <item name="fab_colorPressed">#f50057</item>

@@ -40,7 +40,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.traex.rippleeffect:library:1.2.4'
     compile 'de.greenrobot:eventbus:2.4.0'
-    compile 'com.github.PhilJay:MPAndroidChart:v2.0.8'
+    compile 'com.github.PhilJay:MPAndroidChart:v2.1.0'
     compile 'com.jpardogo.materialtabstrip:library:1.0.9'
     compile 'com.melnykov:floatingactionbutton:1.2.0'
     compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.1.3'

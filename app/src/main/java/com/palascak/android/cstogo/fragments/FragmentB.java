@@ -1,10 +1,11 @@
 package com.palascak.android.cstogo.fragments;
 
 
+import android.app.Fragment;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
@@ -15,10 +16,6 @@ import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.TextView;
 
-import com.palascak.android.cstogo.R;
-import com.palascak.android.cstogo.UpdateStatsEvent;
-import com.palascak.android.cstogo.helpers.Match;
-import com.palascak.android.cstogo.helpers.MatchList;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -32,6 +29,10 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ValueFormatter;
+import com.palascak.android.cstogo.R;
+import com.palascak.android.cstogo.UpdateStatsEvent;
+import com.palascak.android.cstogo.helpers.Match;
+import com.palascak.android.cstogo.helpers.MatchList;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -68,9 +69,6 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
     private BigDecimal mLast3Deaths;
     private BigDecimal mLast3Kad;
 
-    private BigDecimal mDustAvgKad = new BigDecimal(0);
-    private BigDecimal mNukeAvgKad = new BigDecimal(0);
-
     private ArrayList<Entry> mPieYVals = new ArrayList<>();
     private ArrayList<String> mPieXVals = new ArrayList<>();
 
@@ -86,7 +84,6 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
 
     public FragmentB() {
         // Required empty public constructor
-        //TODO: fix the chart colors
     }
 
 
@@ -121,6 +118,14 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
             inflated.setVisibility(View.GONE);
         }
 
+        TypedValue typedValueAccent = new TypedValue();
+        TypedValue typedValuePrimary = new TypedValue();
+        Resources.Theme theme = getActivity().getTheme();
+        theme.resolveAttribute(R.attr.accentColor, typedValueAccent, true);
+        theme.resolveAttribute(android.R.attr.textColorPrimary, typedValuePrimary, true);
+        int accentColor = typedValueAccent.data;
+        int primaryColor = typedValuePrimary.data;
+
         TextView statsAllMatches = (TextView) view.findViewById(R.id.stats_number_matches);
         TextView statsAllKills = (TextView) view.findViewById(R.id.stats_number_kills);
         TextView statsAllAssists = (TextView) view.findViewById(R.id.stats_number_assists);
@@ -139,8 +144,10 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         TextView statsAvgPPM = (TextView) view.findViewById(R.id.stats_number_avgPPM);
         TextView statsAvgKAD = (TextView) view.findViewById(R.id.stats_number_avgKAD);
         TextView statsAvgKD = (TextView) view.findViewById(R.id.stats_number_avgKD);
-        TextView statsDustKaD = (TextView) view.findViewById(R.id.stats_number_dust_KAD);
-        TextView statsNukeKaD = (TextView) view.findViewById(R.id.stats_number_nuke_KAD);
+
+        CardView last3card = (CardView) view.findViewById(R.id.stats_last3_card);
+        TextView last3cardKad = (TextView) view.findViewById(R.id.stats_last3_kad);
+        TextView last3cardKadAboveAverage = (TextView) view.findViewById(R.id.stats_last3_kad_above_average);
 
         generateStats();
 
@@ -155,7 +162,7 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         pieDataSet.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                return ((int) value) + "";
+                return ((int) value) + ""; //literally the definition of hack
             }
         });
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
@@ -174,6 +181,7 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         barDataset.setColors(ColorTemplate.COLORFUL_COLORS);
 
         BarData barData = new BarData(getBarXVals(), barDataset);
+        barData.setValueTextColor(primaryColor);
         getKadBar().setData(barData);
         getKadBar().setTouchEnabled(false);
         getKadBar().setDrawGridBackground(false);
@@ -185,6 +193,7 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         xl.setEnabled(true);
         xl.setDrawAxisLine(false);
         xl.setDrawGridLines(false);
+        xl.setTextColor(accentColor);
         YAxis yl = getKadBar().getAxisLeft();
         yl.setEnabled(false);
         yl.setDrawAxisLine(false);
@@ -197,12 +206,12 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         getKadBar().getLayoutParams().height = (int)
                 TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, getBarXVals().size()*25, getResources().getDisplayMetrics());
 
-        //KAD Bar Data End, LASR3 Bar Start
+        //KAD Bar Data End, LAST3 Bar Start
 
         setLast3Bar(statsLast3Bar);
 
         if (MatchList.getInstance().matchList.size() >= 4 && (getLast3Kad().compareTo(getOverallKad()))== 1){
-            getLast3Bar().setVisibility(View.VISIBLE);
+            last3card.setVisibility(View.VISIBLE);
 
             ArrayList<BarEntry> mLast3BarYVals = new ArrayList<>();
             ArrayList<String> mLast3BarXVals = new ArrayList<>();
@@ -210,15 +219,23 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
             float float1 = getOverallKad().floatValue();
             float float2 = (getLast3Kad().subtract(getOverallKad())).floatValue();
 
+            last3cardKad.setText(String.valueOf(getLast3Kad()));
+            last3cardKadAboveAverage.setText("+" + String.valueOf(float2));
+
             mLast3BarYVals.add(new BarEntry(new float[]{float2, float1}, 0));
 
             BarDataSet last3DataSet = new BarDataSet(mLast3BarYVals, "");
-            last3DataSet.setBarShadowColor(Color.rgb(106, 150, 131));
-            last3DataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
-            mLast3BarXVals.add("KaD");
+            final int[] COLORFUL_PLUS_GREEN = {
+                    Color.rgb(76, 194, 82), Color.rgb(193, 37, 82)
+            };
+
+            last3DataSet.setColors(COLORFUL_PLUS_GREEN);
+
+            mLast3BarXVals.add("   KaD");
 
             BarData last3Data = new BarData(mLast3BarXVals, last3DataSet);
+            last3Data.setDrawValues(false);
             getLast3Bar().setTouchEnabled(false);
             getLast3Bar().setData(last3Data);
             Legend last3Legend = getLast3Bar().getLegend();
@@ -241,6 +258,8 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
             lastYr.setDrawGridLines(false);
 
             getLast3Bar().invalidate();
+        } else {
+            last3card.setVisibility(View.GONE);
         }
 
         //LAST3Bar END
@@ -258,10 +277,6 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
 
         final SpannableStringBuilder sb = new SpannableStringBuilder(wins + ":" + draws + ":" + loses);
         // Span to set text color to some RGB value
-        TypedValue typedValue = new TypedValue();
-        Resources.Theme theme = getActivity().getTheme();
-        theme.resolveAttribute(R.attr.accentColor, typedValue, true);
-        int accentColor = typedValue.data;
         final ForegroundColorSpan spanAccent = new ForegroundColorSpan(accentColor);
 
         // Set the text color for first characters based on how many numbers Wins have
@@ -275,11 +290,10 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         statsAvgPPM.setText(getAvgPoints().toString());
         statsAvgKAD.setText(getOverallKad().toString());
         statsAvgKD.setText(getOverallKd().toString());
-        statsDustKaD.setText(getDustAvgKad().toString());
-        statsNukeKaD.setText(getNukeAvgKad().toString());
 
     }
 
+    @SuppressWarnings("ConstantConditions")
     private void generateStats() {
         nullStats();
 
@@ -374,66 +388,64 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         if (de_dust_count > 0){
             getPieYVals().add(new Entry((float) de_dust_count, pie_chart_map_count));
             getPieXVals().add("de_dust2");
-            setDustAvgKad(de_dust_kad.divide(new BigDecimal(de_dust_count), 2, RoundingMode.HALF_UP)); // TODO : Remove later
             getBarYVals().add(new BarEntry((de_dust_kad.divide(new BigDecimal(de_dust_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
-            getBarXVals().add("de_dust2");
+            getBarXVals().add("   de_dust2");
             pie_chart_map_count++;
         }
         if (de_inferno_count > 0){
             getPieYVals().add(new Entry((float) de_inferno_count, pie_chart_map_count));
             getPieXVals().add("de_inferno");
             getBarYVals().add(new BarEntry((de_inferno_kad.divide(new BigDecimal(de_inferno_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
-            getBarXVals().add("de_inferno");
+            getBarXVals().add("   de_inferno");
             pie_chart_map_count++;
         }
         if (de_nuke_count > 0){
             getPieYVals().add(new Entry((float) de_nuke_count, pie_chart_map_count));
             getPieXVals().add("de_nuke");
-            setNukeAvgKad(de_nuke_kad.divide(new BigDecimal(de_nuke_count), 2, RoundingMode.HALF_UP)); // TODO : Remove later
             getBarYVals().add(new BarEntry((de_nuke_kad.divide(new BigDecimal(de_nuke_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
-            getBarXVals().add("de_nuke");
+            getBarXVals().add("   de_nuke");
             pie_chart_map_count++;
         }
         if (de_cache_count > 0){
             getPieYVals().add(new Entry((float) de_cache_count, pie_chart_map_count));
             getPieXVals().add("de_cache");
             getBarYVals().add(new BarEntry((de_cache_kad.divide(new BigDecimal(de_cache_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
-            getBarXVals().add("de_cache");
+            getBarXVals().add("   de_cache");
             pie_chart_map_count++;
         }
         if (de_mirage_count > 0){
             getPieYVals().add(new Entry((float) de_mirage_count, pie_chart_map_count));
             getPieXVals().add("de_mirage");
             getBarYVals().add(new BarEntry((de_mirage_kad.divide(new BigDecimal(de_mirage_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
-            getBarXVals().add("de_mirage");
+            getBarXVals().add("   de_mirage");
             pie_chart_map_count++;
         }
         if (de_cbble_count > 0){
             getPieYVals().add(new Entry((float) de_cbble_count, pie_chart_map_count));
             getPieXVals().add("de_cbble");
             getBarYVals().add(new BarEntry((de_cbble_kad.divide(new BigDecimal(de_cbble_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
-            getBarXVals().add("de_cbble");
+            getBarXVals().add("   de_cbble");
             pie_chart_map_count++;
         }
         if (de_overpass_count > 0){
             getPieYVals().add(new Entry((float) de_overpass_count, pie_chart_map_count));
             getPieXVals().add("de_overpass");
             getBarYVals().add(new BarEntry((de_overpass_kad.divide(new BigDecimal(de_overpass_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
-            getBarXVals().add("de_overpass");
+            getBarXVals().add("   de_overpass");
             pie_chart_map_count++;
         }
         if (de_season_count > 0){
             getPieYVals().add(new Entry((float) de_season_count, pie_chart_map_count));
             getPieXVals().add("de_season");
             getBarYVals().add(new BarEntry((de_season_kad.divide(new BigDecimal(de_season_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
-            getBarXVals().add("de_season");
+            getBarXVals().add("   de_season");
             pie_chart_map_count++;
         }
         if (de_train_count > 0){
             getPieYVals().add(new Entry((float) de_train_count, pie_chart_map_count));
             getPieXVals().add("de_train");
             getBarYVals().add(new BarEntry((de_train_kad.divide(new BigDecimal(de_train_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
-            getBarXVals().add("de_train");
+            getBarXVals().add("   de_train");
         }
 
 
@@ -476,6 +488,8 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             if (MatchList.getInstance().matchList.size() > 0) {
+                getPie().invalidate();
+                getLast3Bar().invalidate();
                 getKadBar().animateY(3000);
             }
         }
@@ -623,22 +637,6 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
 
     public void setLast3Kad(BigDecimal last3Kad) {
         mLast3Kad = last3Kad;
-    }
-
-    public BigDecimal getDustAvgKad() {
-        return mDustAvgKad;
-    }
-
-    public void setDustAvgKad(BigDecimal dustAvgKad) {
-        mDustAvgKad = dustAvgKad;
-    }
-
-    public BigDecimal getNukeAvgKad() {
-        return mNukeAvgKad;
-    }
-
-    public void setNukeAvgKad(BigDecimal nukeAvgKad) {
-        mNukeAvgKad = nukeAvgKad;
     }
 
     public ArrayList<Entry> getPieYVals() {

@@ -391,63 +391,142 @@
                 card_view:cardUseCompatPadding="true"
                 card_view:contentPadding="15dp">
 
-                <com.github.mikephil.charting.charts.HorizontalBarChart
-                    android:id="@+id/stats_kad_bar"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="150dp" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="KaD per map"
+                        android:textColor="?accentColor"
+                        android:textSize="16sp" />
+
+                    <com.github.mikephil.charting.charts.HorizontalBarChart
+                        android:id="@+id/stats_kad_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp" />
+
+                </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
-            <TextView
-                android:id="@+id/stats_title_dust_KAD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dust KaD"
-                android:textColor="?accentColor" />
-
-            <TextView
-                android:id="@+id/stats_number_dust_KAD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
-                android:textStyle="bold"
-                tools:text="3.50" />
-
-            <TextView
-                android:id="@+id/stats_title_nuke_KAD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nuke KaD"
-                android:textColor="?accentColor" />
-
-            <TextView
-                android:id="@+id/stats_number_nuke_KAD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
-                android:textStyle="bold"
-                tools:text="3.50" />
-
-            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            <android.support.v7.widget.CardView android:id="@+id/stats_last3_card"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="1dp"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
                 android:layout_marginTop="0dp"
+                android:visibility="gone"
                 card_view:cardBackgroundColor="?cardBack"
                 card_view:cardCornerRadius="2dp"
                 card_view:cardElevation="2dp"
                 card_view:cardUseCompatPadding="true"
                 card_view:contentPadding="15dp">
 
-                <com.github.mikephil.charting.charts.HorizontalBarChart
-                    android:id="@+id/stats_last3_bar"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:visibility="gone" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/congratulations"
+                        android:textColor="?accentColor"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="your performance in last 3 matches was better than average :"/>
+
+                    <com.github.mikephil.charting.charts.HorizontalBarChart
+                        android:id="@+id/stats_last3_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="10dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:baselineAligned="false">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/stats_last3_kad"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:fontFamily="sans-serif-light"
+                                android:textSize="28sp"
+                                tools:text="5.50" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:fontFamily="sans-serif-light"
+                                android:text="kad in last 3 matches"
+                                android:textSize="12sp"
+                                />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/stats_last3_kad_above_average"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:fontFamily="sans-serif-light"
+                                android:textColor="?accentColor"
+                                android:textSize="28sp"
+                                tools:text="+0.50" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:fontFamily="sans-serif-light"
+                                android:text="above average"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
