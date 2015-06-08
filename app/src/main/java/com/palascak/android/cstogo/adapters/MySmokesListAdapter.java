@@ -22,7 +22,7 @@ public class MySmokesListAdapter extends RecyclerView.Adapter<MySmokesListAdapte
 
     private Context mContext;
     private List<String> smokeMapList;
-    OnItemClickListener mItemClickListener;
+    private OnItemClickListener mItemClickListener;
 
     public MySmokesListAdapter(Context context, List<String> smokeMapList){
         this.smokeMapList = smokeMapList;

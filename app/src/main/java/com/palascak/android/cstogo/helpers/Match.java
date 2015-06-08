@@ -40,8 +40,17 @@ public class Match implements Serializable{
         BigDecimal bDeaths = new BigDecimal(deaths);
         BigDecimal bAssists = new BigDecimal(assists);
 
-        this.kd = bKills.divide(bDeaths, 2, RoundingMode.HALF_UP);
-        this.kad = (bKills.add(bAssists)).divide(bDeaths, 2, RoundingMode.HALF_UP);
+        try {
+            this.kd = bKills.divide(bDeaths, 2, RoundingMode.HALF_UP);
+        } catch (ArithmeticException aex) {
+            this.kd = bKills;
+        }
+
+        try {
+            this.kad = (bKills.add(bAssists)).divide(bDeaths, 2, RoundingMode.HALF_UP);
+        } catch (ArithmeticException aex) {
+            this.kad = bKills.add(bAssists);
+        }
 
         this.drawable = calculateDrawable();
         this.dominantColor = calculateDominantColor();

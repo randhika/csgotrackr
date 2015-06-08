@@ -17,14 +17,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    sourceSets {
-        main {
-            res {
-                srcDir 'src/main/res_additional_drawables'
-            }
-        }
-    }
 }
 
 repositories {

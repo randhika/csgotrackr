@@ -91,27 +91,27 @@ public class FragmentC extends Fragment {
 
     private float mTotalKd;
 
-    private WebMap assault = new WebMap("cs_assault", R.drawable.de_dust2);
-    private WebMap italy = new WebMap("cs_italy", R.drawable.de_dust2);
-    private WebMap office = new WebMap("cs_office", R.drawable.de_dust2);
-    private WebMap aztec = new WebMap("de_aztec", R.drawable.de_dust2);
+    private WebMap assault = new WebMap("cs_assault", R.drawable.map_assault);
+    private WebMap italy = new WebMap("cs_italy", R.drawable.map_italy);
+    private WebMap office = new WebMap("cs_office", R.drawable.map_office);
+    private WebMap aztec = new WebMap("de_aztec", R.drawable.map_aztec);
     private WebMap cbble = new WebMap("de_cbble", R.drawable.de_cbble);
-    private WebMap dust = new WebMap("de_dust", R.drawable.de_dust2);
+    private WebMap dust = new WebMap("de_dust", R.drawable.map_dust);
     private WebMap dust2 = new WebMap("de_dust2", R.drawable.de_dust2);
     private WebMap inferno = new WebMap("de_inferno", R.drawable.de_inferno);
     private WebMap nuke = new WebMap("de_nuke", R.drawable.de_nuke);
     private WebMap train = new WebMap("de_train", R.drawable.de_train);
-    private WebMap lake = new WebMap("de_lake", R.drawable.de_dust2);
-    private WebMap safehouse = new WebMap("de_safehouse", R.drawable.de_dust2);
-    private WebMap sugarcane = new WebMap("de_sugarcane", R.drawable.de_dust2);
-    private WebMap stmarc = new WebMap("de_stmarc", R.drawable.de_dust2);
-    private WebMap bank = new WebMap("de_bank", R.drawable.de_dust2);
-    private WebMap shorttrain = new WebMap("de_shorttrain", R.drawable.de_dust2);
-    private WebMap vertigo = new WebMap("de_vertigo", R.drawable.de_dust2);
-    private WebMap monastery = new WebMap("ar_monastery", R.drawable.de_dust2);
-    private WebMap shoots = new WebMap("ar_shoots", R.drawable.de_dust2);
-    private WebMap baggage = new WebMap("ar_baggage", R.drawable.de_dust2);
-    private WebMap militia = new WebMap("cs_militia", R.drawable.de_dust2);
+    private WebMap lake = new WebMap("de_lake", R.drawable.map_lake);
+    private WebMap safehouse = new WebMap("de_safehouse", R.drawable.map_safehouse);
+    private WebMap sugarcane = new WebMap("de_sugarcane", R.drawable.map_sugarcane);
+    private WebMap stmarc = new WebMap("de_stmarc", R.drawable.map_stmarc);
+    private WebMap bank = new WebMap("de_bank", R.drawable.map_bank);
+    private WebMap shorttrain = new WebMap("de_shorttrain", R.drawable.map_shorttrain);
+    private WebMap vertigo = new WebMap("de_vertigo", R.drawable.map_vertigo);
+    private WebMap monastery = new WebMap("ar_monastery", R.drawable.map_monastery);
+    private WebMap shoots = new WebMap("ar_shoots", R.drawable.map_shoots);
+    private WebMap baggage = new WebMap("ar_baggage", R.drawable.map_baggage);
+    private WebMap militia = new WebMap("cs_militia", R.drawable.map_militia);
 
     private WebGun ak47 = new WebGun("AK47", R.drawable.gun_ak47);
     private WebGun aug = new WebGun("AUG", R.drawable.gun_aug);
@@ -161,7 +161,6 @@ public class FragmentC extends Fragment {
 
     public FragmentC() {
         // Required empty public constructor
-        //TODO: Images of maps
     }
 
     @Override
@@ -1181,7 +1180,6 @@ public class FragmentC extends Fragment {
 
         if (id == R.id.fragment_e_id) {
             String reCheckShared = spref.getString("prefs_steam_name", "");
-            assert reCheckShared != null;
             if (reCheckShared.equals("")) {
                 Toast.makeText(getActivity(), "ID must be filled in settings in order to refresh it", Toast.LENGTH_SHORT).show();
             } else {

@@ -457,8 +457,19 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         setAvgAssists(allAssists.divide(numberOfMatches, 2, RoundingMode.HALF_UP));
         setAvgDeaths(allDeaths.divide(numberOfMatches, 2, RoundingMode.HALF_UP));
         setAvgPoints(allPoints.divide(numberOfMatches, 2, RoundingMode.HALF_UP));
-        setOverallKad((allKills.add(allAssists)).divide(allDeaths, 2, RoundingMode.HALF_UP));
-        setOverallKd(allKills.divide(allDeaths, 2, RoundingMode.HALF_UP));
+
+        try{
+            setOverallKad((allKills.add(allAssists)).divide(allDeaths, 2, RoundingMode.HALF_UP));
+        } catch (ArithmeticException aex){
+            setOverallKad((allKills.add(allAssists)));
+        }
+
+        try{
+            setOverallKd(allKills.divide(allDeaths, 2, RoundingMode.HALF_UP));
+        } catch (ArithmeticException aex){
+            setOverallKd(allKills);
+        }
+
         if (matchList.size() >= 4){
             setLast3Kad((getLast3Kills().add(getLast3Assists())).divide(getLast3Deaths(), 2, RoundingMode.HALF_UP));
         }
@@ -681,7 +692,15 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
 
     @SuppressWarnings("unused")
     public void onEvent(UpdateStatsEvent event){
-        updateTextViews(getView());
+
+        if (MatchList.getInstance().matchList.size() > 0) {
+            updateTextViews(getView());
+        }
+        else {
+            linear.setVisibility(View.GONE);
+        }
+
+
     }
 
     @Override
