@@ -98,20 +98,32 @@ public class FragmentD extends Fragment{
     private ArrayList<Smoke> createItems(String name) {
         ArrayList<Smoke> tempList = new ArrayList<>();
         tempList.clear();
-        for (int i = 0; i < 15; i++) {
-            switch (name) {
-                case "de_dust":
-                    tempList.add(new Smoke(name + i, R.drawable.de_dust2, R.drawable.de_dust2));
-                    break;
-                case "de_inferno":
-                    tempList.add(new Smoke(name + i, R.drawable.de_inferno, R.drawable.de_inferno));
-                    break;
-                case "de_9":
-                    tempList.add(new Smoke(name + i, R.drawable.de_season, R.drawable.de_season));
-                    break;
-            }
 
+        switch (name) {
+            case "de_dust":
+                tempList.add(new Smoke("slope - back plat", R.drawable.de_dust2, R.drawable.dust_smoke_1));
+                tempList.add(new Smoke("slope - b car", R.drawable.de_dust2, R.drawable.dust_smoke_2));
+                tempList.add(new Smoke("slope - connector", R.drawable.de_dust2, R.drawable.dust_smoke_3));
+                tempList.add(new Smoke("b door - b car", R.drawable.de_dust2, R.drawable.dust_smoke_4));
+                tempList.add(new Smoke("b car - b window", R.drawable.de_dust2, R.drawable.dust_smoke_5));
+                tempList.add(new Smoke("xbox - ct spawn", R.drawable.de_dust2, R.drawable.dust_smoke_6));
+                tempList.add(new Smoke("long car - long door", R.drawable.de_dust2, R.drawable.dust_smoke_7));
+                tempList.add(new Smoke("long car - long barrel", R.drawable.de_dust2, R.drawable.dust_smoke_8));
+                tempList.add(new Smoke("ct spawn - mid", R.drawable.de_dust2, R.drawable.dust_smoke_9));
+                tempList.add(new Smoke("cat - a site", R.drawable.de_dust2, R.drawable.dust_smoke_10));
+                break;
+            case "de_inferno":
+                for (int i = 0; i < 15; i++) {
+                    tempList.add(new Smoke(name + i, R.drawable.de_inferno, R.drawable.de_inferno));
+                }
+                break;
+            case "de_9":
+                for (int i = 0; i < 15; i++) {
+                    tempList.add(new Smoke(name + i, R.drawable.de_season, R.drawable.de_season));
+                }
+                break;
         }
+
         return tempList;
     }
 
