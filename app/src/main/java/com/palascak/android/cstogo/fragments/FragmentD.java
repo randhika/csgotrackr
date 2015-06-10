@@ -42,7 +42,6 @@ public class FragmentD extends Fragment{
         smokeMapList.add("de_cache");
         smokeMapList.add("de_season");
         smokeMapList.add("de_train");
-        smokeMapList.add("de_nuke");
     }
 
     @Override
@@ -110,7 +109,7 @@ public class FragmentD extends Fragment{
                 tempList.add(new Smoke("long car - long door", R.drawable.de_dust2, R.drawable.dust_smoke_7));
                 tempList.add(new Smoke("long car - long barrel", R.drawable.de_dust2, R.drawable.dust_smoke_8));
                 tempList.add(new Smoke("ct spawn - mid", R.drawable.de_dust2, R.drawable.dust_smoke_9));
-                tempList.add(new Smoke("cat - a site", R.drawable.de_dust2, R.drawable.dust_smoke_10));
+                tempList.add(new Smoke("short - a site", R.drawable.de_dust2, R.drawable.dust_smoke_10));
                 break;
             case "de_inferno":
                 for (int i = 0; i < 15; i++) {

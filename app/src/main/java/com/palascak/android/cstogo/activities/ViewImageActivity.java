@@ -2,7 +2,7 @@ package com.palascak.android.cstogo.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,7 +13,7 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.palascak.android.cstogo.R;
 
 
-public class ViewImageActivity extends ActionBarActivity {
+public class ViewImageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

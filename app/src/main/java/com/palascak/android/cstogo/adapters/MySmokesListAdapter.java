@@ -40,9 +40,6 @@ public class MySmokesListAdapter extends RecyclerView.Adapter<MySmokesListAdapte
 
         smokesViewHolder.vRowName.setText(ci);
         switch (ci) {
-            case "de_nuke":
-                Picasso.with(mContext).load(R.drawable.de_nuke).transform(new CircleTransform()).fit().centerCrop().into(smokesViewHolder.vRowImage);
-                break;
             case "de_dust2":
                 Picasso.with(mContext).load(R.drawable.de_dust2).transform(new CircleTransform()).fit().centerCrop().into(smokesViewHolder.vRowImage);
                 break;
