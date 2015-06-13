@@ -87,5 +87,8 @@
     <string name="gosu_played_header">Recent Results</string>
 
     <string name="congratulations">congratulations!</string>
+    <string name="title_activity_smokes_help">Help With Smokes</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>

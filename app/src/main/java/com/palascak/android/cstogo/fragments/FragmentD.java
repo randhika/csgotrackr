@@ -1,10 +1,10 @@
 package com.palascak.android.cstogo.fragments;
 
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.palascak.android.cstogo.R;
 import com.palascak.android.cstogo.activities.SmokesActivity;
+import com.palascak.android.cstogo.activities.SmokesHelpActivity;
 import com.palascak.android.cstogo.adapters.MySmokesListAdapter;
 import com.palascak.android.cstogo.helpers.Smoke;
 
@@ -42,6 +43,7 @@ public class FragmentD extends Fragment{
         smokeMapList.add("de_cache");
         smokeMapList.add("de_season");
         smokeMapList.add("de_train");
+        smokeMapList.add("help");
     }
 
     @Override
@@ -72,16 +74,38 @@ public class FragmentD extends Fragment{
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent myIntent = new Intent(getActivity(), SmokesActivity.class);
-                        switch (tempPosition){
+                        Intent myIntent;
+                        if (tempPosition < 8) {
+                            myIntent = new Intent(getActivity(), SmokesActivity.class);
+                        } else {
+                            myIntent = new Intent(getActivity(), SmokesHelpActivity.class);
+                        }
+                        switch (tempPosition) {
                             case 0:
                                 myIntent.putExtra("TEMP", createItems("de_dust"));
                                 break;
                             case 1:
                                 myIntent.putExtra("TEMP", createItems("de_inferno"));
                                 break;
+                            case 2:
+                                myIntent.putExtra("TEMP", createItems("de_mirage"));
+                                break;
+                            case 3:
+                                myIntent.putExtra("TEMP", createItems("de_cbble"));
+                                break;
+                            case 4:
+                                myIntent.putExtra("TEMP", createItems("de_overpass"));
+                                break;
+                            case 5:
+                                myIntent.putExtra("TEMP", createItems("de_cache"));
+                                break;
+                            case 6:
+                                myIntent.putExtra("TEMP", createItems("de_season"));
+                                break;
+                            case 7:
+                                myIntent.putExtra("TEMP", createItems("de_train"));
+                                break;
                             default:
-                                myIntent.putExtra("TEMP", createItems("de_9"));
                                 break;
 
                         }
@@ -112,14 +136,69 @@ public class FragmentD extends Fragment{
                 tempList.add(new Smoke("short - a site", R.drawable.de_dust2, R.drawable.dust_smoke_10));
                 break;
             case "de_inferno":
-                for (int i = 0; i < 15; i++) {
-                    tempList.add(new Smoke(name + i, R.drawable.de_inferno, R.drawable.de_inferno));
-                }
+                tempList.add(new Smoke(name, R.drawable.de_inferno, R.drawable.inferno_smoke_1));
+                tempList.add(new Smoke(name, R.drawable.de_inferno, R.drawable.inferno_smoke_2));
+                tempList.add(new Smoke(name, R.drawable.de_inferno, R.drawable.inferno_smoke_3));
+                tempList.add(new Smoke(name, R.drawable.de_inferno, R.drawable.inferno_smoke_4));
+                tempList.add(new Smoke(name, R.drawable.de_inferno, R.drawable.inferno_smoke_5));
+                tempList.add(new Smoke(name, R.drawable.de_inferno, R.drawable.inferno_smoke_6));
+                tempList.add(new Smoke(name, R.drawable.de_inferno, R.drawable.inferno_smoke_7));
+                tempList.add(new Smoke(name, R.drawable.de_inferno, R.drawable.inferno_smoke_8));
+                tempList.add(new Smoke(name, R.drawable.de_inferno, R.drawable.inferno_smoke_9));
                 break;
-            case "de_9":
-                for (int i = 0; i < 15; i++) {
-                    tempList.add(new Smoke(name + i, R.drawable.de_season, R.drawable.de_season));
-                }
+            case "de_mirage":
+                tempList.add(new Smoke(name, R.drawable.de_mirage, R.drawable.mirage_smoke_1));
+                tempList.add(new Smoke(name, R.drawable.de_mirage, R.drawable.mirage_smoke_2));
+                tempList.add(new Smoke(name, R.drawable.de_mirage, R.drawable.mirage_smoke_3));
+                tempList.add(new Smoke(name, R.drawable.de_mirage, R.drawable.mirage_smoke_4));
+                tempList.add(new Smoke(name, R.drawable.de_mirage, R.drawable.mirage_smoke_5));
+                tempList.add(new Smoke(name, R.drawable.de_mirage, R.drawable.mirage_smoke_6));
+                tempList.add(new Smoke(name, R.drawable.de_mirage, R.drawable.mirage_smoke_7));
+                tempList.add(new Smoke(name, R.drawable.de_mirage, R.drawable.mirage_smoke_8));
+                break;
+            case "de_cbble":
+                tempList.add(new Smoke(name, R.drawable.de_cbble, R.drawable.cbble_smoke_1));
+                tempList.add(new Smoke(name, R.drawable.de_cbble, R.drawable.cbble_smoke_2));
+                tempList.add(new Smoke(name, R.drawable.de_cbble, R.drawable.cbble_smoke_3));
+                tempList.add(new Smoke(name, R.drawable.de_cbble, R.drawable.cbble_smoke_4));
+                tempList.add(new Smoke(name, R.drawable.de_cbble, R.drawable.cbble_smoke_5));
+                break;
+            case "de_overpass":
+                tempList.add(new Smoke(name, R.drawable.de_overpass, R.drawable.overpass_smoke_1));
+                tempList.add(new Smoke(name, R.drawable.de_overpass, R.drawable.overpass_smoke_2));
+                tempList.add(new Smoke(name, R.drawable.de_overpass, R.drawable.overpass_smoke_3));
+                tempList.add(new Smoke(name, R.drawable.de_overpass, R.drawable.overpass_smoke_4));
+                tempList.add(new Smoke(name, R.drawable.de_overpass, R.drawable.overpass_smoke_5));
+                tempList.add(new Smoke(name, R.drawable.de_overpass, R.drawable.overpass_smoke_6));
+                tempList.add(new Smoke(name, R.drawable.de_overpass, R.drawable.overpass_smoke_7));
+                tempList.add(new Smoke(name, R.drawable.de_overpass, R.drawable.overpass_smoke_8));
+                tempList.add(new Smoke(name, R.drawable.de_overpass, R.drawable.overpass_smoke_9));
+                break;
+            case "de_cache":
+                tempList.add(new Smoke(name, R.drawable.de_cache, R.drawable.cache_smoke_1));
+                tempList.add(new Smoke(name, R.drawable.de_cache, R.drawable.cache_smoke_2));
+                tempList.add(new Smoke(name, R.drawable.de_cache, R.drawable.cache_smoke_3));
+                tempList.add(new Smoke(name, R.drawable.de_cache, R.drawable.cache_smoke_4));
+                tempList.add(new Smoke(name, R.drawable.de_cache, R.drawable.cache_smoke_5));
+                tempList.add(new Smoke(name, R.drawable.de_cache, R.drawable.cache_smoke_6));
+                break;
+            case "de_season":
+                tempList.add(new Smoke(name, R.drawable.de_season, R.drawable.season_smoke_1));
+                tempList.add(new Smoke(name, R.drawable.de_season, R.drawable.season_smoke_2));
+                tempList.add(new Smoke(name, R.drawable.de_season, R.drawable.season_smoke_3));
+                tempList.add(new Smoke(name, R.drawable.de_season, R.drawable.season_smoke_4));
+                break;
+            case "de_train":
+                tempList.add(new Smoke(name, R.drawable.de_train, R.drawable.train_smoke_1));
+                tempList.add(new Smoke(name, R.drawable.de_train, R.drawable.train_smoke_2));
+                tempList.add(new Smoke(name, R.drawable.de_train, R.drawable.train_smoke_3));
+                tempList.add(new Smoke(name, R.drawable.de_train, R.drawable.train_smoke_4));
+                tempList.add(new Smoke(name, R.drawable.de_train, R.drawable.train_smoke_5));
+                tempList.add(new Smoke(name, R.drawable.de_train, R.drawable.train_smoke_6));
+                tempList.add(new Smoke(name, R.drawable.de_train, R.drawable.train_smoke_7));
+                tempList.add(new Smoke(name, R.drawable.de_train, R.drawable.train_smoke_8));
+                tempList.add(new Smoke(name, R.drawable.de_train, R.drawable.train_smoke_9));
+                tempList.add(new Smoke("NiP A site wall", R.drawable.de_train, R.drawable.train_smoke_nip_wall));
                 break;
         }
 
