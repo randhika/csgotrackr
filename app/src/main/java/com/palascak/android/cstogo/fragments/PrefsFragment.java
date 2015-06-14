@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
+import com.palascak.android.cstogo.MyApplication;
 import com.palascak.android.cstogo.R;
 
 

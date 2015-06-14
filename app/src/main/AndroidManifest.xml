@@ -9,7 +9,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/blue_pink" >
+        android:theme="@style/indigo_red" >
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name" >
@@ -29,7 +29,7 @@
         </activity>
         <activity
             android:name=".activities.SmokesActivity"
-            android:label="@string/title_activity_dust2_smokes"
+            android:label="@string/title_activity_smokes"
             android:parentActivityName=".activities.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

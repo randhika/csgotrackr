@@ -2,6 +2,7 @@ package com.palascak.android.cstogo.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,10 @@ public class MySmokesGridAdapter extends RecyclerView.Adapter<MySmokesGridAdapte
         Smoke smokeItem = mSmokeList.get(position);
 
         holder.title.setText(smokeItem.getMapId());
+        holder.title.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        holder.title.setSingleLine(true);
+        holder.title.setMarqueeRepeatLimit(2);
+        holder.title.setSelected(true);
 
         Picasso.with(mContext).load(smokeItem.getThumbId()).fit().centerCrop().into(holder.thumbnail);
     }

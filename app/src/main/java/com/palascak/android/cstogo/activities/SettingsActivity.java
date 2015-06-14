@@ -1,6 +1,7 @@
 package com.palascak.android.cstogo.activities;
 
 import android.annotation.TargetApi;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
@@ -10,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.palascak.android.cstogo.MyApplication;
-import com.palascak.android.cstogo.fragments.PrefsFragment;
 import com.palascak.android.cstogo.R;
+import com.palascak.android.cstogo.fragments.PrefsFragment;
 
 import java.util.List;
 
@@ -37,7 +38,9 @@ public class SettingsActivity extends PreferenceActivity {
         root.addView(toolbarContainer);
 
         Toolbar toolbar = (Toolbar) toolbarContainer.findViewById(R.id.toolbar);
+
         toolbar.setTitle(getTitle());
+        toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

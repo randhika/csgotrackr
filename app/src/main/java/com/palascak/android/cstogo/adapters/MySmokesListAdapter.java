@@ -65,7 +65,7 @@ public class MySmokesListAdapter extends RecyclerView.Adapter<MySmokesListAdapte
                 Picasso.with(mContext).load(R.drawable.de_train).transform(new CircleTransform()).fit().centerCrop().into(smokesViewHolder.vRowImage);
                 break;
             case "help":
-                Picasso.with(mContext).load(R.drawable.map_vertigo).transform(new CircleTransform()).fit().centerCrop().into(smokesViewHolder.vRowImage);
+                Picasso.with(mContext).load(R.drawable.question).transform(new CircleTransform()).fit().centerCrop().into(smokesViewHolder.vRowImage);
                 break;
             default:
                 Picasso.with(mContext).load(R.drawable.de_dust2).transform(new CircleTransform()).fit().centerCrop().into(smokesViewHolder.vRowImage);

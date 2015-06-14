@@ -28,6 +28,7 @@ public class ViewImageActivity extends AppCompatActivity {
         String title = intent.getStringExtra("TITLE");
         int full = intent.getIntExtra("PICTURE", 0);
 
+        assert getSupportActionBar() != null;
         getSupportActionBar().setTitle(title);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

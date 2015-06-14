@@ -83,7 +83,7 @@
         <item name="fab_colorDisabled">#676D68</item>
     </style>
 
-    <style name="Theme.AppCompat.Translucent" parent="AppTheme">
+    <style name="Theme.AppCompat.Translucent" parent="DarkAppTheme">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>

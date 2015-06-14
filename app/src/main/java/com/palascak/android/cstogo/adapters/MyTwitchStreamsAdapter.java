@@ -7,6 +7,7 @@ package com.palascak.android.cstogo.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,11 @@ public class MyTwitchStreamsAdapter extends RecyclerView.Adapter<MyTwitchStreams
         TwitchStream streamItem = mStreams.get(position);
 
         holder.twitchTitle.setText(streamItem.getTwitchTitle());
+        holder.twitchTitle.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        holder.twitchTitle.setSingleLine(true);
+        holder.twitchTitle.setMarqueeRepeatLimit(2);
+        holder.twitchTitle.setSelected(true);
+
         holder.twitchName.setText(streamItem.getTwitchName());
         holder.twitchViewers.setText(streamItem.getTwitchViewers());
         Picasso.with(mContext).load(streamItem.getTwitchPreviewUrl()).fit().centerCrop().into(holder.twitchPicture);

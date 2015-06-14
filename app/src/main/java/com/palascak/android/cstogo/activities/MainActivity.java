@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                 MyApplication.setScheduledRestart(true);
             }
 
-            String sprefTint = spref.getString("prefs_style_tinting", "blue_pink");
+            String sprefTint = spref.getString("prefs_style_tinting", "indigo_red");
             String savedTint = MyApplication.getTintSetting();
             boolean compareTint = sprefTint.equals(savedTint);
             if(key.equals("prefs_style_tinting") && !compareTint)

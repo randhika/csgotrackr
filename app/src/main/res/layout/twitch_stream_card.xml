@@ -37,9 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
-                android:ellipsize="end"
                 android:fontFamily="sans-serif-light"
-                android:maxLines="1"
                 android:textSize="18sp"
                 tools:text="Stream title" />
 

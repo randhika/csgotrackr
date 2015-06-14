@@ -40,7 +40,7 @@ public class MyApplication extends Application {
 
     public static void reloadTheme() {
         themeSetting = sharedPreferences.getBoolean("prefs_style_nightmode", false);
-        tintSetting = sharedPreferences.getString("prefs_style_tinting", "blue_pink");
+        tintSetting = sharedPreferences.getString("prefs_style_tinting", "indigo_red");
         if(!themeSetting) {
             switch (tintSetting){
                 case "blue_pink":
