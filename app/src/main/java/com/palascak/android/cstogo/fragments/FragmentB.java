@@ -51,15 +51,20 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
     private int mAllAssists;
     private int mAllDeaths;
     private int mAllPoints;
+    private int mAllMvps;
 
     private int mWins;
     private int mDraws;
     private int mLoses;
 
+    private int mWonRounds;
+
     private BigDecimal mAvgKills;
     private BigDecimal mAvgAssists;
     private BigDecimal mAvgDeaths;
     private BigDecimal mAvgPoints;
+
+    private BigDecimal mMvpsPerWonRounds;
 
     private BigDecimal mOverallKad;
     private BigDecimal mOverallKd;
@@ -131,6 +136,7 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         TextView statsAllAssists = (TextView) view.findViewById(R.id.stats_number_assists);
         TextView statsAllDeaths = (TextView) view.findViewById(R.id.stats_number_deaths);
         TextView statsAllPoints = (TextView) view.findViewById(R.id.stats_number_points);
+        TextView statsMvpsPerRoundWon = (TextView) view.findViewById(R.id.stats_number_mvp_per_won);
 
         TextView statsWinsDrawsLoses = (TextView) view.findViewById(R.id.match_stats_wins_draws_loses);
 
@@ -269,6 +275,7 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         statsAllAssists.setText(Integer.toString(getAllAssists()));
         statsAllDeaths.setText(Integer.toString(getAllDeaths()));
         statsAllPoints.setText(Integer.toString(getAllPoints()));
+        statsMvpsPerRoundWon.setText(getMvpsPerWonRounds().toString());
 
         String wins = Integer.toString(getWins());
         int winsLength = wins.length();
@@ -332,6 +339,8 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
             setAllAssists(getAllAssists() + ice.getAssists());
             setAllDeaths(getAllDeaths() + ice.getDeaths());
             setAllPoints(getAllPoints() + ice.getScore());
+            setAllMvps(getAllMvps() + ice.getMvps());
+            setWonRounds(getWonRounds() + ice.getTeamRounds());
 
             if (ice.getTeamRounds() > ice.getEnemyRounds()){
                 setWins(getWins() + 1);
@@ -458,6 +467,14 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         setAvgDeaths(allDeaths.divide(numberOfMatches, 2, RoundingMode.HALF_UP));
         setAvgPoints(allPoints.divide(numberOfMatches, 2, RoundingMode.HALF_UP));
 
+        BigDecimal allMvps = new BigDecimal(getAllMvps());
+        BigDecimal allWonRounds = new BigDecimal(getWonRounds());
+        try {
+            setMvpsPerWonRounds(allMvps.divide(allWonRounds, 2, RoundingMode.HALF_UP));
+        } catch (ArithmeticException aex) {
+            setMvpsPerWonRounds(new BigDecimal(0));
+    }
+
         try{
             setOverallKad((allKills.add(allAssists)).divide(allDeaths, 2, RoundingMode.HALF_UP));
         } catch (ArithmeticException aex){
@@ -482,6 +499,7 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         setAllPoints(0);
         setAllDeaths(0);
         setAllAssists(0);
+        setAllMvps(0);
         setWins(0);
         setDraws(0);
         setLoses(0);
@@ -538,6 +556,14 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         mAllPoints = allPoints;
     }
 
+    public int getAllMvps() {
+        return mAllMvps;
+    }
+
+    public void setAllMvps(int allMvps) {
+        mAllMvps = allMvps;
+    }
+
     public int getNoMatches() {
         return mNoMatches;
     }
@@ -570,6 +596,14 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         mLoses = loses;
     }
 
+    public int getWonRounds() {
+        return mWonRounds;
+    }
+
+    public void setWonRounds(int wonRounds) {
+        mWonRounds = wonRounds;
+    }
+
     public BigDecimal getAvgKills() {
         return mAvgKills;
     }
@@ -600,6 +634,14 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
 
     public void setAvgPoints(BigDecimal avgPoints) {
         mAvgPoints = avgPoints;
+    }
+
+    public BigDecimal getMvpsPerWonRounds() {
+        return mMvpsPerWonRounds;
+    }
+
+    public void setMvpsPerWonRounds(BigDecimal mvpsPerWonRounds) {
+        mMvpsPerWonRounds = mvpsPerWonRounds;
     }
 
     public BigDecimal getOverallKad() {

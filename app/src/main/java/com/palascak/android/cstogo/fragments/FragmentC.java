@@ -101,16 +101,16 @@ public class FragmentC extends Fragment {
     private WebMap inferno = new WebMap("de_inferno", R.drawable.de_inferno);
     private WebMap nuke = new WebMap("de_nuke", R.drawable.de_nuke);
     private WebMap train = new WebMap("de_train", R.drawable.de_train);
-    private WebMap lake = new WebMap("de_lake", R.drawable.map_lake);
+    /*private WebMap lake = new WebMap("de_lake", R.drawable.map_lake);
     private WebMap safehouse = new WebMap("de_safehouse", R.drawable.map_safehouse);
     private WebMap sugarcane = new WebMap("de_sugarcane", R.drawable.map_sugarcane);
     private WebMap stmarc = new WebMap("de_stmarc", R.drawable.map_stmarc);
     private WebMap bank = new WebMap("de_bank", R.drawable.map_bank);
-    private WebMap shorttrain = new WebMap("de_shorttrain", R.drawable.map_shorttrain);
+    private WebMap shorttrain = new WebMap("de_shorttrain", R.drawable.map_shorttrain);*/
     private WebMap vertigo = new WebMap("de_vertigo", R.drawable.map_vertigo);
-    private WebMap monastery = new WebMap("ar_monastery", R.drawable.map_monastery);
+    /*private WebMap monastery = new WebMap("ar_monastery", R.drawable.map_monastery);
     private WebMap shoots = new WebMap("ar_shoots", R.drawable.map_shoots);
-    private WebMap baggage = new WebMap("ar_baggage", R.drawable.map_baggage);
+    private WebMap baggage = new WebMap("ar_baggage", R.drawable.map_baggage);*/
     private WebMap militia = new WebMap("cs_militia", R.drawable.map_militia);
 
     private WebGun ak47 = new WebGun("AK47", R.drawable.gun_ak47);
@@ -561,7 +561,7 @@ public class FragmentC extends Fragment {
                                 train.setRounds(intValue);
                             }
                             break;
-                        case "de_lake":
+                        /*case "de_lake":
                             if (name.contains("wins_")) {
                                 lake.setWins(intValue);
                             } else {
@@ -602,7 +602,7 @@ public class FragmentC extends Fragment {
                             } else {
                                 shorttrain.setRounds(intValue);
                             }
-                            break;
+                            break;*/
                         case "de_vertigo":
                             if (name.contains("wins_")) {
                                 vertigo.setWins(intValue);
@@ -638,7 +638,7 @@ public class FragmentC extends Fragment {
                                 militia.setRounds(intValue);
                             }
                             break;
-                        case "ar_monastery":
+                        /*case "ar_monastery":
                             if (name.contains("wins_")) {
                                 monastery.setWins(intValue);
                             } else {
@@ -658,7 +658,7 @@ public class FragmentC extends Fragment {
                             } else {
                                 baggage.setRounds(intValue);
                             }
-                            break;
+                            break;*/
                         default:
                             break;
                     }
@@ -980,16 +980,16 @@ public class FragmentC extends Fragment {
         getWebMapList().add(inferno);
         getWebMapList().add(nuke);
         getWebMapList().add(train);
-        getWebMapList().add(lake);
+        /*getWebMapList().add(lake);
         getWebMapList().add(safehouse);
         getWebMapList().add(sugarcane);
         getWebMapList().add(stmarc);
         getWebMapList().add(bank);
-        getWebMapList().add(shorttrain);
+        getWebMapList().add(shorttrain);*/
         getWebMapList().add(vertigo);
-        getWebMapList().add(monastery);
+        /*getWebMapList().add(monastery);
         getWebMapList().add(shoots);
-        getWebMapList().add(baggage);
+        getWebMapList().add(baggage);*/
         getWebMapList().add(militia);
 
         float highestWinPerc = 0;

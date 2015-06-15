@@ -29,7 +29,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center"
-            android:orientation="vertical">
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="vertical"
+            tools:ignore="RtlSymmetry">
 
             <TextView
                 android:id="@+id/gosu_upcoming_matches_home_team"
