@@ -9,7 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
@@ -22,11 +22,11 @@ import android.widget.ArrayAdapter;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
+import com.melnykov.fab.FloatingActionButton;
 import com.palascak.android.cstogo.MyApplication;
 import com.palascak.android.cstogo.R;
 import com.palascak.android.cstogo.helpers.Match;
 import com.palascak.android.cstogo.helpers.MatchList;
-import com.melnykov.fab.FloatingActionButton;
 import com.rey.material.widget.EditText;
 import com.rey.material.widget.Spinner;
 
@@ -38,7 +38,7 @@ import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
 
 
-public class NewMatchActivity extends ActionBarActivity {
+public class NewMatchActivity extends AppCompatActivity {
 
 
     @Override
@@ -50,6 +50,7 @@ public class NewMatchActivity extends ActionBarActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.new_match_toolbar);
 
         setSupportActionBar(toolbar);
+        assert getSupportActionBar() != null;
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -187,6 +188,8 @@ public class NewMatchActivity extends ActionBarActivity {
         Drawable bottomDrawable = new ColorDrawable(getResources().getColor(android.R.color.transparent));
         LayerDrawable ld = new LayerDrawable(new Drawable[]{colorDrawable, bottomDrawable});
         TransitionDrawable td = new TransitionDrawable(new Drawable[]{oldBackground, ld});
+
+        assert getSupportActionBar() != null;
         getSupportActionBar().setBackgroundDrawable(td);
         td.startTransition(850);
         td.reverseTransition(650);

@@ -70,6 +70,17 @@
                 android:textSize="12sp"
                 tools:text="7 · 5 · 2" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/match_big_card_stats"
+                android:layout_toEndOf="@id/match_big_card_stats"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:fontFamily="sans-serif-light"
+                android:textSize="12sp"
+                tools:text="7 · 5 · 2" />
+
         </RelativeLayout>
 
 
