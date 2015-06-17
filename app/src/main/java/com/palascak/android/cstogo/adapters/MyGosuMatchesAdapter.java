@@ -29,6 +29,8 @@ import java.util.ArrayList;
 public class MyGosuMatchesAdapter extends RecyclerView.Adapter<MyGosuMatchesAdapter.GosuMatchViewHolder> {
 
     private Context mContext;
+    OnItemClickListener mItemClickListener;
+
     private ArrayList<GosuCurrent> mGosuCurrentList;
     private ArrayList<GosuUpcoming> mGosuUpcomingList;
     private ArrayList<GosuPlayed> mGosuPlayedList;
@@ -288,7 +290,7 @@ public class MyGosuMatchesAdapter extends RecyclerView.Adapter<MyGosuMatchesAdap
         }
     }
 
-    public class GosuPlayedMatchesViewHolder extends GosuMatchViewHolder {
+    public class GosuPlayedMatchesViewHolder extends GosuMatchViewHolder implements View.OnClickListener{
 
         private TextView homeTeam;
         private TextView awayTeam;
@@ -303,6 +305,16 @@ public class MyGosuMatchesAdapter extends RecyclerView.Adapter<MyGosuMatchesAdap
             homeScore = (TextView) itemView.findViewById(R.id.gosu_played_matches_home_score);
             awayScore = (TextView) itemView.findViewById(R.id.gosu_played_matches_away_score);
             competitionPicture = (ImageView) itemView.findViewById(R.id.gosu_played_matches_image);
+
+            competitionPicture.setClickable(true);
+            competitionPicture.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mItemClickListener != null) {
+                mItemClickListener.onItemClick(v, getLayoutPosition());
+            }
         }
     }
 
@@ -311,6 +323,14 @@ public class MyGosuMatchesAdapter extends RecyclerView.Adapter<MyGosuMatchesAdap
         public GosuFooterViewHolder(View itemView) {
             super(itemView);
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener) {
+        this.mItemClickListener = mItemClickListener;
     }
 
 }

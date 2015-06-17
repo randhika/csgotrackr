@@ -45,6 +45,7 @@ public class MyMatchAdapterBigCard extends RecyclerView.Adapter<MyMatchAdapterBi
         Match ci = matchList.get(i);
 
         matchViewHolder.vMap.setText(ci.getMap());
+        matchViewHolder.vMvps.setText(Integer.toString(ci.getMvps()));
         Picasso.with(mContext).load(ci.getDrawable()).fit().centerCrop().into(matchViewHolder.vPicture);
 
         String dot = " · ";
@@ -99,6 +100,7 @@ public class MyMatchAdapterBigCard extends RecyclerView.Adapter<MyMatchAdapterBi
         protected TextView vScoreKad;
         protected TextView vMap;
         protected TextView vStats;
+        protected TextView vMvps;
         protected ImageView vPicture;
 
         public MatchViewHolder(View v) {
@@ -106,6 +108,7 @@ public class MyMatchAdapterBigCard extends RecyclerView.Adapter<MyMatchAdapterBi
             vScoreKad = (TextView) v.findViewById(R.id.match_big_card_score_plus_kad);
             vMap = (TextView) v.findViewById(R.id.match_big_card_map);
             vStats = (TextView) v.findViewById(R.id.match_big_card_stats);
+            vMvps = (TextView) v.findViewById(R.id.match_big_card_mvps);
             vPicture = (ImageView) v.findViewById(R.id.match_big_card_picture);
 
             v.setClickable(true);

@@ -84,7 +84,7 @@ public class FragmentA extends Fragment {
                     @Override
                     public void onItemClick(View view, final int position) {
                         final Dialog mDialog = new Dialog(getActivity());
-                        mDialog.title("Do you wish to delete match number " + position + "?")
+                        mDialog.title("Do you wish to delete this match?")
                                 .positiveAction("DELETE")
                                 .negativeAction("CANCEL")
                                 .cancelable(true)
@@ -117,7 +117,7 @@ public class FragmentA extends Fragment {
                     @Override
                     public void onItemClick(View view, final int position) {
                         final Dialog mDialog = new Dialog(getActivity());
-                        mDialog.title("Do you wish to delete match number " + position + "?")
+                        mDialog.title("Do you wish to delete this match?")
                                 .positiveAction("DELETE")
                                 .negativeAction("CANCEL")
                                 .cancelable(true)
@@ -150,7 +150,7 @@ public class FragmentA extends Fragment {
                     @Override
                     public void onItemClick(View view, final int position) {
                         final Dialog mDialog = new Dialog(getActivity());
-                        mDialog.title("Do you wish to delete match number " + position + "?")
+                        mDialog.title("Do you wish to delete this match?")
                                 .positiveAction("DELETE")
                                 .negativeAction("CANCEL")
                                 .cancelable(true)
