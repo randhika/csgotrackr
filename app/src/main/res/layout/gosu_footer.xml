@@ -7,14 +7,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#88545454"
+    android:background="?colorPrimary"
+    android:gravity="bottom|center"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FOOTER"
-        android:layout_margin="15dp"
-        tools:ignore="HardcodedText" />
+        android:layout_marginTop="15dp"
+        android:autoLink="web"
+        android:linksClickable="true"
+        android:textSize="14sp"
+        android:textColor="#DDFFFFFF"
+        android:textColorLink="?accentColor"
+        android:text="@string/data_from_gosu"
+        />
+
+    <TextView
+        android:id="@+id/gosu_footer_last_update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-thin"
+        android:textSize="12sp"
+        android:textColor="#DDFFFFFF"
+        android:layout_marginBottom="15dp"
+        tools:text="LOREM" />
 
 </LinearLayout>

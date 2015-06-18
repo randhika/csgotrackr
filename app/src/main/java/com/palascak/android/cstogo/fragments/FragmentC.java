@@ -1,12 +1,12 @@
 package com.palascak.android.cstogo.fragments;
 
 
+import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -211,14 +211,14 @@ public class FragmentC extends Fragment {
                 case 1:
                     Request requestAvatar = new Request.Builder()
                             .cacheControl(new CacheControl.Builder()
-                                    .maxStale(1, TimeUnit.DAYS)
+                                    .maxStale(6, TimeUnit.HOURS)
                                     .build())
                             .url(myUrlAvatar)
                             .build();
 
                     Request requestStats = new Request.Builder()
                             .cacheControl(new CacheControl.Builder()
-                                    .maxStale(1, TimeUnit.DAYS)
+                                    .maxStale(6, TimeUnit.HOURS)
                                     .build())
                             .url(myUrlStats)
                             .build();

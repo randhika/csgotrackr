@@ -7,6 +7,7 @@ package com.palascak.android.cstogo.fragments;
 
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -38,9 +39,12 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -59,6 +63,7 @@ public class FragmentF extends Fragment {
     private ArrayList<GosuCurrent> gosuCurrentList = new ArrayList<>();
     private ArrayList<GosuUpcoming> gosuUpcomingList = new ArrayList<>();
     private ArrayList<GosuPlayed> gosuPlayedList = new ArrayList<>();
+    private ArrayList<String> gosuOtherData = new ArrayList<>();
 
     public FragmentF() {
         // Required empty public constructor
@@ -105,12 +110,23 @@ public class FragmentF extends Fragment {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new MyGosuMatchesAdapter(getActivity(), gosuCurrentList, gosuUpcomingList, gosuPlayedList);
+        mAdapter = new MyGosuMatchesAdapter(getActivity(), gosuCurrentList, gosuUpcomingList, gosuPlayedList, gosuOtherData);
 
         recyclerView.setAdapter(mAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         new GetGosuMatches().execute(requestMatches);
+
+        mAdapter.SetOnItemClickListener(new MyGosuMatchesAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position, Uri matchLink) {
+                if (matchLink != null) {
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setDataAndNormalize(matchLink);
+                    startActivity(i);
+                }
+            }
+        });
 
         gosuSwipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.gosu_swipe_refresh);
         gosuSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -152,6 +168,15 @@ public class FragmentF extends Fragment {
                 response = client.newCall(req[0]).execute();
                 String responseString = response.body().string();
                 response.body().close();
+
+                gosuOtherData.clear();
+
+                String dateStr = response.header("Date");
+                SimpleDateFormat df = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH);
+                Date date = df.parse(dateStr);
+                df.setTimeZone(TimeZone.getDefault());
+                df.applyPattern("dd.MM.yy - HH:mm");
+                gosuOtherData.add(df.format(date));
 
                 Document gosuDocument = Jsoup.parse(responseString);
                 gosuDocument.setBaseUri("http://www.gosugamers.net");
@@ -236,7 +261,7 @@ public class FragmentF extends Fragment {
                 }
             } catch (SocketTimeoutException ste) {
                 return 2;
-            } catch (IOException e) {
+            } catch (Exception e) {
                 return 3;
             }
 

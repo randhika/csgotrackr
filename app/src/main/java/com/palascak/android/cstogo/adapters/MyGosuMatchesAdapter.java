@@ -7,6 +7,7 @@ package com.palascak.android.cstogo.adapters;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -34,6 +35,7 @@ public class MyGosuMatchesAdapter extends RecyclerView.Adapter<MyGosuMatchesAdap
     private ArrayList<GosuCurrent> mGosuCurrentList;
     private ArrayList<GosuUpcoming> mGosuUpcomingList;
     private ArrayList<GosuPlayed> mGosuPlayedList;
+    private ArrayList<String> mGosuOtherData;
 
     private static final int TYPE_CURRENT_HEADER = 0;
     private static final int TYPE_CURRENT_MATCHES = 1;
@@ -46,11 +48,13 @@ public class MyGosuMatchesAdapter extends RecyclerView.Adapter<MyGosuMatchesAdap
     public MyGosuMatchesAdapter(Context context,
                                 ArrayList<GosuCurrent> gosuCurrentList,
                                 ArrayList<GosuUpcoming> gosuUpcomingList,
-                                ArrayList<GosuPlayed> gosuPlayedList) {
+                                ArrayList<GosuPlayed> gosuPlayedList,
+                                ArrayList<String> gosuOtherData) {
         mContext = context;
         mGosuCurrentList = gosuCurrentList;
         mGosuUpcomingList = gosuUpcomingList;
         mGosuPlayedList = gosuPlayedList;
+        mGosuOtherData = gosuOtherData;
     }
 
     @Override
@@ -116,7 +120,6 @@ public class MyGosuMatchesAdapter extends RecyclerView.Adapter<MyGosuMatchesAdap
 
         switch (getItemViewType(position)){
             case TYPE_CURRENT_HEADER:
-                GosuCurrentHeaderViewHolder currentHeaderHolder = (GosuCurrentHeaderViewHolder) holder;
                 break;
             case TYPE_CURRENT_MATCHES:
                 GosuCurrentMatchesViewHolder currentMatchesHolder = (GosuCurrentMatchesViewHolder) holder;
@@ -125,9 +128,10 @@ public class MyGosuMatchesAdapter extends RecyclerView.Adapter<MyGosuMatchesAdap
                 currentMatchesHolder.homeTeam.setText(currentMatch.getHomeTeam());
                 currentMatchesHolder.awayTeam.setText(currentMatch.getAwayTeam());
                 Picasso.with(mContext).load(currentMatch.getPictureUrl()).fit().centerCrop().into(currentMatchesHolder.competitionPicture);
+
+                currentMatchesHolder.matchLink = currentMatch.getMatchUrl();
                 break;
             case TYPE_UPCOMING_HEADER:
-                GosuUpcomingHeaderViewHolder upcomingHeaderHolder = (GosuUpcomingHeaderViewHolder) holder;
                 break;
             case TYPE_UPCOMING_MATCHES:
                 GosuUpcomingMatchesViewHolder upcomingMatchesHolder = (GosuUpcomingMatchesViewHolder) holder;
@@ -137,9 +141,9 @@ public class MyGosuMatchesAdapter extends RecyclerView.Adapter<MyGosuMatchesAdap
                 upcomingMatchesHolder.awayTeam.setText(upcomingMatch.getAwayTeam());
                 upcomingMatchesHolder.when.setText(upcomingMatch.getWhen());
                 Picasso.with(mContext).load(upcomingMatch.getPictureUrl()).fit().centerCrop().into(upcomingMatchesHolder.competitionPicture);
+                upcomingMatchesHolder.matchLink = upcomingMatch.getMatchUrl();
                 break;
             case TYPE_PLAYED_HEADER:
-                GosuPlayedHeaderViewHolder playedHeaderHolder = (GosuPlayedHeaderViewHolder) holder;
                 break;
             case TYPE_PLAYED_MATCHES:
                 GosuPlayedMatchesViewHolder playedMatchesHolder = (GosuPlayedMatchesViewHolder) holder;
@@ -147,9 +151,10 @@ public class MyGosuMatchesAdapter extends RecyclerView.Adapter<MyGosuMatchesAdap
 
                 playedMatchesHolder.homeTeam.setText(playedMatch.getHomeTeam());
                 playedMatchesHolder.awayTeam.setText(playedMatch.getAwayTeam());
-                //playedMatchesHolder.homeScore.setText(String.valueOf(playedMatch.getHomeScore()));
-                playedMatchesHolder.awayScore.setText(String.valueOf(playedMatch.getAwayScore()));
+
                 Picasso.with(mContext).load(playedMatch.getPictureUrl()).fit().centerCrop().into(playedMatchesHolder.competitionPicture);
+
+                playedMatchesHolder.matchLink = playedMatch.getMatchUrl();
 
                 String homeScore = Integer.toString(playedMatch.getHomeScore());
                 String awayScore = Integer.toString(playedMatch.getAwayScore());
@@ -194,13 +199,14 @@ public class MyGosuMatchesAdapter extends RecyclerView.Adapter<MyGosuMatchesAdap
                 break;
             case TYPE_GOSU_FOOTER:
                 GosuFooterViewHolder gosuFooterHolder = (GosuFooterViewHolder) holder;
+                gosuFooterHolder.lastUpdate.setText("Last update : " + mGosuOtherData.get(0));
                 break;
         }
     }
 
     @Override
     public int getItemCount() {
-        if (mGosuCurrentList.size() == 0 && mGosuUpcomingList.size() == 0 && mGosuPlayedList.size() == 0 ) {
+        if (mGosuCurrentList.size() == 0 && mGosuUpcomingList.size() == 0 && mGosuPlayedList.size() == 0 && mGosuOtherData.size() == 0 ) {
             return 0;
         } else {
             return mGosuCurrentList.size() + mGosuUpcomingList.size() + mGosuPlayedList.size() + 4;
@@ -246,17 +252,28 @@ public class MyGosuMatchesAdapter extends RecyclerView.Adapter<MyGosuMatchesAdap
         }
     }
 
-    public class GosuCurrentMatchesViewHolder extends GosuMatchViewHolder {
+    public class GosuCurrentMatchesViewHolder extends GosuMatchViewHolder  implements View.OnClickListener{
 
         private TextView homeTeam;
         private TextView awayTeam;
         private ImageView competitionPicture;
+        private Uri matchLink;
 
         public GosuCurrentMatchesViewHolder(View itemView) {
             super(itemView);
             homeTeam = (TextView) itemView.findViewById(R.id.gosu_current_matches_home_team);
             awayTeam = (TextView) itemView.findViewById(R.id.gosu_current_matches_away_team);
             competitionPicture = (ImageView) itemView.findViewById(R.id.gosu_current_matches_image);
+
+            competitionPicture.setClickable(true);
+            competitionPicture.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mItemClickListener != null) {
+                mItemClickListener.onItemClick(v, getLayoutPosition(), matchLink);
+            }
         }
     }
 
@@ -267,12 +284,13 @@ public class MyGosuMatchesAdapter extends RecyclerView.Adapter<MyGosuMatchesAdap
         }
     }
 
-    public class GosuUpcomingMatchesViewHolder extends GosuMatchViewHolder {
+    public class GosuUpcomingMatchesViewHolder extends GosuMatchViewHolder implements View.OnClickListener{
 
         private TextView homeTeam;
         private TextView awayTeam;
         private TextView when;
         private ImageView competitionPicture;
+        private Uri matchLink;
 
         public GosuUpcomingMatchesViewHolder(View itemView) {
             super(itemView);
@@ -280,6 +298,16 @@ public class MyGosuMatchesAdapter extends RecyclerView.Adapter<MyGosuMatchesAdap
             awayTeam = (TextView) itemView.findViewById(R.id.gosu_upcoming_matches_away_team);
             when = (TextView) itemView.findViewById(R.id.gosu_upcoming_matches_when);
             competitionPicture = (ImageView) itemView.findViewById(R.id.gosu_upcoming_matches_image);
+
+            competitionPicture.setClickable(true);
+            competitionPicture.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mItemClickListener != null) {
+                mItemClickListener.onItemClick(v, getLayoutPosition(), matchLink);
+            }
         }
     }
 
@@ -297,6 +325,7 @@ public class MyGosuMatchesAdapter extends RecyclerView.Adapter<MyGosuMatchesAdap
         private TextView homeScore;
         private TextView awayScore;
         private ImageView competitionPicture;
+        private Uri matchLink;
 
         public GosuPlayedMatchesViewHolder(View itemView) {
             super(itemView);
@@ -313,20 +342,23 @@ public class MyGosuMatchesAdapter extends RecyclerView.Adapter<MyGosuMatchesAdap
         @Override
         public void onClick(View v) {
             if (mItemClickListener != null) {
-                mItemClickListener.onItemClick(v, getLayoutPosition());
+                mItemClickListener.onItemClick(v, getLayoutPosition(), matchLink);
             }
         }
     }
 
     public class GosuFooterViewHolder extends GosuMatchViewHolder {
 
+        private TextView lastUpdate;
+
         public GosuFooterViewHolder(View itemView) {
             super(itemView);
+            lastUpdate = (TextView) itemView.findViewById(R.id.gosu_footer_last_update);
         }
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, int position);
+        void onItemClick(View view, int position, Uri matchLink);
     }
 
     public void SetOnItemClickListener(final OnItemClickListener mItemClickListener) {

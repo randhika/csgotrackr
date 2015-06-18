@@ -59,12 +59,31 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/gosu_current_matches_image"
+            <RelativeLayout
                 android:layout_width="70dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
-                tools:ignore="ContentDescription" />
+                tools:ignore="UselessParent">
+
+                <ImageView
+                    android:id="@+id/gosu_current_matches_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:alpha="0.8"
+                    android:src="@drawable/ic_link_grey600_18dp"
+                    tools:ignore="ContentDescription"/>
+
+            </RelativeLayout>
+
+
 
         </LinearLayout>
 

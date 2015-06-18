@@ -221,7 +221,7 @@ public class FragmentE extends Fragment {
                     Toast.makeText(getActivity(), "Taking too long to connect to server. Try again later.", Toast.LENGTH_SHORT).show();
                     break;
                 case 3:
-                    Toast.makeText(getActivity(), "Unknown error while getting data.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Unknown error while getting data. (Twitch)", Toast.LENGTH_SHORT).show();
                     break;
                 default:
                     break;
