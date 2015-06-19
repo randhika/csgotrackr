@@ -60,7 +60,7 @@ public class MyMatchAdapter extends RecyclerView.Adapter<MyMatchAdapter.MatchVie
             matchViewHolder.vResultStrip.setBackgroundColor(Color.rgb(114, 137, 186));
         }
 
-        Picasso.with(mContext).load(ci.getDrawable()).fit().centerCrop().into(matchViewHolder.vMapPic);
+        Picasso.with(mContext).load(ci.calculateDrawable()).fit().centerCrop().into(matchViewHolder.vMapPic);
 
     }
 

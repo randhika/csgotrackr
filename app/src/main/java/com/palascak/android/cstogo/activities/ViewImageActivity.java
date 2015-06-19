@@ -10,6 +10,8 @@ import android.view.View;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.palascak.android.cstogo.R;
 
 
@@ -40,6 +42,11 @@ public class ViewImageActivity extends AppCompatActivity {
 
         SubsamplingScaleImageView imageView = (SubsamplingScaleImageView)findViewById(R.id.smokeFullPicture);
         imageView.setImage(ImageSource.resource(full));
+
+        AdView mAdView = (AdView) findViewById(R.id.adView_viewImageActivity);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
     }
 
     @Override

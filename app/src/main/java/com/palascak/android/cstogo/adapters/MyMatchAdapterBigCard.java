@@ -46,7 +46,7 @@ public class MyMatchAdapterBigCard extends RecyclerView.Adapter<MyMatchAdapterBi
 
         matchViewHolder.vMap.setText(ci.getMap());
         matchViewHolder.vMvps.setText(Integer.toString(ci.getMvps()));
-        Picasso.with(mContext).load(ci.getDrawable()).fit().centerCrop().into(matchViewHolder.vPicture);
+        Picasso.with(mContext).load(ci.calculateDrawable()).fit().centerCrop().into(matchViewHolder.vPicture);
 
         String dot = " · ";
 

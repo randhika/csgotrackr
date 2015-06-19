@@ -21,7 +21,7 @@
     <string name="accuracy">Accuracy</string>
     <string name="kd_ratio_number">0.00</string>
     <string name="powered_by_steam">powered by Steam - http://www.steampowered.com</string>
-    <string name="best_maps_title">Best Maps</string>
+    <string name="best_maps_title">Best MM Maps</string>
     <string name="dash">-</string>
     <string name="web_wep_best_accuracy">accuracy</string>
     <string name="web_wep_most_kills">kills</string>
@@ -34,15 +34,28 @@
 
     <string-array name="maps_array">
         <item>de_dust2</item>
-        <item>de_inferno</item>
-        <item>de_nuke</item>
-        <item>de_cache</item>
+        <item>de_train</item>
         <item>de_mirage</item>
+        <item>de_inferno</item>
         <item>de_cbble</item>
         <item>de_overpass</item>
+        <item>de_cache</item>
+        <item>de_rails</item>
+        <item>de_resort</item>
+        <item>de_zoo</item>
+        <item>de_log</item>
         <item>de_season</item>
-        <item>de_train</item>
+        <item>cs_agency</item>
+        <item>de_aztec</item>
+        <item>de_dust</item>
+        <item>de_vertigo</item>
+        <item>de_nuke</item>
+        <item>cs_office</item>
+        <item>cs_italy</item>
+        <item>cs_assault</item>
+        <item>cs_militia</item>
     </string-array>
+
     <string name="title_activity_smokes">Smokes</string>
     <string name="pic_of_smoke_thumb_desc">Picture of smoke, thumbnail</string>
     <string name="title_activity_view_image">ViewImageActivity</string>
@@ -90,5 +103,7 @@
     <string name="title_activity_smokes_help">Help With Smokes</string>
 
     <string name="data_from_gosu">data from - http://www.gosugamers.net/</string>
+
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 
 </resources>

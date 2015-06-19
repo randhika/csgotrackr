@@ -2,15 +2,29 @@
 
 <resources>
     <!-- http://www.google.com/design/spec/style/color.html#color-ui-color-palette -->
-    <color name="de_nuke">#5E5D98</color>
     <color name="de_dust2">#FFB95B</color>
+    <color name="de_train">#5A41B0</color>
+    <color name="de_mirage">#B09917</color>
     <color name="de_inferno">#A33B3A</color>
-    <color name="de_cache">#A36E4C</color>
     <color name="de_cbble">#4AA365</color>
     <color name="de_overpass">#3D85A3</color>
+    <color name="de_cache">#A36E4C</color>
+
+    <color name="de_rails">#A36E4C</color>
+    <color name="de_resort">#4DF8F6</color>
+    <color name="de_zoo">#3F8AF8</color>
+    <color name="de_log">#279B5E</color>
     <color name="de_season">#62B025</color>
-    <color name="de_mirage">#B09917</color>
-    <color name="de_train">#5A41B0</color>
+    <color name="cs_agency">#98407d</color>
+
+    <color name="de_aztec">#119816</color>
+    <color name="de_dust">#FFB95B</color>
+    <color name="de_vertigo">#3F8AF8</color>
+    <color name="de_nuke">#5E5D98</color>
+    <color name="cs_office">#316098</color>
+    <color name="cs_italy">#62981f</color>
+    <color name="cs_assault">#983e34</color>
+    <color name="cs_militia">#988d27</color>
 
     <array name="progress_colors">
         <item>#FF3F8AF8</item>

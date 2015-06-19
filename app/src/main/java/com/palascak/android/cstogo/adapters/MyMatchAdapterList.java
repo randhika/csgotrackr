@@ -69,7 +69,7 @@ public class MyMatchAdapterList extends RecyclerView.Adapter<MyMatchAdapterList.
         String title = ci.getMap().substring(3,4).toUpperCase();
         matchViewHolder.vCircle.setText(title);
 
-        matchViewHolder.vShapeDrawable.setColor(mContext.getResources().getColor(ci.getDominantColor()));
+        matchViewHolder.vShapeDrawable.setColor(mContext.getResources().getColor(ci.calculateDominantColor()));
     }
 
     @Override

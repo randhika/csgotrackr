@@ -20,6 +20,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.melnykov.fab.FloatingActionButton;
 import com.palascak.android.cstogo.R;
 import com.palascak.android.cstogo.UpdateStatsEvent;
 import com.palascak.android.cstogo.activities.NewMatchActivity;
@@ -28,7 +29,6 @@ import com.palascak.android.cstogo.adapters.MyMatchAdapterBigCard;
 import com.palascak.android.cstogo.adapters.MyMatchAdapterList;
 import com.palascak.android.cstogo.helpers.Match;
 import com.palascak.android.cstogo.helpers.MatchList;
-import com.melnykov.fab.FloatingActionButton;
 import com.rey.material.app.Dialog;
 import com.squareup.picasso.Picasso;
 
@@ -241,5 +241,25 @@ public class FragmentA extends Fragment {
         EventBus.getDefault().post(new UpdateStatsEvent());
     }
 
+    @SuppressWarnings("unused")
+    private void createRandomMatches(){
+        String [] names;
+        names = getResources().getStringArray(R.array.maps_array);
+
+        for (String name : names) {
+            Match matchObject = new Match(16,
+                    2,
+                    20,
+                    20,
+                    20,
+                    10,
+                    25,
+                    name);
+
+            MatchList.getInstance().matchList.add(0, matchObject);
+            mAdapter.notifyItemInserted(0);
+        }
+        EventBus.getDefault().post(new UpdateStatsEvent());
+    }
 
 }

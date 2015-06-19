@@ -29,6 +29,8 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ValueFormatter;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.palascak.android.cstogo.R;
 import com.palascak.android.cstogo.UpdateStatsEvent;
 import com.palascak.android.cstogo.helpers.Match;
@@ -111,6 +113,10 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
             ViewStub stub = (ViewStub) view.findViewById(R.id.match_stats_stub_import);
             inflated = stub.inflate();
         }
+
+        AdView mAdView = (AdView) view.findViewById(R.id.adView_fragmentB);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         return view;
     }
@@ -305,24 +311,54 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
         nullStats();
 
         int pie_chart_map_count = 0;
-        int de_dust_count = 0;
-        BigDecimal de_dust_kad = new BigDecimal(0);
-        int de_inferno_count = 0;
-        BigDecimal de_inferno_kad = new BigDecimal(0);
-        int de_nuke_count = 0;
-        BigDecimal de_nuke_kad = new BigDecimal(0);
-        int de_cache_count = 0;
-        BigDecimal de_cache_kad = new BigDecimal(0);
+        //ACTIVE DUTY MAPS
+        int de_dust2_count = 0;
+        BigDecimal de_dust2_kad = new BigDecimal(0);
+        int de_train_count = 0;
+        BigDecimal de_train_kad = new BigDecimal(0);
         int de_mirage_count = 0;
         BigDecimal de_mirage_kad = new BigDecimal(0);
+        int de_inferno_count = 0;
+        BigDecimal de_inferno_kad = new BigDecimal(0);
         int de_cbble_count = 0;
         BigDecimal de_cbble_kad = new BigDecimal(0);
         int de_overpass_count = 0;
         BigDecimal de_overpass_kad = new BigDecimal(0);
+        int de_cache_count = 0;
+        BigDecimal de_cache_kad = new BigDecimal(0);
+
+        //BLOODHOUND MISSION MAPS
+        int de_rails_count = 0;
+        BigDecimal de_rails_kad = new BigDecimal(0);
+        int de_resort_count = 0;
+        BigDecimal de_resort_kad = new BigDecimal(0);
+        int de_zoo_count = 0;
+        BigDecimal de_zoo_kad = new BigDecimal(0);
+        int de_log_count = 0;
+        BigDecimal de_log_kad = new BigDecimal(0);
         int de_season_count = 0;
         BigDecimal de_season_kad = new BigDecimal(0);
-        int de_train_count = 0;
-        BigDecimal de_train_kad = new BigDecimal(0);
+        int cs_agency_count = 0;
+        BigDecimal cs_agency_kad = new BigDecimal(0);
+
+        //RESERVES
+        int de_aztec_count = 0;
+        BigDecimal de_aztec_kad = new BigDecimal(0);
+        int de_dust_count = 0;
+        BigDecimal de_dust_kad = new BigDecimal(0);
+        int de_vertigo_count = 0;
+        BigDecimal de_vertigo_kad = new BigDecimal(0);
+        int de_nuke_count = 0;
+        BigDecimal de_nuke_kad = new BigDecimal(0);
+        int cs_office_count = 0;
+        BigDecimal cs_office_kad = new BigDecimal(0);
+        int cs_italy_count = 0;
+        BigDecimal cs_italy_kad = new BigDecimal(0);
+        int cs_assault_count = 0;
+        BigDecimal cs_assault_kad = new BigDecimal(0);
+        int cs_militia_count = 0;
+        BigDecimal cs_militia_kad = new BigDecimal(0);
+
 
         ArrayList<Match> matchList = MatchList.getInstance().matchList;
         //generate All Kills, Assists, Deaths
@@ -352,24 +388,20 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
 
             switch (ice.getMap()) {
                 case "de_dust2":
-                    de_dust_count++;
-                    de_dust_kad = de_dust_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
+                    de_dust2_count++;
+                    de_dust2_kad = de_dust2_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
                     break;
-                case "de_inferno":
-                    de_inferno_count++;
-                    de_inferno_kad = de_inferno_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
-                    break;
-                case "de_nuke":
-                    de_nuke_count++;
-                    de_nuke_kad = de_nuke_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
-                    break;
-                case "de_cache":
-                    de_cache_count++;
-                    de_cache_kad = de_cache_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
+                case "de_train":
+                    de_train_count++;
+                    de_train_kad = de_train_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
                     break;
                 case "de_mirage":
                     de_mirage_count++;
                     de_mirage_kad = de_mirage_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
+                    break;
+                case "de_inferno":
+                    de_inferno_count++;
+                    de_inferno_kad = de_inferno_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
                     break;
                 case "de_cbble":
                     de_cbble_count++;
@@ -379,13 +411,65 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
                     de_overpass_count++;
                     de_overpass_kad = de_overpass_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
                     break;
+                case "de_cache":
+                    de_cache_count++;
+                    de_cache_kad = de_cache_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
+                    break;
+                case "de_rails":
+                    de_rails_count++;
+                    de_rails_kad = de_rails_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
+                    break;
+                case "de_resort":
+                    de_resort_count++;
+                    de_resort_kad = de_resort_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
+                    break;
+                case "de_zoo":
+                    de_zoo_count++;
+                    de_zoo_kad = de_zoo_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
+                    break;
+                case "de_log":
+                    de_log_count++;
+                    de_log_kad = de_log_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
+                    break;
                 case "de_season":
                     de_season_count++;
                     de_season_kad = de_season_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
                     break;
-                case "de_train":
-                    de_train_count++;
-                    de_train_kad = de_train_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
+                case "cs_agency":
+                    cs_agency_count++;
+                    cs_agency_kad = cs_agency_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
+                    break;
+                case "de_aztec":
+                    de_aztec_count++;
+                    de_aztec_kad = de_aztec_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
+                    break;
+                case "de_dust":
+                    de_dust_count++;
+                    de_dust_kad = de_dust_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
+                    break;
+                case "de_vertigo":
+                    de_vertigo_count++;
+                    de_vertigo_kad = de_vertigo_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
+                    break;
+                case "de_nuke":
+                    de_nuke_count++;
+                    de_nuke_kad = de_nuke_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
+                    break;
+                case "cs_office":
+                    cs_office_count++;
+                    cs_office_kad = cs_office_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
+                    break;
+                case "cs_italy":
+                    cs_italy_count++;
+                    cs_italy_kad = cs_italy_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
+                    break;
+                case "cs_assault":
+                    cs_assault_count++;
+                    cs_assault_kad = cs_assault_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
+                    break;
+                case "cs_militia":
+                    cs_militia_count++;
+                    cs_militia_kad = cs_militia_kad.add(new BigDecimal(String.valueOf(ice.getKad())));
                     break;
             }
 
@@ -394,32 +478,18 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
 
         BigDecimal numberOfMatches = new BigDecimal(matchList.size());
 
-        if (de_dust_count > 0){
-            getPieYVals().add(new Entry((float) de_dust_count, pie_chart_map_count));
+        if (de_dust2_count > 0){
+            getPieYVals().add(new Entry((float) de_dust2_count, pie_chart_map_count));
             getPieXVals().add("de_dust2");
-            getBarYVals().add(new BarEntry((de_dust_kad.divide(new BigDecimal(de_dust_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarYVals().add(new BarEntry((de_dust2_kad.divide(new BigDecimal(de_dust2_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
             getBarXVals().add("   de_dust2");
             pie_chart_map_count++;
         }
-        if (de_inferno_count > 0){
-            getPieYVals().add(new Entry((float) de_inferno_count, pie_chart_map_count));
-            getPieXVals().add("de_inferno");
-            getBarYVals().add(new BarEntry((de_inferno_kad.divide(new BigDecimal(de_inferno_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
-            getBarXVals().add("   de_inferno");
-            pie_chart_map_count++;
-        }
-        if (de_nuke_count > 0){
-            getPieYVals().add(new Entry((float) de_nuke_count, pie_chart_map_count));
-            getPieXVals().add("de_nuke");
-            getBarYVals().add(new BarEntry((de_nuke_kad.divide(new BigDecimal(de_nuke_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
-            getBarXVals().add("   de_nuke");
-            pie_chart_map_count++;
-        }
-        if (de_cache_count > 0){
-            getPieYVals().add(new Entry((float) de_cache_count, pie_chart_map_count));
-            getPieXVals().add("de_cache");
-            getBarYVals().add(new BarEntry((de_cache_kad.divide(new BigDecimal(de_cache_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
-            getBarXVals().add("   de_cache");
+        if (de_train_count > 0){
+            getPieYVals().add(new Entry((float) de_train_count, pie_chart_map_count));
+            getPieXVals().add("de_train");
+            getBarYVals().add(new BarEntry((de_train_kad.divide(new BigDecimal(de_train_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("   de_train");
             pie_chart_map_count++;
         }
         if (de_mirage_count > 0){
@@ -427,6 +497,13 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
             getPieXVals().add("de_mirage");
             getBarYVals().add(new BarEntry((de_mirage_kad.divide(new BigDecimal(de_mirage_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
             getBarXVals().add("   de_mirage");
+            pie_chart_map_count++;
+        }
+        if (de_inferno_count > 0){
+            getPieYVals().add(new Entry((float) de_inferno_count, pie_chart_map_count));
+            getPieXVals().add("de_inferno");
+            getBarYVals().add(new BarEntry((de_inferno_kad.divide(new BigDecimal(de_inferno_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("   de_inferno");
             pie_chart_map_count++;
         }
         if (de_cbble_count > 0){
@@ -443,6 +520,41 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
             getBarXVals().add("   de_overpass");
             pie_chart_map_count++;
         }
+        if (de_cache_count > 0){
+            getPieYVals().add(new Entry((float) de_cache_count, pie_chart_map_count));
+            getPieXVals().add("de_cache");
+            getBarYVals().add(new BarEntry((de_cache_kad.divide(new BigDecimal(de_cache_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("   de_cache");
+            pie_chart_map_count++;
+        }
+        if (de_rails_count > 0){
+            getPieYVals().add(new Entry((float) de_rails_count, pie_chart_map_count));
+            getPieXVals().add("de_rails");
+            getBarYVals().add(new BarEntry((de_rails_kad.divide(new BigDecimal(de_rails_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("   de_rails");
+            pie_chart_map_count++;
+        }
+        if (de_resort_count > 0){
+            getPieYVals().add(new Entry((float) de_resort_count, pie_chart_map_count));
+            getPieXVals().add("de_resort");
+            getBarYVals().add(new BarEntry((de_resort_kad.divide(new BigDecimal(de_resort_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("   de_resort");
+            pie_chart_map_count++;
+        }
+        if (de_zoo_count > 0){
+            getPieYVals().add(new Entry((float) de_zoo_count, pie_chart_map_count));
+            getPieXVals().add("de_zoo");
+            getBarYVals().add(new BarEntry((de_zoo_kad.divide(new BigDecimal(de_zoo_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("   de_zoo");
+            pie_chart_map_count++;
+        }
+        if (de_log_count > 0){
+            getPieYVals().add(new Entry((float) de_log_count, pie_chart_map_count));
+            getPieXVals().add("de_log");
+            getBarYVals().add(new BarEntry((de_log_kad.divide(new BigDecimal(de_log_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("   de_log");
+            pie_chart_map_count++;
+        }
         if (de_season_count > 0){
             getPieYVals().add(new Entry((float) de_season_count, pie_chart_map_count));
             getPieXVals().add("de_season");
@@ -450,11 +562,67 @@ public class FragmentB extends Fragment {//implements ObservableScrollViewCallba
             getBarXVals().add("   de_season");
             pie_chart_map_count++;
         }
-        if (de_train_count > 0){
-            getPieYVals().add(new Entry((float) de_train_count, pie_chart_map_count));
-            getPieXVals().add("de_train");
-            getBarYVals().add(new BarEntry((de_train_kad.divide(new BigDecimal(de_train_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
-            getBarXVals().add("   de_train");
+        if (cs_agency_count > 0){
+            getPieYVals().add(new Entry((float) cs_agency_count, pie_chart_map_count));
+            getPieXVals().add("cs_agency");
+            getBarYVals().add(new BarEntry((cs_agency_kad.divide(new BigDecimal(cs_agency_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("   cs_agency");
+            pie_chart_map_count++;
+        }
+        if (de_aztec_count > 0){
+            getPieYVals().add(new Entry((float) de_aztec_count, pie_chart_map_count));
+            getPieXVals().add("de_aztec");
+            getBarYVals().add(new BarEntry((de_aztec_kad.divide(new BigDecimal(de_aztec_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("   de_aztec");
+            pie_chart_map_count++;
+        }
+        if (de_dust_count > 0){
+            getPieYVals().add(new Entry((float) de_dust_count, pie_chart_map_count));
+            getPieXVals().add("de_dust");
+            getBarYVals().add(new BarEntry((de_dust_kad.divide(new BigDecimal(de_dust_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("   de_dust");
+            pie_chart_map_count++;
+        }
+        if (de_vertigo_count > 0){
+            getPieYVals().add(new Entry((float) de_vertigo_count, pie_chart_map_count));
+            getPieXVals().add("de_vertigo");
+            getBarYVals().add(new BarEntry((de_vertigo_kad.divide(new BigDecimal(de_vertigo_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("   de_vertigo");
+            pie_chart_map_count++;
+        }
+        if (de_nuke_count > 0){
+            getPieYVals().add(new Entry((float) de_nuke_count, pie_chart_map_count));
+            getPieXVals().add("de_nuke");
+            getBarYVals().add(new BarEntry((de_nuke_kad.divide(new BigDecimal(de_nuke_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("   de_nuke");
+            pie_chart_map_count++;
+        }
+        if (cs_office_count > 0){
+            getPieYVals().add(new Entry((float) cs_office_count, pie_chart_map_count));
+            getPieXVals().add("cs_office");
+            getBarYVals().add(new BarEntry((cs_office_kad.divide(new BigDecimal(cs_office_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("   cs_office");
+            pie_chart_map_count++;
+        }
+        if (cs_italy_count > 0){
+            getPieYVals().add(new Entry((float) cs_italy_count, pie_chart_map_count));
+            getPieXVals().add("cs_italy");
+            getBarYVals().add(new BarEntry((cs_italy_kad.divide(new BigDecimal(cs_italy_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("   cs_italy");
+            pie_chart_map_count++;
+        }
+        if (cs_assault_count > 0){
+            getPieYVals().add(new Entry((float) cs_assault_count, pie_chart_map_count));
+            getPieXVals().add("cs_assault");
+            getBarYVals().add(new BarEntry((cs_assault_kad.divide(new BigDecimal(cs_assault_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("   cs_assault");
+            pie_chart_map_count++;
+        }
+        if (cs_militia_count > 0){
+            getPieYVals().add(new Entry((float) cs_militia_count, pie_chart_map_count));
+            getPieXVals().add("cs_militia");
+            getBarYVals().add(new BarEntry((cs_militia_kad.divide(new BigDecimal(cs_militia_count), 2, RoundingMode.HALF_UP)).floatValue(), pie_chart_map_count));
+            getBarXVals().add("   cs_militia");
         }
 
 

@@ -3,7 +3,7 @@ package com.palascak.android.cstogo.activities;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -11,18 +11,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.palascak.android.cstogo.MyApplication;
-import com.palascak.android.cstogo.adapters.MySmokesGridAdapter;
-import com.palascak.android.cstogo.R;
-import com.palascak.android.cstogo.helpers.Smoke;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
+import com.palascak.android.cstogo.MyApplication;
+import com.palascak.android.cstogo.R;
+import com.palascak.android.cstogo.adapters.MySmokesGridAdapter;
+import com.palascak.android.cstogo.helpers.Smoke;
 
 import java.util.ArrayList;
 
 
-public class SmokesActivity extends ActionBarActivity implements ObservableScrollViewCallbacks {
+public class SmokesActivity extends AppCompatActivity implements ObservableScrollViewCallbacks {
 
     private Toolbar mToolbar;
     private ObservableRecyclerView mRecyclerView;
