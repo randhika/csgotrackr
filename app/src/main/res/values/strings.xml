@@ -64,6 +64,8 @@
 
     <string name="header_style">Style</string>
     <string name="header_steam">Steam</string>
+    <string name="header_license">Licenses</string>
+    <string name="header_author">Info</string>
 
     <string name="extra_category">category</string>
     <string name="category_style">category_style</string>

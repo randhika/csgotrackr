@@ -16,4 +16,14 @@
             android:name="category"
             android:value="@string/category_steam" />
     </header>
+    <header
+        android:title="@string/header_license"
+        android:icon="@drawable/ic_link_grey600_24dp"
+        android:fragment="com.palascak.android.cstogo.fragments.LicenceFragment" >
+    </header>
+    <header
+        android:title="@string/header_author"
+        android:icon="@drawable/ic_link_grey600_24dp"
+        android:fragment="com.palascak.android.cstogo.fragments.InfoFragment" >
+    </header>
 </preference-headers>
