@@ -1,66 +1,290 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
   <head>
-    <meta charset="UTF-8">
-    <title>CS:GO Tracker by Possimpible</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="googlebot" content="index,follow">
+
+    <!-- Title -->
+    <title>Tracker for CS:GO</title>
+
+    <!-- Templates core CSS -->
+    <link href="stylesheets/application.css" rel="stylesheet">
+
+    <!-- Favicons -->
+    <link href="images/favicon/favicon.png" rel="shortcut icon">
+    <link href="images/favicon/apple-touch-icon-57-precomposed.png" rel="apple-touch-icon">
+    <link href="images/favicon/apple-touch-icon-72-precomposed.png" rel="apple-touch-icon" sizes="72x72">
+    <link href="images/favicon/apple-touch-icon-144-precomposed.png" rel="apple-touch-icon" sizes="114x114">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Modernizr Scripts -->
+    <script src="javascript/vendor/modernizr-2.7.1.min.js"></script>
   </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">CS:GO Tracker</h1>
-      <h2 class="project-tagline">Save your stats, improve your game</h2>
-      <a href="https://play.google.com/store/apps/details?id=com.palascak.android.cstogo" class="btn">Download from Play Store</a>
-    
-    </section>
+  <body class="index" id="to-top">
 
-    <section class="main-content">
-      <h3>
-<a id="welcome" class="anchor" href="#welcome" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome</h3>
+    <!-- Side nav -->
+    <nav class="side-nav" role="navigation">
 
-<p>Tracker for CS:GO is a simple but feature-full application that tries to help you improve your game. Featuring match statistics, smoke tutorials and much more, this app allows you to train even when not behind PC.</p>
+      <ul class="nav-side-nav">
+        <li><a class="tooltip-side-nav" href="#section-1" title="" data-original-title="Introduction" data-placement="left"></a></li>
+        <li><a class="tooltip-side-nav" href="#section-2" title="" data-original-title="Features" data-placement="left"></a></li>
+        <li><a class="tooltip-side-nav" href="#to-top" title="" data-original-title="Back" data-placement="left"></a></li>
+      </ul>
+      
+    </nav> <!-- /.side-nav -->
 
-<h3>
-<a id="screenshots-" class="anchor" href="#screenshots-" aria-hidden="true"><span class="octicon octicon-link"></span></a>Screenshots :</h3>
 
-<p><a href="http://imgur.com/a/lSR9V">http://imgur.com/a/lSR9V</a></p>
 
-<h3>
-<a id="highlights" class="anchor" href="#highlights" aria-hidden="true"><span class="octicon octicon-link"></span></a>Highlights</h3>
 
-<p>• A beautiful rich Material design user interface with customizable options</p>
+    <!-- Jumbotron -->
+    <header class="jumbotron" role="banner">
 
-<p>• Night theme to save your eyes during night</p>
+      <div class="container">
 
-<p>• Save your matches</p>
+        <div class="row">
 
-<p>• Track statistics, see your progress</p>
+          <div class="col-md-7">
 
-<p>• See steam profile stats of you, or your friends. (public profile required)</p>
+            <!-- Logo -->
+            <figure class="text-center">
+              <a href="./index.html">
+                <img class="img-logo" src="images/logo.png" alt="">
+              </a>
+            </figure> <!-- /.text-center -->
 
-<p>• Learn common smoke and nade spots! Easy to find mid-game when you need just the one to ruin the day of enemy sniper</p>
+            <!-- Title -->
+            <h1>Tracker for CS:GO</h1>
 
-<p>• Check out current streamers on twitch, streams just one click away</p>
+            <!-- Sub title -->
+            <p>Save your stats, improve your game</p>
 
-<p>• Match ticker powered by <a href="http://www.gosugamers.net/">http://www.gosugamers.net/</a> - see live matches, upcoming and latest results on one screen</p>
+            <!-- Button -->
+            <p class="btn-app-store">
+              <a href="https://play.google.com/store/apps/details?id=com.palascak.android.cstogo">
+                <img src="images/en_generic_rgb_wo_60.png" alt="">
+              </a>
+            </p> <!-- /.btn-app-store -->
 
-<h3>
-<a id="please-note" class="anchor" href="#please-note" aria-hidden="true"><span class="octicon octicon-link"></span></a>Please note</h3>
+          </div> <!-- /.col-md-7 -->
 
-<p>Tracker for CS:GO is an unofficial app not affiliated with Valve. Counter Strike, Global Offensive, twitch and their respective logos, trademarks and trade dress are registered trademarks owned by their respective companies.</p>
+          <div class="col-md-5">
 
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/Possimpible/csgotracker">CS:GO Tracker</a> is maintained by <a href="https://github.com/Possimpible">Possimpible</a>.</span>
+            <!-- Images showcase -->
+            <figure>
+              <img class="img-iPhone" src="images/iphone/2.png" alt="">
+            </figure>
 
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
+          </div> <!-- /.col-md-5 -->
+          
+        </div> <!-- /.row -->
+        
+      </div> <!-- /.container -->
 
-    </section>
+    </header> <!-- /.jumbotron -->
 
-  
+	
+	<!-- Services -->
+    <section class="services-section" id="section-1">
+
+      <div class="container">
+
+            
+          
+
+            <!-- Title -->
+            <h4>Introduction</h4>
+            <!-- Description -->
+            <p>Tracker for CS:GO is a simple but feature-full application that tries to help you improve your game. Featuring match statistics, smoke tutorials and much more, this app allows you to train even when not behind PC.</p>
+
+          
+
+        
+      </div> <!-- /.container -->
+      
+    </section> <!-- /.services-section -->
+
+
+
+	
+	
+
+    <!-- Features -->
+    <section class="features-section" id="section-2">
+
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-md-5 col-features text-center">
+            
+            <!-- Images showcase -->
+            <figure>
+              <img class="img-iPhone" src="images/iphone/1.png" alt="">
+            </figure>
+
+          </div> <!-- /.col-md-5 -->
+
+          <div class="col-md-7 col-features features-content">
+            
+            <!-- Title -->
+            <h3 id="title-1">Track your statistics, watch your progress</h3>
+
+            <!-- Description -->
+            <p>Save your matches as you play them. See your statistics, notice strong spots / maps.</p>
+
+
+          </div> <!-- /.col-md-7 -->
+          
+        </div> <!-- /.row -->
+
+
+
+
+        <div class="row media-screen-800">
+
+          <div class="col-md-7 col-features features-content">
+            
+            <!-- Title -->
+            <h3 id="title-2">Quickly find common nade spots during match</h3>
+
+            <!-- Description -->
+            <p>Ruin the day of opposing sniper, smoke him out.</p>
+
+
+          </div> <!-- /.col-md-7 -->
+
+          <div class="col-md-5 col-features text-center">
+            
+            <!-- Images showcase -->
+            <figure>
+              <img class="img-iPhone margin-top margin-screen-800" src="images/iphone/4.png" alt="">
+            </figure>
+
+          </div> <!-- /.col-md-5 -->
+          
+        </div> <!-- /.row -->
+
+
+
+
+        <div class="row">
+
+          <div class="col-md-5 col-features text-center">
+            
+            <!-- Images showcase -->
+            <figure>
+              <img class="img-iPhone margin-top margin-top-1" src="images/iphone/3.png" alt="">
+            </figure>
+
+          </div> <!-- /.col-md-5 -->
+
+          <div class="col-md-7 col-features features-content">
+            
+            <!-- Title -->
+            <h3 id="title-3">Top streamers one click away</h3>
+
+            <!-- Description -->
+            <p>See who is currently live on twitch, click and watch</p>
+
+            <!-- Button -->
+            <p class="btn-app-store">
+              <a href="https://play.google.com/store/apps/details?id=com.palascak.android.cstogo">
+                <img src="images/en_generic_rgb_wo_60.png" alt="">
+              </a>
+            </p> <!-- /.btn-app-store -->
+
+          </div> <!-- /.col-md-7 -->
+          
+        </div> <!-- /.row -->
+
+      </div> <!-- /.container -->
+
+    </section> <!-- /.features-section -->
+
+
+	<!-- Services -->
+    <section class="services-section" id="section-1">
+
+      <div class="container">
+
+            
+          
+
+            <!-- Title -->
+            <h4>And more! Short rundown of features here : </h4>
+            <!-- Description -->
+            <p>• A beautiful rich Material design user interface with customizable options<br>
+<br>
+• Night theme to save your eyes during night<br>
+<br>
+• Save your matches<br>
+<br>
+• Track statistics, see your progress<br>
+<br>
+• See steam profile stats of you, or your friends. (public profile required)<br>
+<br>
+• Learn common smoke and nade spots! Easy to find mid-game when you need just the one to ruin the day of enemy sniper<br>
+<br>
+• Check out current streamers on twitch, streams just one click away<br>
+<br>
+• Match ticker powered by http://www.gosugamers.net/ - see live matches, upcoming and latest results on one screen</p>
+
+          
+
+        
+      </div> <!-- /.container -->
+      
+    </section> <!-- /.services-section -->
+	
+	
+    <!-- Footer -->
+    <footer class="footer-section" role="contentinfo">
+
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-md-4 col-footer">
+            
+            <!-- Footer 1 -->
+            <section>
+              <p>Theme made by Aryandhani.</p>
+            </section>
+
+          
+        </div> <!-- /.row -->
+		
+		<div class="col-md-4 col-footer">
+            
+			<section>
+              <p>Please note, Tracker for CS:GO is an unofficial app not affiliated with Valve. Counter Strike, Global Offensive, twitch and their respective logos, trademarks and trade dress are registered trademarks owned by their respective companies.</p>
+            </section>
+
+          
+        </div> <!-- /.row -->
+
+      </div> <!-- /.container -->
+
+    </footer> <!-- /.footer-section -->
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="javascript/vendor/jquery-2.1.0.min.js"></script>
+    <script src="javascript/bootstrap.min.js"></script>
+    <script src="javascript/assets/application.js"></script>
   </body>
 </html>
-
